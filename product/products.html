@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>محصولات | ماهان ادهم قزوینی</title>
+    <meta name="description" content="محصولات مهندسی و چاپ سه‌بعدی طراحی‌شده توسط ماهان ادهم قزوینی">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- آیکن و فونت -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- استایل اصلی سایت -->
+    <link rel="stylesheet" href="../style.css">
+
+    <style>
+        /* استایل پس‌زمینه */
+        body {
+            background: linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #000000 100%) !important;
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+        }
+
+        .products-page {
+            max-width: 1200px;
+            margin: auto;
+            padding: 100px 20px 50px;
+            position: relative;
+        }
+
+        /* استایل هدر */
+        .products-header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .products-header h1 {
+            font-size: 2.6rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+            background: none;
+            -webkit-text-fill-color: #ffffff;
+        }
+
+        .products-header h1 i {
+            color: #00ffaa;
+            margin-left: 15px;
+        }
+
+        .products-header p {
+            color: #aaa;
+            line-height: 1.9;
+            max-width: 800px;
+            margin: 15px auto 0;
+            font-size: 1.1rem;
+        }
+
+        /* تغییر در گرید محصولات - چیدمان عمودی */
+        .products-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 45px;
+        }
+
+        /* استایل کارت محصولات */
+        .product-card {
+            background: rgba(20, 20, 20, 0.9);
+            border-radius: 20px;
+            padding: 35px;
+            border: 1px solid rgba(0, 255, 170, 0.15);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #00ffaa, #00c896);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            border-color: rgba(0, 255, 170, 0.3);
+        }
+
+        .product-card:hover::before {
+            opacity: 1;
+        }
+
+        .product-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #ffffff;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .product-card h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #00ffaa, transparent);
+            border-radius: 2px;
+        }
+
+        .product-card p {
+            color: #bbb;
+            line-height: 1.9;
+            margin-bottom: 25px;
+            font-size: 1.05rem;
+        }
+
+        /* استایل تگ‌ها */
+        .product-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .product-tags span {
+            display: inline-block;
+            background: rgba(0, 255, 170, 0.1);
+            color: #00ffaa;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(0, 255, 170, 0.2);
+            transition: all 0.3s;
+        }
+
+        .product-tags span:hover {
+            background: rgba(0, 255, 170, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* استایل دکمه‌ها */
+        .product-actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-main {
+            background: linear-gradient(90deg, #00ffaa, #00c896);
+            color: #000;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-main:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 255, 170, 0.3);
+            color: #000;
+        }
+
+        .btn-secondary {
+            border: 2px solid #00ffaa;
+            color: #00ffaa;
+            padding: 14px 28px;
+            border-radius: 12px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            background: transparent;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 255, 170, 0.1);
+            color: #ffffff;
+            transform: translateY(-3px);
+        }
+
+        /* لینک بازگشت */
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 70px;
+            color: #00ffaa;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 170, 0.2);
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .back-home:hover {
+            background: rgba(0, 255, 170, 0.1);
+            transform: translateX(5px);
+            border-color: rgba(0, 255, 170, 0.4);
+        }
+
+        /* بخش مربوط به عکس‌های محصولات */
+        .product-image {
+            width: 100%;
+            max-width: 400px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin: 0 auto 25px;
+            border: 1px solid rgba(0, 255, 170, 0.1);
+            transition: transform 0.3s;
+            display: block;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.03);
+        }
+
+        /* استایل واکنش‌گرا */
+        @media (max-width: 992px) {
+            .product-card {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .products-page {
+                padding: 80px 15px 40px;
+            }
+            
+            .products-header h1 {
+                font-size: 2rem;
+            }
+            
+            .product-card h2 {
+                font-size: 1.5rem;
+            }
+            
+            .product-actions {
+                flex-direction: column;
+            }
+            
+            .btn-main, .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .product-tags {
+                justify-content: center;
+            }
+            
+            .product-image {
+                max-width: 100%;
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-card {
+                padding: 25px;
+            }
+            
+            .products-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .products-header p {
+                font-size: 1rem;
+            }
+        }
+
+        /* انیمیشن برای ظاهر شدن کارت‌ها */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .product-card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .product-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        /* استایل برای محتوای محصول */
+        .product-intro {
+            background: rgba(0, 255, 170, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(0, 255, 170, 0.1);
+            color: #ddd;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+
+<body>
+
+<section class="products-page">
+
+    <div class="products-header">
+        <h1><i class="fas fa-cube"></i> محصولات مهندسی و چاپ سه‌بعدی</h1>
+        <p>
+            این بخش شامل نمونه‌ای از قطعات مکانیکی طراحی و تولید شده
+            با تمرکز بر کاربرد واقعی، تحلیل مهندسی، قابلیت ساخت و
+            شخصی‌سازی برای پروژه‌های صنعتی، دانشگاهی و تحقیقاتی است.
+        </p>
+    </div>
+
+    <div class="products-grid">
+
+        <!-- کارت گیربکس -->
+        <div class="product-card">
+            <img src="../photo3d/11.png" alt="گیربکس مکانیکی چاپ سه‌بعدی" class="product-image">
+            
+            <div class="product-intro">
+                <p>گیربکس طراحی شده با تمرکز بر کارایی و قابلیت اطمینان، مناسب برای سیستم‌های رباتیک و مکاترونیک. این گیربکس با نسبت انتقال بهینه و ساختار مدولار امکان استفاده در پروژه‌های مختلف صنعتی و دانشگاهی را فراهم می‌کند.</p>
+            </div>
+            
+            <h2>گیربکس مکانیکی چاپ سه‌بعدی</h2>
+            <p>
+                گیربکس‌های طراحی‌شده برای انتقال گشتاور در سیستم‌های سبک
+                و نیمه‌صنعتی. تمرکز طراحی بر راندمان، سادگی مونتاژ و
+                قابلیت تغییر نسبت انتقال بوده است.
+            </p>
+
+            <div class="product-tags">
+                <span>CAD</span>
+                <span>رباتیک</span>
+                <span>انتقال قدرت</span>
+                <span>چاپ سه‌بعدی</span>
+                <span>مکانیک</span>
+            </div>
+
+            <div class="product-actions">
+                <a href="gearbox.html" class="btn-main">
+                    <i class="fas fa-eye"></i> مشاهده محصول
+                </a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScBzAVQ8Jq9ua9qxVseNzVNmCZ998W_zGLGaCohayokzXKbng/viewform?usp=dialog" 
+                   target="_blank" class="btn-secondary">
+                    <i class="fas fa-shopping-cart"></i> درخواست خرید
+                </a>
+            </div>
+        </div>
+
+        <!-- کارت پمپ آب -->
+        <div class="product-card">
+            <img src="../photo3d/11.png" alt="پمپ آب و سیالات چاپ سه‌بعدی" class="product-image">
+            
+            <div class="product-intro">
+                <p>پمپ آب طراحی شده برای سیستم‌های ولتاژ پایین با راندمان بالا و مصرف انرژی کم. مناسب برای کاربردهای خنک‌کاری، آبیاری هوشمند و پروژه‌های DIY با قابلیت اطمینان بالا و نگهداری آسان.</p>
+            </div>
+            
+            <h2>پمپ آب و سیالات چاپ سه‌بعدی</h2>
+            <p>
+                پمپ طراحی‌شده برای سیستم‌های ولتاژ پایین و مصرف انرژی کم،
+                مناسب خنک‌کاری، آبیاری هوشمند و پروژه‌های DIY با تأکید
+                بر آب‌بندی و پایداری عملکرد.
+            </p>
+
+            <div class="product-tags">
+                <span>سیالات</span>
+                <span>12V DC</span>
+                <span>DIY</span>
+                <span>خنک‌کاری</span>
+                <span>آبیاری</span>
+            </div>
+
+            <div class="product-actions">
+                <a href="waterpump.html" class="btn-main">
+                    <i class="fas fa-eye"></i> مشاهده محصول
+                </a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScBzAVQ8Jq9ua9qxVseNzVNmCZ998W_zGLGaCohayokzXKbng/viewform?usp=dialog" 
+                   target="_blank" class="btn-secondary">
+                    <i class="fas fa-shopping-cart"></i> درخواست خرید
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <a href="../index.html" class="back-home">
+        <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
+    </a>
+
+</section>
+
+</body>
+</html>
