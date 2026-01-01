@@ -227,7 +227,7 @@ a:hover {
 }
 
 .logo h1 {
-    font-size: 1.5rem;
+    font-size: .8rem;
     margin: 0;
     background: none;
     -webkit-text-fill-color: var(--secondary);
@@ -1880,3 +1880,4 @@ a:hover {
 .debug-bg {
     background: rgba(255, 0, 0, 0.1) !important;
 }
+
