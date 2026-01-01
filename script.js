@@ -720,3 +720,184 @@ window.addEventListener('beforeunload', function() {
     
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    // ایجاد overlay برای منو
+    const menuOverlay = document.createElement('div');
+    menuOverlay.className = 'menu-overlay';
+    document.body.appendChild(menuOverlay);
+    
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.querySelector('.main-nav');
+    
+    // مدیریت منوی موبایل
+    if (menuToggle && mainNav) {
+        menuToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const isActive = mainNav.classList.contains('active');
+            
+            if (isActive) {
+                // بستن منو
+                mainNav.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                document.body.style.overflow = 'auto';
+            } else {
+                // باز کردن منو
+                mainNav.classList.add('active');
+                menuOverlay.classList.add('active');
+                menuToggle.innerHTML = '<i class="fas fa-times"></i>';
+                document.body.style.overflow = 'hidden';
+            }
+        });
+        
+        // بستن منو با کلیک روی overlay
+        menuOverlay.addEventListener('click', function() {
+            mainNav.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            document.body.style.overflow = 'auto';
+        });
+        
+        // بستن منو با کلیک روی لینک‌ها
+        const navLinks = mainNav.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                // اگر لینک خارجی است، اجازه بده لود شود
+                if (this.getAttribute('href').startsWith('http') || 
+                    this.getAttribute('href').includes('.html')) {
+                    return;
+                }
+                
+                e.preventDefault();
+                
+                mainNav.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                document.body.style.overflow = 'auto';
+                
+                // اسکرول به بخش مورد نظر
+                const targetId = this.getAttribute('href');
+                if (targetId.startsWith('#')) {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+        
+        // بستن منو با کلیک روی overlay
+        menuOverlay.addEventListener('click', function() {
+            mainNav.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            document.body.style.overflow = 'auto';
+        });
+        
+        // بستن منو با دکمه ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && mainNav.classList.contains('active')) {
+                mainNav.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                document.body.style.overflow = 'auto';
+            }
+        });
+    }
+    
+    // مدیریت تغییر تم
+    const themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) {
+        // بررسی تم ذخیره شده
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+        
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            updateThemeIcon(newTheme);
+            
+            // انیمیشن برای دکمه
+            this.style.transform = 'rotate(360deg)';
+            setTimeout(() => {
+                this.style.transform = 'rotate(0deg)';
+            }, 300);
+        });
+        
+        function updateThemeIcon(theme) {
+            if (theme === 'light') {
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        }
+    }
+    
+    // مدیریت دکمه بازگشت به بالا
+    const backToTop = document.getElementById('backToTop');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.style.display = 'flex';
+                setTimeout(() => {
+                    backToTop.style.opacity = '1';
+                }, 10);
+            } else {
+                backToTop.style.opacity = '0';
+                setTimeout(() => {
+                    if (window.pageYOffset <= 300) {
+                        backToTop.style.display = 'none';
+                    }
+                }, 300);
+            }
+        });
+        
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+    
+    // تنظیم اولیه برای موبایل
+    function initMobileSettings() {
+        if (window.innerWidth <= 768) {
+            // مخفی کردن ناوبری اصلی در موبایل
+            const mainNav = document.querySelector('.main-nav');
+            if (mainNav) {
+                mainNav.style.display = 'none';
+            }
+            
+            // نمایش دکمه منو
+            const menuToggle = document.getElementById('menuToggle');
+            if (menuToggle) {
+                menuToggle.style.display = 'flex';
+            }
+            
+            // تنظیم عکس پروفایل برای موبایل
+            const profileImg = document.querySelector('.profile-img');
+            if (profileImg) {
+                profileImg.style.width = '100%';
+                profileImg.style.maxWidth = '280px';
+                profileImg.style.margin = '0 auto';
+            }
+        }
+    }
+    
+    // اجرای اولیه
+    initMobileSettings();
+    
+    // اجرا در تغییر سایز
+    window.addEventListener('resize', initMobileSettings);
+});
