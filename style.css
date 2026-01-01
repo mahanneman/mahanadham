@@ -206,6 +206,23 @@ a:hover {
 }
 
 /* ==================== HEADER & NAVIGATION ==================== */
+
+body {
+    display: flex;
+    width: 100%;
+    margin: 0;
+}
+
+header {
+    width: 20%;
+    background-color: #f0f0f0;
+}
+
+main {
+    width: 80%;
+    background-color: #fff;
+}
+
 .main-header {
     position: fixed;
     top: 0;
@@ -1880,4 +1897,5 @@ a:hover {
 .debug-bg {
     background: rgba(255, 0, 0, 0.1) !important;
 }
+
 
