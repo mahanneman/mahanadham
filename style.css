@@ -1895,4 +1895,17 @@ main {
 }
 
 
-
+        .btn-main {
+            background: linear-gradient(90deg, #00ffaa, #00c896);
+            color: #000;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
