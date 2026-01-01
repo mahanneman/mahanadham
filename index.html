@@ -1,201 +1,243 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="fa" dir="rtl" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ماهان ادهم قزوینی | مهندس مکانیک گرایش سیالات</title>
-    <meta name="description" content="ماهان ادهم قزوینی، مهندس مکانیک فارغ‌التحصیل دانشگاه آزاد اسلامی واحد تهران مرکز، متخصص در تحلیل CFD، طراحی سیستم‌های مکانیکی و قطعات پرینتر سه بعدی">
-    <meta name="keywords" content="ماهان ادهم قزوینی, مهندس مکانیک, سیالات, CFD, پرینتر سه بعدی, طراحی مکانیکی">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>مهندس ماهان ادهم قزوینی | تخصص در مکانیک سیالات، تحلیل CFD و طراحی پرینتر سه‌بعدی</title>
+    
+    <!-- Meta SEO -->
+    <meta name="description" content="رزومه آنلاین ماهان ادهم قزوینی - مهندس مکانیک فارغ‌التحصیل دانشگاه آزاد اسلامی تهران مرکز، متخصص در تحلیل CFD، طراحی سیستم‌های مکانیکی و قطعات پرینتر سه‌بعدی">
+    <meta name="keywords" content="مهندس مکانیک, تحلیل CFD, طراحی پرینتر سه بعدی, انسیس فلوئنت, کتیا, سالیدورکس, مهندسی سیالات">
+    <meta name="author" content="ماهان ادهم قزوینی">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="مهندس ماهان ادهم قزوینی | تخصص در مکانیک سیالات و تحلیل CFD">
+    <meta property="og:description" content="رزومه آنلاین مهندس مکانیک متخصص در تحلیل CFD و طراحی قطعات پرینتر سه‌بعدی">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fa_IR">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
+    
+    <!-- Preload -->
+    <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" as="style">
 </head>
 <body>
+    <!-- Loading -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+        <p>در حال بارگذاری...</p>
+    </div>
+
     <!-- Header -->
     <header class="main-header">
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <h1>ماهان ادهم قزوینی</h1>
-                    <p class="title">مهندس مکانیک گرایش سیالات</p>
+                    <a href="#home" class="logo-link">
+                        <div class="logo-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <div class="logo-text">
+                            <h1 class="logo-name">ماهان ادهم قزوینی</h1>
+                            <p class="logo-title">مهندس مکانیک گرایش سیالات</p>
+                        </div>
+                    </a>
                 </div>
                 
+                <!-- Navigation -->
                 <nav class="main-nav" id="mainNav">
-                    <a href="#home" class="nav-link active"><i class="fas fa-home"></i> خانه</a>
-                    <a href="#about" class="nav-link"><i class="fas fa-user"></i> درباره من</a>
-                    <a href="#skills" class="nav-link"><i class="fas fa-cogs"></i> مهارت‌ها</a>
-                    <a href="#education" class="nav-link"><i class="fas fa-graduation-cap"></i> تحصیلات</a>
-                    <a href="#resume" class="nav-link"><i class="fas fa-file-alt"></i> رزومه</a>
-                    <a href="product/products.html" class="nav-link"><i class="fas fa-cube"></i> محصولات 3D</a>
-                    <a href="#hvac" class="nav-link"><i class="fas fa-snowflake"></i> تأسیسات</a>
-                    <a href="archive.html" class="nav-link"><i class="fas fa-archive"></i> آرشیو</a>
-                    <a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> تماس</a>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="#home" class="nav-link active"><i class="fas fa-home"></i> خانه</a></li>
+                        <li class="nav-item"><a href="#about" class="nav-link"><i class="fas fa-user"></i> درباره من</a></li>
+                        <li class="nav-item"><a href="#skills" class="nav-link"><i class="fas fa-cogs"></i> مهارت‌ها</a></li>
+                        <li class="nav-item"><a href="#education" class="nav-link"><i class="fas fa-graduation-cap"></i> تحصیلات</a></li>
+                        <li class="nav-item"><a href="#projects" class="nav-link"><i class="fas fa-project-diagram"></i> پروژه‌ها</a></li>
+                        <li class="nav-item"><a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> تماس</a></li>
+                        <li class="nav-item"><a href="product/products.html" class="nav-link"><i class="fas fa-cube"></i> فروشگاه</a></li>
+                    </ul>
+                    
+                    <!-- Mobile Actions -->
+                    <div class="mobile-actions">
+                        <a href="resume.pdf" download class="btn btn-download-mobile">
+                            <i class="fas fa-download"></i>
+                            دانلود رزومه
+                        </a>
+                    </div>
                 </nav>
                 
+                <!-- Header Actions -->
                 <div class="header-actions">
-                    <button class="menu-toggle" id="menuToggle">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                    <button id="themeToggle" class="theme-toggle">
+                    <a href="resume.pdf" download class="btn btn-outline btn-resume">
+                        <i class="fas fa-file-download"></i>
+                        رزومه PDF
+                    </a>
+                    
+                    <button id="themeToggle" class="theme-toggle" aria-label="تغییر تم">
+                        <i class="fas fa-sun"></i>
                         <i class="fas fa-moon"></i>
+                    </button>
+                    
+                    <!-- Cart Icon -->
+                    <div class="cart-icon-container">
+                        <button class="cart-toggle" id="cartToggle" aria-label="سبد خرید">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count">0</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Mobile Menu -->
+                    <button class="menu-toggle" id="menuToggle" aria-label="منو">
+                        <span class="hamburger">
+                            <span class="bar"></span>
+                            <span class="bar"></span>
+                            <span class="bar"></span>
+                        </span>
                     </button>
                 </div>
             </div>
         </div>
     </header>
 
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3><i class="fas fa-shopping-cart"></i> سبد خرید</h3>
+            <button class="cart-close">&times;</button>
+        </div>
+        <div class="cart-items">
+            <!-- Items will be loaded here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>جمع کل:</span>
+                <span class="total-price">۰ تومان</span>
+            </div>
+            <div class="cart-actions">
+                <button class="btn btn-secondary" id="clearCartBtn">خالی کردن سبد</button>
+                <button class="btn btn-primary" id="checkoutBtn">تکمیل خرید</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
     <!-- Hero Section -->
     <section id="home" class="hero-section">
+        <div class="hero-bg"></div>
         <div class="container">
             <div class="hero-content">
-                <div class="profile-image">
-                    <img src="mahanphoto.png" alt="ماهان ادهم قزوینی" class="profile-img"
-                         onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80'">
-                    <div class="image-badge">
-                        <i class="fas fa-user-graduate"></i>
-                        <span>مهندس مکانیک</span>
+                <div class="hero-image">
+                    <div class="profile-image-container">
+                        <img src="mahanphoto.png" alt="مهندس ماهان ادهم قزوینی" class="profile-img"
+                             onerror="this.src='https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                        <div class="profile-badge">
+                            <i class="fas fa-award"></i>
+                            <span>مهندس مکانیک</span>
+                        </div>
                     </div>
                 </div>
                 
                 <div class="hero-text">
-                    <h1 class="persian-name">ماهان ادهم قزوینی</h1>
-                    
-                    <div class="typing-container">
-                        <p class="typing-text">مهندس مکانیک | تحلیل‌گر CFD | طراح قطعات پرینتر سه بعدی</p>
+                    <div class="hero-intro">
+                        <h6 class="hero-subtitle animate__animated animate__fadeInUp">خوش آمدید به رزومه آنلاین</h6>
+                        <h1 class="hero-title animate__animated animate__fadeInUp">
+                            <span class="text-gradient">ماهان ادهم قزوینی</span>
+                        </h1>
+                        
+                        <div class="typing-container animate__animated animate__fadeInUp">
+                            <span class="typed-text"></span>
+                            <span class="cursor">&nbsp;</span>
+                        </div>
+                        
+                        <p class="hero-description animate__animated animate__fadeInUp">
+                            مهندس مکانیک با تخصص در تحلیل سیالات محاسباتی (CFD)، طراحی سیستم‌های مکانیکی و توسعه قطعات پرینتر سه‌بعدی. متعهد به ارائه راه‌حل‌های نوآورانه و کاربردی در حوزه مهندسی.
+                        </p>
                     </div>
                     
-                    <div class="hero-info">
-                        <div class="info-item">
-                            <i class="fas fa-university"></i>
-                            <span>دانشگاه آزاد اسلامی تهران مرکز</span>
+                    <!-- Stats -->
+                    <div class="hero-stats animate__animated animate__fadeInUp">
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-number" data-count="1">0</span>
+                                <span class="stat-label">سال تجربه</span>
+                            </div>
                         </div>
-                        <div class="info-item">
-                            <i class="fas fa-graduation-cap"></i>
-                            <span>فارغ‌التحصیل مهندسی مکانیک</span>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-number" data-count="5">0</span>
+                                <span class="stat-label">پروژه موفق</span>
+                            </div>
                         </div>
-                        <div class="info-item">
-                            <i class="fas fa-stream"></i>
-                            <span>گرایش سیالات و حرارت</span>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-number" data-count="13">0</span>
+                                <span class="stat-label">نرم‌افزار مسلط</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-number" data-count="2">0</span>
+                                <span class="stat-label">مقاله و ترجمه</span>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="hero-stats">
-                        <div class="stat-item">
-                            <span class="stat-number">1</span>
-                            <span class="stat-label">سال تجربه</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">5</span>
-                            <span class="stat-label">پروژه انجام شده</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">13</span>
-                            <span class="stat-label">نرم‌افزار مسلط</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">2</span>
-                            <span class="stat-label">مقاله و ترجمه</span>
-                        </div>
-                    </div>
-                    
-                    <div class="hero-actions">
-                        <a href="#contact" class="btn btn-primary">
+                    <!-- Actions -->
+                    <div class="hero-actions animate__animated animate__fadeInUp">
+                        <a href="#contact" class="btn btn-primary btn-lg">
                             <i class="fas fa-paper-plane"></i>
-                            تماس با من
+                            درخواست همکاری
                         </a>
-                        <a href="resume.pdf" download class="btn btn-secondary">
+                        <a href="resume.pdf" download class="btn btn-secondary btn-lg">
                             <i class="fas fa-download"></i>
                             دانلود رزومه
                         </a>
-                        <a href="product/products.html" class="btn btn-outline">
-                            <i class="fas fa-cube"></i>
-                            محصولات 3D
+                        <a href="#projects" class="btn btn-outline btn-lg">
+                            <i class="fas fa-eye"></i>
+                            مشاهده پروژه‌ها
                         </a>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Resume Section -->
-    <section id="resume" class="resume-section">
-        <div class="container">
-            <div class="section-header">
-                <h2><i class="fas fa-file-alt"></i> رزومه تخصصی</h2>
-                <div class="section-divider"></div>
-                <p class="section-subtitle">رزومه کامل ماهان ادهم قزوینی شامل اطلاعات تحصیلی، مهارت‌ها و تجربیات کاری</p>
-            </div>
-            
-            <div class="resume-content">
-                <div class="resume-preview">
-                    <div class="resume-icon">
-                        <i class="fas fa-file-pdf"></i>
-                    </div>
-                    <div class="resume-info">
-                        <h3>رزومه ماهان ادهم قزوینی</h3>
-                        <p>فایل PDF حاوی اطلاعات کامل تحصیلی، مهارت‌ها، گواهی‌نامه‌ها و تجربیات کاری در زمینه مهندسی مکانیک و طراحی قطعات پرینتر سه بعدی</p>
-                        <div class="resume-details">
-                            <div class="detail-item">
-                                <i class="fas fa-file"></i>
-                                <span>فرمت: PDF</span>
-                            </div>
-                            <div class="detail-item">
-                                <i class="fas fa-weight"></i>
-                                <span>حجم: ~2MB</span>
-                            </div>
-                            <div class="detail-item">
-                                <i class="fas fa-calendar"></i>
-                                <span>آخرین به‌روزرسانی: ۱۴۰۳/۰۱/۱۵</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="resume-actions">
-                    <a href="resume.pdf" download class="btn btn-primary btn-lg">
-                        <i class="fas fa-download"></i>
-                        دانلود رزومه (PDF)
-                    </a>
-                </div>
-                
-                <div class="resume-sections">
-                    <h4><i class="fas fa-list-check"></i> بخش‌های موجود در رزومه:</h4>
-                    <div class="sections-grid">
-                        <div class="section-item">
-                            <i class="fas fa-user"></i>
-                            <span>اطلاعات شخصی</span>
-                        </div>
-                        <div class="section-item">
-                            <i class="fas fa-graduation-cap"></i>
-                            <span>تحصیلات</span>
-                        </div>
-                        <div class="section-item">
-                            <i class="fas fa-tools"></i>
-                            <span>مهارت‌های فنی</span>
-                        </div>
-                        <div class="section-item">
-                            <i class="fas fa-certificate"></i>
-                            <span>گواهی‌نامه‌ها</span>
-                        </div>
-                        <div class="section-item">
-                            <i class="fas fa-briefcase"></i>
-                            <span>تجربیات کاری</span>
-                        </div>
-                        <div class="section-item">
-                            <i class="fas fa-project-diagram"></i>
-                            <span>پروژه‌ها</span>
-                        </div>
-                        <div class="section-item">
-                            <i class="fas fa-language"></i>
-                            <span>زبان‌ها (انگلیسی B2)</span>
-                        </div>
-                        <div class="section-item">
-                            <i class="fas fa-star"></i>
-                            <span>افتخارات</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+            <a href="#about" class="scroll-down">
+                <span class="mouse">
+                    <span class="wheel"></span>
+                </span>
+                <span class="arrow">
+                    <i class="fas fa-chevron-down"></i>
+                </span>
+            </a>
         </div>
     </section>
 
@@ -203,65 +245,54 @@
     <section id="about" class="about-section">
         <div class="container">
             <div class="section-header">
-                <h2><i class="fas fa-user-circle"></i> درباره من</h2>
-                <div class="section-divider"></div>
+                <span class="section-badge">معرفی</span>
+                <h2 class="section-title">
+                    <i class="fas fa-user-tie"></i>
+                    درباره من
+                </h2>
+                <div class="section-divider">
+                    <div class="divider-line"></div>
+                    <div class="divider-icon"><i class="fas fa-cog"></i></div>
+                    <div class="divider-line"></div>
+                </div>
             </div>
             
             <div class="about-content">
-                <div class="about-text">
-                    <p><strong>ماهان ادهم قزوینی</strong>، مهندس مکانیک فارغ‌التحصیل از دانشگاه آزاد اسلامی واحد تهران مرکز با گرایش سیالات و حرارت.</p>
-                    
-                    <p>با گذراندن دوره‌های تخصصی و کسب گواهی‌نامه‌های معتبر در زمینه نرم‌افزارهای مهندسی، همواره در حال گسترش دانش و مهارت‌های فنی خود بوده‌ام.</p>
-                    
-                    <p>تجربه کاری در زمینه‌های مختلف مهندسی مکانیک از جمله تحلیل سیالات محاسباتی (CFD)، طراحی سیستم‌های تهویه مطبوع، شبیه‌سازی حرارتی و طراحی قطعات پرینتر سه بعدی باعث شده تا بتوانم به مسائل مهندسی از زوایای مختلف نگاه کنم و راه‌حل‌های بهینه ارائه دهم.</p>
-                    
-                    <div class="education-details">
-                        <h3><i class="fas fa-university"></i> مشخصات تحصیلی</h3>
-                        <ul>
-                            <li><strong>دانشگاه:</strong> دانشگاه آزاد اسلامی واحد تهران مرکز</li>
-                            <li><strong>دانشکده:</strong> فنی مهندسی</li>
-                            <li><strong>آدرس:</strong> مجتمع دانشگاهی آیت‌الله هاشمی رفسنجانیِ «دانشگاه آزاد اسلامی واحد تهران مرکزی» است که در بزرگراه اشرفی اصفهانی، بالاتر از میدان پونک، بلوار امام حسن (ع)</li>
-                            <li><strong>مقطع:</strong> کارشناسی مهندسی مکانیک</li>
-                            <li><strong>گرایش:</strong> سیالات و حرارت</li>
-                            <li><strong>وضعیت:</strong> فارغ‌التحصیل</li>
-                        </ul>
+                <div class="about-main">
+                    <div class="about-card">
+                        <h3 class="card-title">
+                            <i class="fas fa-rocket"></i>
+                            خلاصه‌ای از من
+                        </h3>
+                        <p class="card-text">
+                            مهندس ماهان ادهم قزوینی، فارغ‌التحصیل کارشناسی مهندسی مکانیک از دانشگاه آزاد اسلامی واحد تهران مرکز با گرایش سیالات و حرارت.
+                        </p>
+                        <p class="card-text">
+                            تجربه کاری در زمینه‌های مختلف مهندسی مکانیک از جمله تحلیل سیالات محاسباتی (CFD)، طراحی سیستم‌های تهویه مطبوع، شبیه‌سازی حرارتی و طراحی قطعات پرینتر سه‌بعدی.
+                        </p>
                     </div>
                 </div>
                 
                 <div class="about-sidebar">
-                    <div class="sidebar-card">
-                        <h4><i class="fas fa-certificate"></i> گواهی‌نامه‌ها</h4>
-                        <div class="certificate-item">
-                            <i class="fas fa-award"></i>
-                            <div>
-                                <strong>گواهی نامه کتیا</strong>
-                                <p>مجتمع فنی تهران - سطح پیشرفته</p>
-                            </div>
+                    <!-- Contact Info -->
+                    <div class="sidebar-card quick-contact">
+                        <div class="card-header">
+                            <i class="fas fa-headset"></i>
+                            <h4>تماس سریع</h4>
                         </div>
-                        <div class="certificate-item">
-                            <i class="fas fa-award"></i>
-                            <div>
-                                <strong>انسیس فلوئنت</strong>
-                                <p>آموزش آزاد cfd - تحلیل CFD</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="sidebar-card">
-                        <h4><i class="fas fa-language"></i> زبان‌ها</h4>
-                        <div class="language-item">
-                            <span>فارسی</span>
-                            <div class="level-bar">
-                                <div class="level" style="width: 100%"></div>
-                            </div>
-                            <span>زبان مادری</span>
-                        </div>
-                        <div class="language-item">
-                            <span>انگلیسی</span>
-                            <div class="level-bar">
-                                <div class="level" style="width: 70%"></div>
-                            </div>
-                            <span>سطح B2 - تخصصی مهندسی</span>
+                        <div class="card-body">
+                            <a href="tel:+989902279702" class="contact-link">
+                                <i class="fas fa-phone"></i>
+                                <span>۰۹۹۰۲۲۷۹۷۰۲</span>
+                            </a>
+                            <a href="mailto:mahan.neman2020@gmail.com" class="contact-link">
+                                <i class="fas fa-envelope"></i>
+                                <span>mahan.neman2020@gmail.com</span>
+                            </a>
+                            <a href="https://t.me/mahanenman" class="contact-link" target="_blank">
+                                <i class="fab fa-telegram"></i>
+                                <span>تلگرام: @mahanenman</span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -273,80 +304,50 @@
     <section id="skills" class="skills-section">
         <div class="container">
             <div class="section-header">
-                <h2><i class="fas fa-cogs"></i> مهارت‌های تخصصی</h2>
-                <div class="section-divider"></div>
-                <p class="section-subtitle">تسلط بر نرم‌افزارها و تکنولوژی‌های مهندسی مکانیک</p>
+                <span class="section-badge">تخصص</span>
+                <h2 class="section-title">
+                    <i class="fas fa-tools"></i>
+                    مهارت‌های تخصصی
+                </h2>
+                <div class="section-divider">
+                    <div class="divider-line"></div>
+                    <div class="divider-icon"><i class="fas fa-cog"></i></div>
+                    <div class="divider-line"></div>
+                </div>
             </div>
             
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <div class="category-header">
+            <div class="skills-tabs">
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-tab="cad">
                         <i class="fas fa-cube"></i>
-                        <h3>طراحی CAD</h3>
-                    </div>
-                    <div class="skills-list">
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>CATIA</span>
-                                <span class="skill-level">70%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 70%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>SOLIDWORKS</span>
-                                <span class="skill-level">70%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 70%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>AutoCAD</span>
-                                <span class="skill-level">90</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 90%"></div>
-                            </div>
-                        </div>
-                    </div>
+                        طراحی CAD
+                    </button>
+                    <button class="tab-btn" data-tab="cae">
+                        <i class="fas fa-chart-line"></i>
+                        تحلیل CAE/CFD
+                    </button>
+                    <button class="tab-btn" data-tab="other">
+                        <i class="fas fa-laptop-code"></i>
+                        سایر مهارت‌ها
+                    </button>
                 </div>
                 
-                <div class="skill-category">
-                    <div class="category-header">
-                        <i class="fas fa-chart-line"></i>
-                        <h3>تحلیل CAE/CFD</h3>
-                    </div>
-                    <div class="skills-list">
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>ANSYS Fluent</span>
-                                <span class="skill-level">70%</span>
+                <div class="tabs-content">
+                    <!-- CAD Skills -->
+                    <div class="tab-pane active" id="cad">
+                        <div class="skills-grid">
+                            <div class="skill-item">
+                                <div class="skill-header">
+                                    <h4>CATIA</h4>
+                                    <span class="skill-percent">70%</span>
+                                </div>
+                                <div class="skill-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 70%"></div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 70%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>ANSYS Mechanical</span>
-                                <span class="skill-level">70%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 70%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>COMSOL Multiphysics</span>
-                                <span class="skill-level">50%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 50%"></div>
-                            </div>
+                            <!-- More skills... -->
                         </div>
                     </div>
                 </div>
@@ -354,44 +355,31 @@
         </div>
     </section>
 
-    <!-- Education Section -->
-    <section id="education" class="education-section">
+    <!-- Projects Section -->
+    <section id="projects" class="projects-section">
         <div class="container">
             <div class="section-header">
-                <h2><i class="fas fa-graduation-cap"></i> تحصیلات</h2>
-                <div class="section-divider"></div>
+                <span class="section-badge">نمونه کارها</span>
+                <h2 class="section-title">
+                    <i class="fas fa-project-diagram"></i>
+                    پروژه‌های منتخب
+                </h2>
+                <div class="section-divider">
+                    <div class="divider-line"></div>
+                    <div class="divider-icon"><i class="fas fa-cog"></i></div>
+                    <div class="divider-line"></div>
+                </div>
             </div>
             
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-date">
-                        <span>1399 - 1404</span>
-                    </div>
-                    <div class="timeline-content">
-                        <h3>کارشناسی مهندسی مکانیک</h3>
-                        <h4>دانشگاه آزاد اسلامی واحد تهران مرکز</h4>
-                        <ul>
-                            <li>گرایش: سیالات و حرارت</li>
-                            <li>دانشکده فنی مهندسی</li>
-                            <li>وضعیت: فارغ‌التحصیل</li>
-                            <li>معدل: 15.72</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-date">
-                        <span>1404</span>
-                    </div>
-                    <div class="timeline-content">
-                        <h3>گواهی نامه تخصصی CATIA</h3>
-                        <h4>مجتمع فنی تهران</h4>
-                        <ul>
-                            <li>سطح: پیشرفته</li>
-                            <li>مهارت‌های کسب شده: طراحی سطح، مونتاژ، نقشه‌کشی</li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="projects-grid">
+                <!-- Project cards... -->
+            </div>
+            
+            <div class="projects-cta">
+                <a href="product/products.html" class="btn btn-primary btn-lg">
+                    <i class="fas fa-cube"></i>
+                    مشاهده محصولات پرینتر سه‌بعدی
+                </a>
             </div>
         </div>
     </section>
@@ -400,122 +388,101 @@
     <section id="contact" class="contact-section">
         <div class="container">
             <div class="section-header">
-                <h2><i class="fas fa-envelope"></i> ارتباط با من</h2>
-                <div class="section-divider"></div>
-                <p class="section-subtitle">برای همکاری، مشاوره یا دریافت اطلاعات بیشتر</p>
+                <span class="section-badge">ارتباط</span>
+                <h2 class="section-title">
+                    <i class="fas fa-envelope"></i>
+                    در تماس باشید
+                </h2>
+                <div class="section-divider">
+                    <div class="divider-line"></div>
+                    <div class="divider-icon"><i class="fas fa-cog"></i></div>
+                    <div class="divider-line"></div>
+                </div>
             </div>
             
             <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fab fa-telegram"></i>
-                        <div>
-                            <h4>تلگرام</h4>
-                            <p>tel.me/mahanenman</p>
+                <div class="contact-form">
+                    <div class="form-card">
+                        <div class="form-header">
+                            <h3><i class="fas fa-paper-plane"></i> ارسال پیام سریع</h3>
                         </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <i class="fab fa-instagram"></i>
-                        <div>
-                            <h4>اینستاگرام</h4>
-                            <p>https://www.instagram.com/mahantheloner</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <h4>ایمیل</h4>
-                            <p>mahan.neman2020@gmail.com</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <h4>تلفن تماس</h4>
-                            <p>۰۹۹۰۲۲۷۹۷۰۲</p>
+                        
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="name">
+                                    <i class="fas fa-user"></i>
+                                    نام کامل
+                                </label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">
+                                    <i class="fas fa-envelope"></i>
+                                    ایمیل
+                                </label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message">
+                                    <i class="fas fa-comment"></i>
+                                    پیام شما
+                                </label>
+                                <textarea id="message" name="message" rows="5" required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-block">
+                                <i class="fas fa-paper-plane"></i>
+                                ارسال پیام
+                            </button>
+                        </form>
+                        
+                        <div class="form-success" id="formSuccess" style="display: none;">
+                            <i class="fas fa-check-circle"></i>
+                            <h4>پیام شما با موفقیت ارسال شد!</h4>
                         </div>
                     </div>
                 </div>
-                <!-- در Contact Section -->
-<div class="contact-form">
-    <h3><i class="fas fa-paper-plane"></i> ارسال پیام سریع</h3>
-    <form id="contactForm" method="POST" action="https://formspree.io/f/xlgeorgj">
-        <div class="form-row">
-            <div class="form-group">
-                <label for="name"><i class="fas fa-user"></i> نام کامل</label>
-                <input type="text" id="name" name="name" placeholder="ماهان ادهم قزوینی" required>
-            </div>
-            <div class="form-group">
-                <label for="email"><i class="fas fa-envelope"></i> ایمیل</label>
-                <input type="email" id="email" name="email" placeholder="mahan.neman2020@gmail.com" required>
             </div>
         </div>
-        
-        <div class="form-group">
-            <label for="subject"><i class="fas fa-tag"></i> موضوع</label>
-            <input type="text" id="subject" name="subject" placeholder="مثلاً: پروژه طراحی" required>
-        </div>
-        
-        <div class="form-group">
-            <label for="message"><i class="fas fa-comment"></i> پیام شما</label>
-            <textarea id="message" name="message" rows="6" placeholder="پیام خود را اینجا بنویسید..." required></textarea>
-        </div>
-        
-        <div class="form-actions">
-            <button type="submit" class="btn btn-primary btn-block">
-                <i class="fas fa-paper-plane"></i>
-                ارسال پیام
-            </button>
-            <div class="form-info">
-                <i class="fas fa-info-circle"></i>
-                <small>پاسخ در کمتر از ۲۴ ساعت</small>
-            </div>
-        </div>
-    </form>
-</div>
     </section>
 
     <!-- Footer -->
     <footer class="main-footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-logo">
-                    <h3>ماهان ادهم قزوینی</h3>
-                    <p>مهندس مکانیک گرایش سیالات</p>
-                    <p>طراح و تولید کننده قطعات پرینتر سه بعدی</p>
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-cogs"></i>
+                        <div>
+                            <h3>مهندس ماهان ادهم قزوینی</h3>
+                            <p>متخصص مکانیک سیالات و تحلیل CFD</p>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="footer-links">
-                    <h4>لینک‌های مفید</h4>
-                    <a href="#home">خانه</a>
-                    <a href="#resume">رزومه</a>
-                    <a href="product/products.html">محصولات</a>
-                    <a href="archive.html">آرشیو</a>
-                    <a href="#contact">تماس</a>
-                </div>
-                
-                <div class="footer-social">
+                <div class="footer-col">
                     <h4>شبکه‌های اجتماعی</h4>
-                    <div class="social-icons">
-                        <a href="https://t.me/mahanenman" class="social-icon" title="تلگرام">
+                    <div class="social-links">
+                        <a href="https://t.me/mahanenman" class="social-link" target="_blank">
                             <i class="fab fa-telegram"></i>
+                            <span>تلگرام</span>
                         </a>
-                        <a href="https://instagram.com/mahantheloner" class="social-icon" title="اینستاگرام">
+                        <a href="https://www.instagram.com/mahantheloner" class="social-link" target="_blank">
                             <i class="fab fa-instagram"></i>
+                            <span>اینستاگرام</span>
                         </a>
-                        <a href="mailto:mahan.neman2020@gmail.com" class="social-icon" title="ایمیل">
+                        <a href="mailto:mahan.neman2020@gmail.com" class="social-link">
                             <i class="fas fa-envelope"></i>
+                            <span>ایمیل</span>
                         </a>
                     </div>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>© ۱۴۰۳ ماهان ادهم قزوینی. تمامی حقوق محفوظ است.</p>
-                <p class="university">دانشگاه آزاد اسلامی واحد تهران مرکز - دانشکده فنی مهندسی</p>
+                <p>&copy; ۱۴۰۳ ماهان ادهم قزوینی. تمامی حقوق محفوظ است.</p>
             </div>
         </div>
     </footer>
@@ -525,7 +492,71 @@
         <i class="fas fa-chevron-up"></i>
     </button>
 
+    <!-- JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
     <script src="script.js"></script>
-</body>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Typing Animation
+        if (document.querySelector('.typed-text')) {
+            new Typed('.typed-text', {
+                strings: [
+                    'مهندس مکانیک گرایش سیالات',
+                    'تحلیل‌گر CFD',
+                    'طراح قطعات پرینتر سه بعدی',
+                    'متخصص شبیه‌سازی حرارتی'
+                ],
+                typeSpeed: 50,
+                backSpeed: 30,
+                backDelay: 2000,
+                loop: true
+            });
+        }
 
+        // Animate counters
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-count');
+                const count = +counter.innerText;
+                const increment = target / 100;
+                
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(() => animateCounters(), 20);
+                } else {
+                    counter.innerText = target;
+                }
+            });
+        }
+
+        // Intersection Observer for counters
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        const statsSection = document.querySelector('.hero-stats');
+        if (statsSection) observer.observe(statsSection);
+
+        // Loading screen
+        const loadingScreen = document.getElementById('loadingScreen');
+        if (loadingScreen) {
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    loadingScreen.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                    }, 500);
+                }, 1000);
+            });
+        }
+    });
+    </script>
+</body>
 </html>
