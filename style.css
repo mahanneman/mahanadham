@@ -287,6 +287,29 @@ a:hover {
     transform: rotate(15deg);
 }
 
+/* منو همبرگری (پنهان در دسکتاپ) */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 32px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1000;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: var(--secondary);
+    border-radius: 3px;
+    transition: var(--transition);
+}
+
 /* ==================== HERO SECTION ==================== */
 .hero-section {
     padding: 180px 0 100px;
@@ -692,54 +715,6 @@ a:hover {
     font-size: 1rem;
 }
 
-/* Language Badge */
-.section-item span:contains("B2") {
-    position: relative;
-    padding-right: 30px;
-}
-
-.section-item span:contains("B2")::after {
-    content: 'B2';
-    position: absolute;
-    right: 0;
-    top: -2px;
-    background: var(--gradient-secondary);
-    color: white;
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 0.7rem;
-    font-weight: 600;
-}
-
-/* ==================== OTHER SECTIONS ==================== */
-/* About Section */
-.about-section {
-    padding: 120px 0;
-    background: var(--darker);
-}
-
-.about-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 40px;
-}
-
-.about-text {
-    background: var(--card-bg);
-    padding: 40px;
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--border-light);
-}
-
-.education-details {
-    background: rgba(50, 205, 50, 0.05);
-    padding: 25px;
-    border-radius: var(--radius);
-    margin-top: 30px;
-}
-
-/* Skills Section */
-
 /* ==================== SKILLS SECTION ==================== */
 .skills-section {
     padding: 140px 0;
@@ -872,13 +847,6 @@ a:hover {
     grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
     gap: 40px;
     margin-bottom: 80px;
-}
-
-@media (max-width: 768px) {
-    .skills-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
 }
 
 /* کارت دسته مهارت */
@@ -1390,7 +1358,6 @@ a:hover {
 }
 
 /* Contact Section */
-* در style.css اضافه کنید */
 .contact-form {
     background: var(--card-bg);
     padding: 40px;
@@ -1409,12 +1376,6 @@ a:hover {
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     margin-bottom: 20px;
-}
-
-@media (max-width: 768px) {
-    .form-row {
-        grid-template-columns: 1fr;
-    }
 }
 
 .form-group {
@@ -1582,84 +1543,118 @@ a:hover {
         padding: 0 16px;
     }
     
+    /* نویگیشن موبایل */
     .main-nav {
-        display: none;
         position: fixed;
         top: 80px;
-        left: 0;
-        right: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 300px;
         background: var(--darker);
-        flex-direction: column;
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--border-light);
+        border-radius: var(--radius-lg);
         padding: 20px;
-        border-radius: var(--radius);
-        margin: 0 16px;
+        flex-direction: column;
+        gap: 10px;
+        transition: right 0.3s ease;
+        z-index: 999;
         box-shadow: var(--shadow-hover);
-        z-index: 1000;
     }
     
     .main-nav.active {
+        right: 20px;
+    }
+    
+    .nav-link {
+        padding: 15px 20px;
+        border-radius: var(--radius);
+        justify-content: flex-start;
+    }
+    
+    /* منو همبرگری */
+    .menu-toggle {
         display: flex;
     }
     
-    .menu-toggle {
-        display: block;
+    .menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px);
     }
     
-    .hero-stats {
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(8px, -8px);
+    }
+    
+    /* هیرو سکشن */
+    .hero-section {
+        padding: 120px 0 60px;
+    }
+    
+    .hero-content {
         grid-template-columns: 1fr;
-    }
-    
-    .sections-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .timeline::before {
-        right: 30px;
-    }
-    
-    .timeline-item {
-        flex-direction: column;
-        gap: 20px;
-    }
-    
-    .timeline-date {
-        justify-content: flex-start;
-        padding: 0;
-    }
-    
-    .timeline-content::before {
-        top: -30px;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-    }
-    
-    .resume-preview {
-        flex-direction: column;
+        gap: 40px;
         text-align: center;
-        padding: 30px;
     }
     
-    .resume-details {
+    .profile-image {
+        order: -1;
+    }
+    
+    .profile-img {
+        max-width: 280px;
+        border-width: 4px;
+    }
+    
+    .image-badge {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        margin: -20px auto 0;
+        width: 90%;
+        max-width: 250px;
         justify-content: center;
     }
     
-    .hero-actions,
-    .resume-actions {
+    .persian-name {
+        font-size: 1.8rem;
+    }
+    
+    .typing-text {
+        font-size: 1.1rem;
+    }
+    
+    .hero-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+    
+    .hero-actions {
         flex-direction: column;
     }
     
     .btn {
         width: 100%;
-    }
-}
-
-@media (max-width: 480px) {
-    h1 {
-        font-size: 2.2rem;
+        justify-content: center;
     }
     
-    h2 {
-        font-size: 1.8rem;
+    /* سکشن رزومه */
+    .resume-section {
+        padding: 80px 0;
+    }
+    
+    .resume-preview {
+        flex-direction: column;
+        padding: 25px;
+        gap: 30px;
+        text-align: center;
     }
     
     .resume-icon {
@@ -1668,155 +1663,284 @@ a:hover {
     }
     
     .resume-icon i {
-        font-size: 3rem;
+        font-size: 2.5rem;
     }
     
-    .resume-info h3 {
+    .resume-details {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .detail-item {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .resume-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .resume-sections {
+        padding: 25px;
+    }
+    
+    .sections-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    /* سکشن مهارت‌ها */
+    .skills-section {
+        padding: 80px 0;
+    }
+    
+    .skills-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    
+    .skill-category {
+        padding: 25px;
+    }
+    
+    .category-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .progress-circle {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .progress-circle::before {
+        width: 48px;
+        height: 48px;
+    }
+    
+    .skill-item {
+        padding: 15px;
+    }
+    
+    .skill-main {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .skill-rating {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .additional-skills {
+        padding: 25px;
+    }
+    
+    /* تایم‌لاین */
+    .timeline::before {
+        right: 30px;
+    }
+    
+    .timeline-item {
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 40px;
+    }
+    
+    .timeline-date {
+        justify-content: flex-start;
+        padding: 0;
+    }
+    
+    .timeline-date span {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
+    
+    .timeline-content {
+        padding: 20px;
+    }
+    
+    .timeline-content::before {
+        top: -25px;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        right: auto !important;
+    }
+    
+    /* سکشن HVAC */
+    .hvac-skills {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    /* سکشن آرشیو */
+    .archive-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .archive-item {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+    
+    /* سکشن تماس */
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    
+    /* فوتر */
+    .main-footer {
+        padding: 60px 0 20px;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 30px;
+    }
+    
+    .social-icons {
+        justify-content: center;
+    }
+    
+    /* دکمه بازگشت به بالا */
+    .back-to-top {
+        left: 20px;
+        bottom: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.1rem;
+    }
+    
+    /* بهبود تایپوگرافی */
+    body {
+        font-size: 15px;
+        line-height: 1.6;
+    }
+    
+    p {
+        font-size: 15px;
+        line-height: 1.7;
+    }
+    
+    .typing-container {
+        min-height: 50px;
+    }
+    
+    .typing-text {
+        animation: typing-mobile 3s steps(30, end), blink 0.75s step-end infinite;
+    }
+    
+    @keyframes typing-mobile {
+        from { width: 0 }
+        to { width: 100% }
+    }
+}
+
+/* برای موبایل‌های کوچک */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 12px;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    h2 {
         font-size: 1.5rem;
     }
     
-    .section-item {
+    h2::after {
+        width: 30px;
+        height: 2px;
+        bottom: -4px;
+    }
+    
+    .profile-img {
+        max-width: 240px;
+    }
+    
+    .hero-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .stat-item {
         padding: 15px;
     }
-	/* ===============================
-   SKILLS SECTION – IMPROVED
-================================ */
-
-.section-header {
-    text-align: center;
-    margin-bottom: 60px;
-}
-
-.section-header h2 {
-    font-size: 2.2rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    color: #ffffff;
-}
-
-.section-header h2 i {
-    color: #00ffaa;
-}
-
-.section-divider {
-    width: 90px;
-    height: 4px;
-    background: linear-gradient(90deg, transparent, #00ffaa, transparent);
-    margin: 18px auto;
-    border-radius: 2px;
-}
-
-.section-subtitle {
-    color: #aaa;
-    font-size: 1rem;
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.8;
-}
-
-/* grid اصلی مهارت‌ها */
-.skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 40px;
-}
-
-/* کارت هر دسته */
-.skill-category {
-    background: linear-gradient(180deg, #111, #0b0b0b);
-    border: 1px solid rgba(0, 255, 170, 0.15);
-    border-radius: 18px;
-    padding: 30px;
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
-}
-
-.skill-category:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.45);
-}
-
-/* هدر هر دسته */
-.category-header {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 28px;
-}
-
-.category-header i {
-    font-size: 1.8rem;
-    color: #00ffaa;
-}
-
-.category-header h3 {
-    font-size: 1.4rem;
-    color: #ffffff;
-}
-
-/* لیست مهارت‌ها */
-.skills-list {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-}
-
-.skill-item {
-    width: 100%;
-}
-
-/* اسم مهارت و درصد */
-.skill-info {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.95rem;
-    margin-bottom: 6px;
-    color: #ddd;
-}
-
-.skill-level {
-    color: #00ffaa;
-    font-weight: 600;
-}
-
-/* نوار مهارت */
-.skill-bar {
-    width: 100%;
-    height: 10px;
-    background: #1a1a1a;
-    border-radius: 10px;
-    overflow: hidden;
-    border: 1px solid rgba(0, 255, 170, 0.15);
-}
-
-.skill-progress {
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        #00ffaa,
-        #00c896
-    );
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 255, 170, 0.45);
-    animation: skillLoad 1.2s ease-out;
-}
-
-/* انیمیشن نرم */
-@keyframes skillLoad {
-    from {
-        width: 0;
-    }
-}
-
-/* ریسپانسیو */
-@media (max-width: 768px) {
-    .section-header h2 {
+    
+    .stat-number {
         font-size: 1.8rem;
     }
-
+    
     .skill-category {
-        padding: 24px;
+        padding: 20px;
+    }
+    
+    .section-header {
+        margin-bottom: 40px;
+    }
+    
+    .section-header h2 {
+        font-size: 1.4rem;
+    }
+    
+    .section-subtitle {
+        font-size: 0.95rem;
+    }
+    
+    .btn {
+        padding: 12px 20px;
+        font-size: 0.95rem;
+        min-height: 48px;
+    }
+    
+    .title-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+    }
+    
+    /* جلوگیری از زوم در موبایل */
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea {
+        font-size: 16px;
+    }
+    
+    select,
+    button {
+        font-size: 16px;
     }
 }
 
+/* حالت لنداسکیپ موبایل */
+@media (max-width: 768px) and (orientation: landscape) {
+    .hero-section {
+        padding: 100px 0 60px;
+    }
+    
+    .hero-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+    
+    .profile-img {
+        max-width: 200px;
+    }
+    
+    .main-nav {
+        max-height: 70vh;
+        overflow-y: auto;
+        top: 65px;
+    }
 }
