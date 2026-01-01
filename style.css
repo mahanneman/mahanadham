@@ -207,11 +207,7 @@ a:hover {
 
 /* ==================== HEADER & NAVIGATION ==================== */
 
-body {
-    display: flex;
-    width: 100%;
-    margin: 0;
-}
+
 
 header {
     width: 20%;
@@ -1897,5 +1893,6 @@ main {
 .debug-bg {
     background: rgba(255, 0, 0, 0.1) !important;
 }
+
 
 
