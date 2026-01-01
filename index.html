@@ -13,37 +13,35 @@ DOCTYPE html>
 </head>
 <body>
     <!-- Header -->
-    <header class="main-header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <h1>ماهان ادهم قزوینی</h1>
-                    <p class="title">مهندس مکانیک گرایش سیالات</p>
-                </div>
-                
-                <nav class="main-nav" id="mainNav">
-                    <a href="#home" class="nav-link active"><i class="fas fa-home"></i> خانه</a>
-                    <a href="#about" class="nav-link"><i class="fas fa-user"></i> درباره من</a>
-                    <a href="#skills" class="nav-link"><i class="fas fa-cogs"></i> مهارت‌ها</a>
-                    <a href="#education" class="nav-link"><i class="fas fa-graduation-cap"></i> تحصیلات</a>
-                    <a href="#resume" class="nav-link"><i class="fas fa-file-alt"></i> رزومه</a>
-                    <a href="product/products.html" class="nav-link"><i class="fas fa-cube"></i> محصولات 3D</a>
-                    <a href="#hvac" class="nav-link"><i class="fas fa-snowflake"></i> تأسیسات</a>
-                    <a href="archive.html" class="nav-link"><i class="fas fa-archive"></i> آرشیو</a>
-                    <a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> تماس</a>
-                </nav>
-                
-                <div class="header-actions">
-                    <button class="menu-toggle" id="menuToggle">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                    <button id="themeToggle" class="theme-toggle">
-                        <i class="fas fa-moon"></i>
-                    </button>
-                </div>
+  <header class="main-header">
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">
+                <h1>ماهان ادهم قزوینی</h1>
+                <p class="title">مهندس مکانیک گرایش سیالات</p>
+            </div>
+            
+            <!-- اضافه کردن overlay -->
+            <div class="menu-overlay"></div>
+            
+            <!-- دکمه منو -->
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <!-- منو -->
+            <nav class="main-nav" id="mainNav">
+                <!-- لینک‌ها -->
+            </nav>
+            
+            <div class="header-actions">
+                <button id="themeToggle" class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
             </div>
         </div>
-    </header>
+    </div>
+</header>
 
     <!-- Hero Section -->
     <section id="home" class="hero-section">
@@ -574,6 +572,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </body>
 
 </html>
+
 
 
 
