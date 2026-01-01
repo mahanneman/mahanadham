@@ -551,9 +551,54 @@
     </button>
 
     <script src="script.js"></script>
-</body>
+            <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mainNav = document.querySelector('.main-nav');
+    const menuOverlay = document.querySelector('.menu-overlay');
+    const body = document.body;
+
+    menuToggle.addEventListener('click', function() {
+        mainNav.classList.toggle('active');
+        menuOverlay.classList.toggle('active');
+        body.classList.toggle('no-scroll');
+    });
+
+    menuOverlay.addEventListener('click', function() {
+        mainNav.classList.remove('active');
+        menuOverlay.classList.remove('active');
+        body.classList.remove('no-scroll');
+    });
+
+    // بستن منو با کلیک روی لینک‌ها
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mainNav.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            body.classList.remove('no-scroll');
+        });
+    });
+
+    // تغییر تم
+    const themeToggle = document.querySelector('.theme-toggle');
+    const currentTheme = localStorage.getItem('theme') || 'dark';
+    
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    
+    themeToggle.addEventListener('click', function() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+    });
+});
+</script>
+            </body>
 
 </html>
+
 
 
 
