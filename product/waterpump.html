@@ -1,411 +1,435 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
     <title>پمپ آب و سیالات | ماهان ادهم قزوینی</title>
-
-    <!-- Font Awesome (آیکن‌ها) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
-    <!-- استایل داخلی (تمامِ CSS این صفحه اینجاست) -->
+    <meta name="description" content="پمپ آب و سیالات چاپ سه‌بعدی طراحی‌شده توسط ماهان ادهم قزوینی">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- آیکن و فونت -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- استایل اصلی سایت -->
+    <link rel="stylesheet" href="style.css">
+    
     <style>
-        /* ===== Variables ===== */
-        :root{
-            --bg: #0f0f10;
-            --card: rgba(15,15,15,0.85);
-            --accent: #00ffaa;
-            --accent-2: #00c896;
-            --muted: #bdbdbd;
-            --text: #eaeaea;
-            --glass: rgba(255,255,255,0.03);
-            --container-width: 1200px;
+        :root {
+            --products-bg: linear-gradient(135deg, #000000 0%, #111111 100%);
         }
-
-        /* Light theme variables (با اضافه شدن کلاس .light به body فعال می‌شود) */
-        body.light {
-            --bg: #f7f8fa;
-            --card: rgba(255,255,255,0.9);
-            --accent: #007a5a;
-            --accent-2: #00a070;
-            --muted: #555;
-            --text: #111;
-            --glass: rgba(0,0,0,0.03);
+        
+        body {
+            background: var(--products-bg) !important;
+            min-height: 100vh;
+            padding: 20px;
         }
-
-        /* ===== Reset & پایه ===== */
-        *{box-sizing:border-box}
-        html,body{height:100%}
-        body{
-            margin:0;
-            font-family: "Vazirmatn", "Tahoma", sans-serif;
-            background: linear-gradient(135deg,var(--bg), #070707);
-            color:var(--text);
-            -webkit-font-smoothing:antialiased;
-            -moz-osx-font-smoothing:grayscale;
-            line-height:1.6;
+        
+        .product-detail-page {
+            max-width: 1200px;
+            margin: 80px auto 50px;
+            padding: 0 20px;
         }
-        a{color:inherit; text-decoration:none}
-        .container{max-width:var(--container-width); margin:0 auto; padding:0 20px;}
-
-        /* ===== Header / Nav ===== */
-        .main-header{
-            width:100%;
-            background: linear-gradient(180deg, rgba(0,0,0,0.35), transparent);
-            position:sticky;
-            top:0;
-            z-index:1000;
-            border-bottom:1px solid rgba(255,255,255,0.03);
+        
+        .product-breadcrumb {
+            margin-bottom: 30px;
         }
-        .header-inner{
-            display:flex;
-            align-items:center;
-            justify-content:space-between;
-            gap:20px;
-            padding:14px 0;
+        
+        .breadcrumb-link {
+            color: #00ffaa;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
         }
-
-        /* لوگو */
-        .logo{
-            display:flex;
-            align-items:baseline;
-            gap:12px;
+        
+        .breadcrumb-link:hover {
+            color: #ffffff;
+            transform: translateX(-5px);
         }
-        .logo h1{
-            margin:0;
-            font-size:1.05rem;
-            letter-spacing:0.4px;
-        }
-        .logo .title{
-            margin:0;
-            font-size:0.78rem;
-            color:var(--muted);
-        }
-
-        /* منو اصلی - دسکتاپ */
-        nav.main-nav{
-            display:flex;
-            gap:8px;
-            align-items:center;
-            justify-content:center;
-            flex:1;
-            padding:6px 12px;
-        }
-        .nav-list{
-            display:flex;
-            gap:6px;
-            align-items:center;
-            list-style:none;
-            margin:0;
-            padding:0;
-            flex-wrap:wrap;
-        }
-        .nav-link{
-            display:inline-flex;
-            align-items:center;
-            gap:8px;
-            padding:8px 12px;
-            border-radius:10px;
-            color:var(--muted);
-            font-size:0.95rem;
-            transition:all .18s ease;
-            border:1px solid transparent;
-        }
-        .nav-link i{width:18px;text-align:center}
-        .nav-link:hover{
-            transform:translateY(-2px);
-            color:var(--text);
-            background:var(--glass);
-            border-color: rgba(255,255,255,0.02);
-        }
-        .nav-link.active{
-            background: linear-gradient(90deg,var(--accent),var(--accent-2));
-            color:#000;
-            font-weight:700;
-            box-shadow:0 6px 20px rgba(0,0,0,0.45);
-        }
-
-        /* عملکرد دکمه‌ها در هدر */
-        .header-actions{
-            display:flex;
-            align-items:center;
-            gap:8px;
-        }
-        .icon-btn{
-            display:inline-flex;
-            align-items:center;
-            justify-content:center;
-            width:40px;
-            height:40px;
-            border-radius:10px;
-            background:transparent;
-            border:1px solid rgba(255,255,255,0.03);
-            cursor:pointer;
-            transition:all .15s;
-            color:var(--muted);
-        }
-        .icon-btn:hover{transform:translateY(-2px); color:var(--text)}
-
-        /* Mobile menu (hidden on desktop) */
-        .menu-toggle{display:none}
-
-        /* ===== Main content (محصول) ===== */
-        .product-detail-page{max-width:var(--container-width); margin:36px auto; padding:0 20px 80px;}
-        .product-container{
-            display:grid;
+        
+        .product-container {
+            display: grid;
             grid-template-columns: 1fr 1fr;
-            gap:36px;
-            background:var(--card);
-            border-radius:16px;
-            padding:28px;
-            border:1px solid rgba(0,0,0,0.25);
-            box-shadow:0 18px 50px rgba(0,0,0,0.6);
+            gap: 50px;
+            background: rgba(15, 15, 15, 0.8);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(0, 255, 170, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
-
-        .product-gallery{display:flex;flex-direction:column;gap:18px}
-        .main-image{
-            width:100%;
-            height:360px;
-            object-fit:cover;
-            border-radius:12px;
-            border:2px solid rgba(0,255,170,0.08);
+        
+        .product-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
-        .image-caption{color:var(--muted);font-size:0.95rem;text-align:center}
-        .product-features{padding:14px;border-radius:10px;background:rgba(0,0,0,0.06); border:1px solid rgba(0,0,0,0.05)}
-        .features-list{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-
-        .product-info{display:flex;flex-direction:column;gap:18px}
-        .product-header h1{margin:0;font-size:1.9rem;color:var(--text)}
-        .product-subtitle{color:var(--accent);font-weight:600}
-
-        .product-description p{color:var(--muted);margin:0 0 12px 0}
-
-        .specs-table{width:100%;border-collapse:collapse;margin-top:10px}
-        .specs-table td{padding:10px 6px;color:var(--muted);border-bottom:1px dashed rgba(255,255,255,0.03)}
-        .specs-table td:first-child{color:var(--accent);font-weight:600;width:40%}
-
-        .product-actions{display:flex;gap:12px;flex-wrap:wrap}
-        .btn-main{background:linear-gradient(90deg,var(--accent),var(--accent-2));padding:12px 20px;border-radius:12px;color:#000;font-weight:700}
-        .btn-secondary{padding:12px 18px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);color:var(--accent)}
-
-        .back-link{display:inline-flex;align-items:center;gap:8px;margin-top:20px;color:var(--accent)}
-
-        /* ===== Responsive ===== */
-        @media (max-width: 992px){
-            .product-container{grid-template-columns:1fr}
-            .features-list{grid-template-columns:1fr}
+        
+        .main-image {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 2px solid rgba(0, 255, 170, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.5s;
         }
-
-        @media (max-width: 820px){
-            .nav-list{display:none}         /* پنهان شدن منو دسکتاپ در موبایل */
-            .menu-toggle{display:inline-flex}
-            .header-inner{align-items:center}
+        
+        .main-image:hover {
+            transform: scale(1.02);
         }
-
-        /* Mobile slide-down menu */
-        .mobile-menu{
-            display:none;
-            position:fixed;
-            inset:60px 12px auto 12px;
-            background:var(--card);
-            border-radius:12px;
-            padding:12px;
-            box-shadow:0 30px 60px rgba(0,0,0,0.6);
-            z-index:1200;
-            width:calc(100% - 24px);
-            max-width:420px;
-            overflow:hidden;
+        
+        .image-caption {
+            text-align: center;
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-top: 10px;
         }
-        .mobile-menu.open{display:block; animation:slideDown .18s ease}
-        .mobile-menu .nav-list{display:flex;flex-direction:column;gap:8px}
-        @keyframes slideDown{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
-
-        /* Accessibility focus */
-        .nav-link:focus{outline:2px solid rgba(0,255,170,0.12); outline-offset:3px}
+        
+        .product-info {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .product-header h1 {
+            font-size: 2.2rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+            background: none;
+            -webkit-text-fill-color: #ffffff;
+        }
+        
+        .product-subtitle {
+            color: #00ffaa;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        
+        .product-description {
+            color: #bbb;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+        
+        .product-features {
+            background: rgba(0, 255, 170, 0.05);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 170, 0.1);
+        }
+        
+        .product-features h3 {
+            color: #00ffaa;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #ddd;
+            font-size: 0.95rem;
+        }
+        
+        .feature-item i {
+            color: #00ffaa;
+        }
+        
+        .product-specs {
+            margin-top: 20px;
+        }
+        
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .specs-table tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .specs-table td {
+            padding: 12px 0;
+            color: #ccc;
+        }
+        
+        .specs-table td:first-child {
+            color: #00ffaa;
+            font-weight: 500;
+            width: 40%;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-main {
+            background: linear-gradient(90deg, #00ffaa, #00c896);
+            color: #000;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+        
+        .btn-main:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 255, 170, 0.3);
+            color: #000;
+        }
+        
+        .btn-secondary {
+            border: 2px solid #00ffaa;
+            color: #00ffaa;
+            padding: 14px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(0, 255, 170, 0.1);
+            color: #ffffff;
+            transform: translateY(-3px);
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: #00ffaa;
+            text-decoration: none;
+            margin-top: 50px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 170, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .back-link:hover {
+            background: rgba(0, 255, 170, 0.1);
+            transform: translateX(5px);
+        }
+        
+        @media (max-width: 992px) {
+            .product-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-list {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .product-container {
+                padding: 25px;
+            }
+            
+            .product-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .product-actions {
+                flex-direction: column;
+            }
+            
+            .btn-main, .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
-
-    <!-- ===== HEADER ===== -->
-    <header class="main-header" role="banner">
-        <div class="container header-inner">
-            <div class="logo">
-                <h1>ماهان ادهم قزوینی</h1>
-                <p class="title">مهندس مکانیک — گرایش سیالات</p>
-            </div>
-
-            <!-- منوی دسکتاپ -->
-            <nav class="main-nav" aria-label="منوی اصلی">
-                <ul class="nav-list" id="navList">
-                    <li><a class="nav-link" href="index.html"><i class="fas fa-home"></i>خانه</a></li>
-                    <li><a class="nav-link" href="#about"><i class="fas fa-user"></i>درباره من</a></li>
-                    <li><a class="nav-link" href="#skills"><i class="fas fa-cogs"></i>مهارت‌ها</a></li>
-                    <li><a class="nav-link" href="#education"><i class="fas fa-graduation-cap"></i>تحصیلات</a></li>
-                    <li><a class="nav-link" href="#resume"><i class="fas fa-file-alt"></i>رزومه</a></li>
-                    <li><a class="nav-link active" href="products.html"><i class="fas fa-cube"></i>محصولات 3D</a></li>
-                    <li><a class="nav-link" href="#hvac"><i class="fas fa-snowflake"></i>تأسیسات</a></li>
-                    <li><a class="nav-link" href="archive.html"><i class="fas fa-archive"></i>آرشیو</a></li>
-                    <li><a class="nav-link" href="#contact"><i class="fas fa-envelope"></i>تماس</a></li>
-                </ul>
-            </nav>
-
-            <!-- آیکن‌ها / دکمه‌ها -->
-            <div class="header-actions">
-                <button class="icon-btn menu-toggle" id="menuToggle" aria-label="باز کردن منوی موبایل">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <button class="icon-btn" id="themeToggle" aria-label="تغییر تم">
-                    <i class="fas fa-moon"></i>
-                </button>
-            </div>
+    
+    <div class="product-detail-page">
+        
+        <div class="product-breadcrumb">
+            <a href="index.html" class="breadcrumb-link">
+                <i class="fas fa-home"></i> صفحه اصلی
+            </a>
+            <span style="color: #666; margin: 0 10px;">/</span>
+            <a href="products.html" class="breadcrumb-link">
+                <i class="fas fa-cube"></i> محصولات
+            </a>
+            <span style="color: #666; margin: 0 10px;">/</span>
+            <span style="color: #aaa;">پمپ آب و سیالات</span>
         </div>
-
-        <!-- منوی موبایل (کشویی) -->
-        <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
-            <ul class="nav-list">
-                <li><a class="nav-link" href="index.html"><i class="fas fa-home"></i>خانه</a></li>
-                <li><a class="nav-link" href="#about"><i class="fas fa-user"></i>درباره من</a></li>
-                <li><a class="nav-link" href="#skills"><i class="fas fa-cogs"></i>مهارت‌ها</a></li>
-                <li><a class="nav-link" href="#education"><i class="fas fa-graduation-cap"></i>تحصیلات</a></li>
-                <li><a class="nav-link" href="#resume"><i class="fas fa-file-alt"></i>رزومه</a></li>
-                <li><a class="nav-link active" href="products.html"><i class="fas fa-cube"></i>محصولات 3D</a></li>
-                <li><a class="nav-link" href="#hvac"><i class="fas fa-snowflake"></i>تأسیسات</a></li>
-                <li><a class="nav-link" href="archive.html"><i class="fas fa-archive"></i>آرشیو</a></li>
-                <li><a class="nav-link" href="#contact"><i class="fas fa-envelope"></i>تماس</a></li>
-            </ul>
-        </div>
-    </header>
-
-    <!-- ===== MAIN: Product Page ===== -->
-    <main class="product-detail-page" role="main">
-        <div class="product-breadcrumb container">
-            <a href="index.html" class="breadcrumb-link" style="color:var(--accent)"><i class="fas fa-home"></i> صفحه اصلی</a>
-            <span style="color:var(--muted); margin: 0 10px;">/</span>
-            <a href="products.html" class="breadcrumb-link" style="color:var(--accent)"><i class="fas fa-cube"></i> محصولات</a>
-            <span style="color:var(--muted); margin: 0 10px;">/</span>
-            <span style="color:var(--muted)">پمپ آب و سیالات</span>
-        </div>
-
-        <div class="container product-container" style="margin-top:18px;">
+        
+        <div class="product-container">
+            
             <div class="product-gallery">
-                <img src="../photo3d/11.png" alt="پمپ آب و سیالات چاپ سه‌بعدی" class="main-image" onerror="this.style.opacity=0.6; this.src='https://via.placeholder.com/900x600?text=No+Image'">
-                <div class="image-caption">طراحی و چاپ سه‌بعدی پمپ آب — ماهان ادهم قزوینی</div>
-
+                <img src="../photo3d/11.png" alt="پمپ آب و سیالات چاپ سه‌بعدی" class="main-image">
+                <div class="image-caption">طراحی و چاپ سه‌بعدی پمپ آب - ماهان ادهم قزوینی</div>
+                
                 <div class="product-features">
-                    <h3 style="margin:0 0 10px 0;"><i class="fas fa-star"></i> ویژگی‌های کلیدی</h3>
+                    <h3><i class="fas fa-star"></i> ویژگی‌های کلیدی</h3>
                     <div class="features-list">
-                        <div class="feature-item"><i class="fas fa-check-circle" style="color:var(--accent)"></i><span>ولتاژ کاری 5-12 ولت DC</span></div>
-                        <div class="feature-item"><i class="fas fa-check-circle" style="color:var(--accent)"></i><span>دبی 200-500 میلی‌لیتر/دقیقه</span></div>
-                        <div class="feature-item"><i class="fas fa-check-circle" style="color:var(--accent)"></i><span>مصرف جریان 0.5-1 آمپر</span></div>
-                        <div class="feature-item"><i class="fas fa-check-circle" style="color:var(--accent)"></i><span>مقاوم در برابر خوردگی</span></div>
-                        <div class="feature-item"><i class="fas fa-check-circle" style="color:var(--accent)"></i><span>آب‌بندی کامل</span></div>
-                        <div class="feature-item"><i class="fas fa-check-circle" style="color:var(--accent)"></i><span>مناسب برای پروژه‌های DIY و صنعتی کوچک</span></div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>ولتاژ کاری 5-12 ولت DC</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>دبی 200-500 میلی‌لیتر در دقیقه</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>مصرف جریان 0.5-1 آمپر</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>جنس مقاوم در برابر خوردگی</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>آب‌بندی کامل و نشتی‌ناپذیر</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>مناسب سیالات غیرخورنده</span>
+                        </div>
                     </div>
                 </div>
             </div>
-
+            
             <div class="product-info">
-                <div style="background:rgba(0,255,170,0.03);padding:14px;border-radius:10px;">
-                    <p style="margin:0;color:var(--muted)">پمپ آب طراحی شده برای سیستم‌های ولتاژ پایین با راندمان مناسب و نگهداری آسان. مناسب برای مصارف خنک‌کاری، آکواریوم و آبیاری هوشمند.</p>
+                <div class="product-intro" style="background: rgba(0, 255, 170, 0.05); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                    <p style="color: #ddd; line-height: 1.8; margin: 0;">
+                        پمپ آب طراحی شده برای سیستم‌های ولتاژ پایین با راندمان بالا و مصرف انرژی کم. مناسب برای کاربردهای خنک‌کاری، آبیاری هوشمند و پروژه‌های DIY با قابلیت اطمینان بالا و نگهداری آسان.
+                    </p>
                 </div>
-
+                
                 <div class="product-header">
                     <h1>پمپ آب و سیالات چاپ سه‌بعدی</h1>
                     <div class="product-subtitle">سیستم پمپاژ کارآمد برای پروژه‌های DIY و صنعتی</div>
                 </div>
-
+                
                 <div class="product-description">
-                    <p>این پمپ با طراحی بهینه‌شده و استفاده از مواد مقاوم مناسب برای انتقال سیالات غیرخورنده است. طراحی پروانه با کمک شبیه‌سازی جریان به منظور کاهش نویز و افزایش دبی انجام شده است.</p>
-                    <p>قابلیت اتصال به میکروکنترلرها و سیستم‌های اتوماسیون قابل پیاده‌سازی است.</p>
+                    <p>پمپ آب و سیالات چاپ سه‌بعدی با طراحی بهینه‌شده برای کاربردهای متنوع از جمله سیستم‌های خنک‌کاری، آبیاری هوشمند، آکواریوم و انتقال سیالات در پروژه‌های صنعتی کوچک طراحی شده است. این پمپ با بهره‌گیری از تکنولوژی چاپ سه‌بعدی SLA از دقت ابعادی بالا و سطح صاف برای آب‌بندی بهتر برخوردار است.</p>
+                    
+                    <p>طراحی این پمپ بر اساس اصول دینامیک سیالات و با استفاده از نرم‌افزارهای شبیه‌سازی CFD بهینه‌سازی شده تا حداکثر راندمان و حداقل نویز و لرزش را ارائه دهد. پروانه پمپ با هندسه ویژه‌ای طراحی شده که در دورهای پایین موتور نیز دبی قابل قبولی ایجاد می‌کند.</p>
+                    
+                    <p>پمپ قابلیت اتصال به میکروکنترلرها و سیستم‌های کنترل هوشمند را دارد و می‌تواند در پروژه‌های اتوماسیون و IoT استفاده شود.</p>
                 </div>
-
+                
                 <div class="product-specs">
                     <h3><i class="fas fa-clipboard-list"></i> مشخصات فنی</h3>
-                    <table class="specs-table" aria-describedby="specs-desc">
-                        <tbody>
-                            <tr><td>نوع پمپ</td><td>سانتریفیوژ (گریز از مرکز)</td></tr>
-                            <tr><td>ولتاژ کاری</td><td>5 تا 12 ولت DC</td></tr>
-                            <tr><td>حداکثر دبی</td><td>500 میلی‌لیتر در دقیقه</td></tr>
-                            <tr><td>حداکثر هد</td><td>1.5 متر</td></tr>
-                            <tr><td>مصرف جریان</td><td>0.5-1 آمپر</td></tr>
-                            <tr><td>جنس بدنه</td><td>رزین UV (چاپ SLA)</td></tr>
-                            <tr><td>دمای کاری</td><td>0 تا 60 درجه سانتی‌گراد</td></tr>
-                            <tr><td>ابعاد کلی</td><td>75 × 60 × 55 میلی‌متر</td></tr>
-                        </tbody>
+                    <table class="specs-table">
+                        <tr>
+                            <td>نوع پمپ</td>
+                            <td>سانتریفیوژ (گریز از مرکز)</td>
+                        </tr>
+                        <tr>
+                            <td>ولتاژ کاری</td>
+                            <td>5 تا 12 ولت DC</td>
+                        </tr>
+                        <tr>
+                            <td>حداکثر دبی</td>
+                            <td>500 میلی‌لیتر در دقیقه</td>
+                        </tr>
+                        <tr>
+                            <td>حداکثر هد</td>
+                            <td>1.5 متر</td>
+                        </tr>
+                        <tr>
+                            <td>مصرف جریان</td>
+                            <td>0.5-1 آمپر (بسته به بار)</td>
+                        </tr>
+                        <tr>
+                            <td>جنس بدنه</td>
+                            <td>رزین UV مقاوم (چاپ SLA)</td>
+                        </tr>
+                        <tr>
+                            <td>جنس پروانه</td>
+                            <td>پلی‌پروپیلن (ضدخوردگی)</td>
+                        </tr>
+                        <tr>
+                            <td>نوع موتور</td>
+                            <td>DC براشلس 12V</td>
+                        </tr>
+                        <tr>
+                            <td>سیالات قابل پمپاژ</td>
+                            <td>آب، روغن سبک، گلیکول، محلول‌های غیرخورنده</td>
+                        </tr>
+                        <tr>
+                            <td>دمای کاری</td>
+                            <td>0 تا 60 درجه سانتی‌گراد</td>
+                        </tr>
+                        <tr>
+                            <td>ابعاد کلی</td>
+                            <td>75 × 60 × 55 میلی‌متر</td>
+                        </tr>
+                        <tr>
+                            <td>وزن</td>
+                            <td>95 گرم</td>
+                        </tr>
                     </table>
                 </div>
-
-                <div class="product-actions" style="margin-top:6px;">
-                    <a href="https://docs.google.com/forms/" target="_blank" class="btn-main"><i class="fas fa-shopping-cart"></i> درخواست خرید</a>
-                    <a href="products.html" class="btn-secondary"><i class="fas fa-arrow-right"></i> مشاهده سایر محصولات</a>
+                
+                <div class="product-applications">
+                    <h3><i class="fas fa-tools"></i> کاربردها</h3>
+                    <div class="features-list" style="margin-top: 15px;">
+                        <div class="feature-item">
+                            <i class="fas fa-tint"></i>
+                            <span>سیستم‌های خنک‌کاری الکترونیکی</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-leaf"></i>
+                            <span>آبیاری هوشمند گلخانه‌ها</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-fish"></i>
+                            <span>فیلتراسیون آکواریوم</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-flask"></i>
+                            <span>پروژه‌های آزمایشگاهی</span>
+                        </div>
+                    </div>
                 </div>
-
-                <a href="products.html" class="back-link"><i class="fas fa-arrow-right"></i> بازگشت به لیست محصولات</a>
+                
+                <div class="product-actions">
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScBzAVQ8Jq9ua9qxVseNzVNmCZ998W_zGLGaCohayokzXKbng/viewform?usp=dialog" 
+                       target="_blank" class="btn-main">
+                        <i class="fas fa-shopping-cart"></i> درخواست خرید
+                    </a>
+                    <a href="products.html" class="btn-secondary">
+                        <i class="fas fa-arrow-right"></i> مشاهده سایر محصولات
+                    </a>
+                </div>
             </div>
+            
         </div>
-    </main>
-
-    <!-- ===== Scripts: منوی موبایل و تم ===== -->
-    <script>
-        (function(){
-            const body = document.body;
-            const menuToggle = document.getElementById('menuToggle');
-            const mobileMenu = document.getElementById('mobileMenu');
-            const themeToggle = document.getElementById('themeToggle');
-
-            // منوی موبایل باز/بسته
-            menuToggle.addEventListener('click', () => {
-                const open = mobileMenu.classList.toggle('open');
-                mobileMenu.setAttribute('aria-hidden', !open);
-            });
-
-            // بستن منوی موبایل با کلیک بیرون
-            document.addEventListener('click', (e) => {
-                if (!mobileMenu.contains(e.target) && !menuToggle.contains(e.target) && mobileMenu.classList.contains('open')) {
-                    mobileMenu.classList.remove('open');
-                    mobileMenu.setAttribute('aria-hidden','true');
-                }
-            });
-
-            // تم: خواندن از localStorage یا سیستم عامل
-            const savedTheme = localStorage.getItem('site-theme');
-            if (savedTheme === 'light') body.classList.add('light');
-            else if (!savedTheme) {
-                // اگر کاربر سیستمش light باشه، می‌تونیم پیش‌فرض روشن بذاریم (اختیاری)
-                const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-                if (prefersLight) body.classList.add('light');
-            }
-
-            // آیکن تم را بروزرسانی کن
-            function updateThemeIcon(){
-                const icon = themeToggle.querySelector('i');
-                if (body.classList.contains('light')) icon.className = 'fas fa-sun';
-                else icon.className = 'fas fa-moon';
-            }
-            updateThemeIcon();
-
-            themeToggle.addEventListener('click', () => {
-                body.classList.toggle('light');
-                const mode = body.classList.contains('light') ? 'light' : 'dark';
-                localStorage.setItem('site-theme', mode);
-                updateThemeIcon();
-            });
-
-            // فعال‌سازی لینک فعالِ منو بر اساس URL (برای خودش)
-            const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(a => {
-                try {
-                    // اگر آدرسِ لینک با آدرس فعلی یکی بود، active بذار
-                    const href = a.getAttribute('href');
-                    const current = location.pathname.split('/').pop();
-                    if (href && (href === current || href === location.pathname || (href !== '#' && current && current.length && href.includes(current)))) {
-                        document.querySelectorAll('.nav-link.active').forEach(x => x.classList.remove('active'));
-                        a.classList.add('active');
-                    }
-                } catch(e){}
-            });
-
-        })();
-    </script>
+        
+        <a href="products.html" class="back-link">
+            <i class="fas fa-arrow-right"></i> بازگشت به لیست محصولات
+        </a>
+        
+    </div>
+    
 </body>
 </html>
