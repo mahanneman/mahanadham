@@ -1,851 +1,237 @@
-// ==================== MAIN SCRIPT ====================
+// ==================== MOBILE MENU FIX ====================
 
 document.addEventListener('DOMContentLoaded', function() {
-    // تابع اصلی اجرا پس از بارگذاری DOM
-    initAll();
-});
-
-function initAll() {
-    // 1. مدیریت منوی موبایل
-    initMobileMenu();
+    console.log('✅ DOM Loaded');
     
-    // 2. مدیریت تم سایت
-    initTheme();
-    
-    // 3. مدیریت اسکرول
-    initScroll();
-    
-    // 4. مدیریت فرم تماس
-    initContactForm();
-    
-    // 5. مدیریت عکس‌ها برای موبایل
-    initMobileImages();
-    
-    // 6. مدیریت انیمیشن‌ها
-    initAnimations();
-    
-    // 7. راهنمای کنسول
-    consoleGuide();
-}
-
-// ==================== MOBILE MENU MANAGEMENT ====================
-
-function initMobileMenu() {
-    const menuToggle = document.getElementById('menuToggle');
-    const mainNav = document.querySelector('.main-nav');
-    const headerActions = document.querySelector('.header-actions');
-    
-    if (!menuToggle || !mainNav || !headerActions) {
-        console.warn('عناصر منو یافت نشدند');
-        return;
-    }
-    
-    // تنظیم نمایش اولیه برای موبایل
-    const updateMenuForMobile = () => {
-        if (window.innerWidth <= 768) {
-            mainNav.style.display = 'none';
-            headerActions.style.display = 'flex';
-        } else {
-            mainNav.style.display = 'flex';
-            headerActions.style.display = 'none';
-        }
-    };
-    
-    // اجرای اولیه
-    updateMenuForMobile();
-    
-    // اجرا در تغییر سایز پنجره
-    window.addEventListener('resize', updateMenuForMobile);
-    
-    // رویداد کلیک برای منو همبرگری
-    menuToggle.addEventListener('click', function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        
-        if (mainNav.style.display === 'flex' || mainNav.classList.contains('active')) {
-            mainNav.style.display = 'none';
-            mainNav.classList.remove('active');
-            menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-        } else {
-            mainNav.style.display = 'flex';
-            mainNav.classList.add('active');
-            menuToggle.innerHTML = '<i class="fas fa-times"></i>';
-        }
-    });
-    
-    // بستن منو با کلیک روی لینک‌ها
-    const navLinks = mainNav.querySelectorAll('.nav-link');
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            if (window.innerWidth <= 768) {
-                mainNav.style.display = 'none';
-                mainNav.classList.remove('active');
-                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-            }
-            
-            // اسکرول نرم به بخش مورد نظر
-            const targetId = link.getAttribute('href');
-            if (targetId.startsWith('#')) {
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            }
-        });
-    });
-    
-    // بستن منو با کلیک خارج از آن
-    document.addEventListener('click', function(e) {
-        if (window.innerWidth <= 768) {
-            if (!mainNav.contains(e.target) && !menuToggle.contains(e.target)) {
-                mainNav.style.display = 'none';
-                mainNav.classList.remove('active');
-                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-            }
-        }
-    });
-    
-    // جلوگیری از bubble up
-    mainNav.addEventListener('click', function(e) {
-        e.stopPropagation();
-    });
-}
-
-// ==================== THEME MANAGEMENT ====================
-
-function initTheme() {
-    const themeToggle = document.getElementById('themeToggle');
-    if (!themeToggle) return;
-    
-    // آیکون‌های تم
-    const moonIcon = '<i class="fas fa-moon"></i>';
-    const sunIcon = '<i class="fas fa-sun"></i>';
-    
-    // بررسی تم ذخیره شده یا تنظیم پیش‌فرض
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    themeToggle.innerHTML = savedTheme === 'light' ? moonIcon : sunIcon;
-    
-    // تغییر تم با کلیک
-    themeToggle.addEventListener('click', function() {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-        
-        // اعمال تم جدید
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        
-        // تغییر آیکون
-        themeToggle.innerHTML = newTheme === 'light' ? moonIcon : sunIcon;
-        
-        // انیمیشن برای دکمه
-        themeToggle.style.transform = 'rotate(360deg)';
-        setTimeout(() => {
-            themeToggle.style.transform = 'rotate(0deg)';
-        }, 300);
-    });
-    
-    // انیمیشن hover برای دکمه
-    themeToggle.addEventListener('mouseenter', function() {
-        this.style.transform = 'scale(1.1) rotate(15deg)';
-    });
-    
-    themeToggle.addEventListener('mouseleave', function() {
-        this.style.transform = 'scale(1) rotate(0deg)';
-    });
-}
-
-// ==================== SCROLL MANAGEMENT ====================
-
-function initScroll() {
-    // دکمه بازگشت به بالا
-    const backToTop = document.getElementById('backToTop');
-    if (!backToTop) return;
-    
-    // نمایش/مخفی کردن دکمه بر اساس اسکرول
-    window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 300) {
-            backToTop.style.display = 'flex';
-            backToTop.style.opacity = '1';
-        } else {
-            backToTop.style.opacity = '0';
-            setTimeout(() => {
-                if (window.pageYOffset <= 300) {
-                    backToTop.style.display = 'none';
-                }
-            }, 300);
-        }
-    });
-    
-    // اسکرول به بالا با کلیک
-    backToTop.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-    
-    // هدر ثابت با اسکرول
-    const header = document.querySelector('.main-header');
-    if (header) {
-        let lastScroll = 0;
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-            
-            if (currentScroll <= 0) {
-                header.style.boxShadow = 'none';
-                return;
-            }
-            
-            if (currentScroll > lastScroll && currentScroll > 100) {
-                // اسکرول به پایین - مخفی کردن هدر
-                header.style.transform = 'translateY(-100%)';
-            } else {
-                // اسکرول به بالا - نمایش هدر
-                header.style.transform = 'translateY(0)';
-                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-            }
-            
-            lastScroll = currentScroll;
-        });
-    }
-    
-    // اسکرول نرم برای anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            if (href === '#' || href === '') return;
-            
-            const targetElement = document.querySelector(href);
-            if (targetElement) {
-                e.preventDefault();
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-}
-
-// ==================== CONTACT FORM MANAGEMENT ====================
-
-function initContactForm() {
-    const contactForm = document.getElementById('contactForm');
-    if (!contactForm) return;
-    
-    contactForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const submitBtn = this.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
-        
-        // تغییر حالت دکمه به در حال ارسال
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> در حال ارسال...';
-        submitBtn.disabled = true;
-        
-        try {
-            // جمع‌آوری داده‌ها
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData);
-            
-            // ارسال درخواست به Formspree
-            const response = await fetch(this.action, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json'
-                },
-                body: formData
-            });
-            
-            if (response.ok) {
-                // موفقیت آمیز
-                showNotification('پیام شما با موفقیت ارسال شد! به زودی پاسخگو خواهم بود.', 'success');
-                this.reset();
-            } else {
-                // خطا
-                throw new Error('خطا در ارسال پیام');
-            }
-        } catch (error) {
-            showNotification('خطا در ارسال پیام. لطفاً دوباره تلاش کنید.', 'error');
-            console.error('خطای ارسال فرم:', error);
-        } finally {
-            // بازگرداندن دکمه به حالت اول
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-        }
-    });
-}
-
-// ==================== MOBILE IMAGE MANAGEMENT ====================
-
-function initMobileImages() {
-    // تنظیمات تصاویر برای موبایل
-    const updateImagesForMobile = () => {
-        if (window.innerWidth <= 768) {
-            // تصاویر پروفایل
-            const profileImg = document.querySelector('.profile-img');
-            if (profileImg) {
-                profileImg.style.maxWidth = '280px';
-                profileImg.style.height = 'auto';
-                profileImg.style.margin = '0 auto';
-            }
-            
-            // تصاویر کارت‌ها
-            const productImages = document.querySelectorAll('.product-card img');
-            productImages.forEach(img => {
-                img.style.maxWidth = '100%';
-                img.style.height = '200px';
-                img.style.objectFit = 'cover';
-            });
-            
-            // تصاویر گالری
-            const galleryImages = document.querySelectorAll('.thumbnail-images img');
-            galleryImages.forEach(img => {
-                img.style.width = '60px';
-                img.style.height = '60px';
-            });
-        }
-    };
-    
-    // اجرای اولیه
-    updateImagesForMobile();
-    
-    // اجرا در تغییر سایز
-    window.addEventListener('resize', updateImagesForMobile);
-    
-    // تصحیح عکس‌های شکسته
-    document.querySelectorAll('img').forEach(img => {
-        img.addEventListener('error', function() {
-            const color = document.documentElement.getAttribute('data-theme') === 'light' ? 'F0FFF0' : '000000';
-            const text = this.alt || 'تصویر';
-            this.src = `https://via.placeholder.com/400x400/${color}/32CD32?text=${encodeURIComponent(text)}`;
-            this.style.objectFit = 'cover';
-        });
-    });
-}
-
-// ==================== ANIMATIONS ====================
-
-function initAnimations() {
-    // انیمیشن تایپینگ
-    const typingElement = document.querySelector('.typing-text');
-    if (typingElement) {
-        const text = typingElement.textContent;
-        typingElement.textContent = '';
-        typingElement.style.borderRight = '3px solid var(--secondary)';
-        
-        let i = 0;
-        function typeWriter() {
-            if (i < text.length) {
-                typingElement.textContent += text.charAt(i);
-                i++;
-                setTimeout(typeWriter, 100);
-            } else {
-                // چشمک زدن مکان‌نما
-                setInterval(() => {
-                    typingElement.style.borderRight = typingElement.style.borderRight === 'none' ? 
-                        '3px solid var(--secondary)' : 'none';
-                }, 500);
-            }
-        }
-        
-        // شروع با تاخیر
-        setTimeout(typeWriter, 1000);
-    }
-    
-    // انیمیشن مهارت‌ها هنگام اسکرول
-    const skillItems = document.querySelectorAll('.skill-item');
-    if (skillItems.length > 0) {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const skillBar = entry.target.querySelector('.skill-progress');
-                    const skillLevel = entry.target.querySelector('.skill-level');
-                    
-                    if (skillBar && skillLevel) {
-                        const width = skillLevel.textContent.replace('%', '');
-                        skillBar.style.width = '0%';
-                        
-                        setTimeout(() => {
-                            skillBar.style.transition = 'width 1.5s ease-in-out';
-                            skillBar.style.width = width + '%';
-                        }, 100);
-                    }
-                    
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.2,
-            rootMargin: '0px 0px -50px 0px'
-        });
-        
-        skillItems.forEach(item => observer.observe(item));
-    }
-    
-    // انیمیشن آمار
-    const statNumbers = document.querySelectorAll('.stat-number');
-    if (statNumbers.length > 0) {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const target = entry.target;
-                    const finalValue = parseInt(target.textContent);
-                    let current = 0;
-                    
-                    const increment = finalValue / 50; // 50 فریم در 1 ثانیه
-                    const timer = setInterval(() => {
-                        current += increment;
-                        if (current >= finalValue) {
-                            current = finalValue;
-                            clearInterval(timer);
-                        }
-                        target.textContent = Math.floor(current);
-                    }, 20);
-                    
-                    observer.unobserve(target);
-                }
-            });
-        }, { threshold: 0.5 });
-        
-        statNumbers.forEach(stat => observer.observe(stat));
-    }
-}
-
-// ==================== NOTIFICATION SYSTEM ====================
-
-function showNotification(message, type = 'success') {
-    // حذف نوتیفیکیشن قبلی
-    const existing = document.querySelector('.custom-notification');
-    if (existing) existing.remove();
-    
-    // ایجاد نوتیفیکیشن جدید
-    const notification = document.createElement('div');
-    notification.className = `custom-notification ${type}`;
-    
-    const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
-    notification.innerHTML = `
-        <i class="fas ${icon}"></i>
-        <span>${message}</span>
-        <button class="notification-close"><i class="fas fa-times"></i></button>
-    `;
-    
-    // استایل‌دهی داینامیک
-    const style = document.createElement('style');
-    style.textContent = `
-        .custom-notification {
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            background: var(--card-bg);
-            border: 1px solid var(--border-light);
-            border-right: 4px solid ${type === 'success' ? 'var(--secondary)' : '#ff4444'};
-            color: var(--text);
-            padding: 15px 20px;
-            border-radius: var(--radius);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            z-index: 9999;
-            box-shadow: var(--shadow-hover);
-            transform: translateX(150%);
-            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            max-width: 350px;
-            backdrop-filter: blur(10px);
-        }
-        
-        .custom-notification.show {
-            transform: translateX(0);
-        }
-        
-        .custom-notification i {
-            font-size: 1.2rem;
-            color: ${type === 'success' ? 'var(--secondary)' : '#ff4444'};
-        }
-        
-        .custom-notification span {
-            flex: 1;
-            font-size: 0.9rem;
-        }
-        
-        .notification-close {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            padding: 5px;
-            border-radius: 50%;
-            transition: var(--transition);
-        }
-        
-        .notification-close:hover {
-            background: var(--card-hover);
-            color: var(--text);
-        }
-        
-        @media (max-width: 768px) {
-            .custom-notification {
-                top: 80px;
-                right: 10px;
-                left: 10px;
-                max-width: calc(100% - 20px);
-                transform: translateY(-150%);
-            }
-            
-            .custom-notification.show {
-                transform: translateY(0);
-            }
-        }
-    `;
-    
-    document.head.appendChild(style);
-    document.body.appendChild(notification);
-    
-    // نمایش با تاخیر
-    setTimeout(() => notification.classList.add('show'), 10);
-    
-    // بستن با کلیک
-    notification.querySelector('.notification-close').addEventListener('click', () => {
-        notification.classList.remove('show');
-        setTimeout(() => notification.remove(), 300);
-    });
-    
-    // بستن خودکار
-    setTimeout(() => {
-        if (notification.parentNode) {
-            notification.classList.remove('show');
-            setTimeout(() => notification.remove(), 300);
-        }
-    }, 5000);
-}
-
-// ==================== UTILITY FUNCTIONS ====================
-
-function consoleGuide() {
-    console.log(`
-    🚀 وبسایت مهندس ماهان ادهم قزوینی
-    📧 ایمیل: mahan.neman2020@gmail.com
-    📱 تلفن: ۰۹۹۰۲۲۷۹۷۰۲
-    ✨ ویژگی‌ها:
-    - طراحی واکنش‌گرا (Responsive)
-    - حالت تاریک/روشن
-    - انیمیشن‌های تعاملی
-    - فرم تماس هوشمند
-    - بهینه‌شده برای موبایل
-    `);
-}
-
-// ==================== PERFORMANCE OPTIMIZATIONS ====================
-
-// Debounce function برای بهینه‌سازی eventها
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Lazy loading برای تصاویر
-function initLazyLoading() {
-    const images = document.querySelectorAll('img[data-src]');
-    
-    if ('IntersectionObserver' in window) {
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.dataset.src;
-                    img.removeAttribute('data-src');
-                    imageObserver.unobserve(img);
-                }
-            });
-        });
-        
-        images.forEach(img => imageObserver.observe(img));
-    } else {
-        // Fallback برای مرورگرهای قدیمی
-        images.forEach(img => {
-            img.src = img.dataset.src;
-        });
-        // مدیریت منوی موبایل
-document.addEventListener('DOMContentLoaded', function() {
+    // 1. ابتدا منو و دکمه‌ها رو پیدا کنیم
     const menuToggle = document.getElementById('menuToggle');
     const mainNav = document.querySelector('.main-nav');
     const themeToggle = document.getElementById('themeToggle');
     
-    // مدیریت منوی موبایل
-    if (menuToggle && mainNav) {
-        menuToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const isActive = mainNav.classList.contains('active');
-            
-            if (isActive) {
-                mainNav.classList.remove('active');
-                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-            } else {
-                mainNav.classList.add('active');
-                menuToggle.innerHTML = '<i class="fas fa-times"></i>';
-            }
-        });
-        
-        // بستن منو با کلیک روی لینک‌ها
-        const navLinks = mainNav.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mainNav.classList.remove('active');
-                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-            });
-        });
-        
-        // بستن منو با کلیک خارج از آن
-        document.addEventListener('click', function(e) {
-            if (!mainNav.contains(e.target) && !menuToggle.contains(e.target)) {
-                mainNav.classList.remove('active');
-                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-            }
-        });
-        
-        // جلوگیری از bubble up
-        mainNav.addEventListener('click', function(e) {
-            e.stopPropagation();
-        });
-    }
+    console.log('Menu Toggle:', menuToggle);
+    console.log('Main Nav:', mainNav);
+    console.log('Theme Toggle:', themeToggle);
     
-    // مدیریت تغییر تم
-    if (themeToggle) {
-        // بررسی تم ذخیره شده
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            document.documentElement.setAttribute('data-theme', savedTheme);
-            updateThemeIcon(savedTheme);
-        }
-        
-        themeToggle.addEventListener('click', function() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            
-            updateThemeIcon(newTheme);
-            
-            // انیمیشن برای دکمه
-            this.style.transform = 'rotate(360deg)';
-            setTimeout(() => {
-                this.style.transform = 'rotate(0deg)';
-            }, 300);
-        });
-        
-        function updateThemeIcon(theme) {
-            if (theme === 'light') {
-                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-            } else {
-                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-            }
-        }
-    }
-    
-    // مدیریت دکمه بازگشت به بالا
-    const backToTop = document.getElementById('backToTop');
-    if (backToTop) {
-        window.addEventListener('scroll', function() {
-            if (window.pageYOffset > 300) {
-                backToTop.style.display = 'flex';
-            } else {
-                backToTop.style.display = 'none';
-            }
-        });
-        
-        backToTop.addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    }
-    
-    // مدیریت تصاویر برای موبایل
-    function fixMobileImages() {
+    // 2. اول مطمئن بشیم دکمه منو در موبایل نمایش داده بشه
+    function checkMobileMenu() {
         if (window.innerWidth <= 768) {
-            const profileImg = document.querySelector('.profile-img');
-            if (profileImg) {
-                profileImg.style.maxWidth = '280px';
-                profileImg.style.height = 'auto';
+            console.log('📱 Mobile Mode');
+            
+            // نمایش دکمه منو
+            if (menuToggle) {
+                menuToggle.style.display = 'flex';
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
             }
             
-            const badges = document.querySelectorAll('.image-badge');
-            badges.forEach(badge => {
-                badge.style.position = 'relative';
-                badge.style.bottom = 'auto';
-                badge.style.right = 'auto';
-                badge.style.margin = '-20px auto 20px';
-                badge.style.width = '90%';
-            });
+            // مخفی کردن منوی اصلی
+            if (mainNav) {
+                mainNav.style.display = 'none';
+                mainNav.style.position = 'fixed';
+                mainNav.style.top = '0';
+                mainNav.style.right = '-100%';
+                mainNav.style.width = '85%';
+                mainNav.style.height = '100vh';
+                mainNav.style.backgroundColor = 'var(--darker)';
+                mainNav.style.backdropFilter = 'blur(20px)';
+                mainNav.style.borderLeft = '1px solid var(--border-light)';
+                mainNav.style.padding = '80px 20px 30px';
+                mainNav.style.flexDirection = 'column';
+                mainNav.style.gap = '5px';
+                mainNav.style.transition = 'right 0.3s ease';
+                mainNav.style.zIndex = '9999';
+                mainNav.style.overflowY = 'auto';
+                mainNav.style.boxShadow = '-10px 0 30px rgba(0, 0, 0, 0.3)';
+                mainNav.style.borderRadius = '0';
+            }
+        } else {
+            console.log('🖥️ Desktop Mode');
+            
+            // مخفی کردن دکمه منو
+            if (menuToggle) {
+                menuToggle.style.display = 'none';
+            }
+            
+            // نمایش منوی اصلی
+            if (mainNav) {
+                mainNav.style.display = 'flex';
+                mainNav.style.position = 'static';
+                mainNav.style.width = 'auto';
+                mainNav.style.height = 'auto';
+                mainNav.style.backgroundColor = '';
+                mainNav.style.padding = '4px';
+                mainNav.style.flexDirection = 'row';
+                mainNav.style.gap = '2px';
+                mainNav.style.transition = 'none';
+            }
         }
     }
     
-    // اجرای اولیه
-    fixMobileImages();
-    
-    // اجرا در تغییر سایز
-    window.addEventListener('resize', fixMobileImages);
-});
-    }
-}
-
-// مدیریت حافظه - پاک کردن event listeners هنگام خروج از صفحه
-window.addEventListener('beforeunload', function() {
-    // پاک کردن timeoutها
-    const highestTimeoutId = setTimeout(() => {}, 0);
-    for (let i = 0; i < highestTimeoutId; i++) {
-        clearTimeout(i);
-    }
-    
-    // پاک کردن intervalها
-    const highestIntervalId = setInterval(() => {}, 0);
-    for (let i = 0; i < highestIntervalId; i++) {
-        clearInterval(i);
-    }
-    
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    // ایجاد overlay برای منو
-    const menuOverlay = document.createElement('div');
-    menuOverlay.className = 'menu-overlay';
-    document.body.appendChild(menuOverlay);
-    
-    const menuToggle = document.getElementById('menuToggle');
-    const mainNav = document.querySelector('.main-nav');
-    
-    // مدیریت منوی موبایل
+    // 3. مدیریت رویداد کلیک روی دکمه منو
     if (menuToggle && mainNav) {
+        console.log('🎯 Setting up menu click event');
+        
         menuToggle.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
+            console.log('🎯 Menu button clicked');
             
-            const isActive = mainNav.classList.contains('active');
+            // بررسی وضعیت فعلی منو
+            const isActive = mainNav.style.right === '0px' || mainNav.classList.contains('active');
+            console.log('Is menu active?', isActive);
             
             if (isActive) {
                 // بستن منو
+                mainNav.style.right = '-100%';
                 mainNav.classList.remove('active');
-                menuOverlay.classList.remove('active');
                 menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
                 document.body.style.overflow = 'auto';
+                console.log('🔒 Closing menu');
             } else {
                 // باز کردن منو
+                mainNav.style.right = '0';
                 mainNav.classList.add('active');
-                menuOverlay.classList.add('active');
                 menuToggle.innerHTML = '<i class="fas fa-times"></i>';
+                mainNav.style.display = 'flex';
                 document.body.style.overflow = 'hidden';
+                console.log('🔓 Opening menu');
             }
         });
         
-        // بستن منو با کلیک روی overlay
-        menuOverlay.addEventListener('click', function() {
-            mainNav.classList.remove('active');
-            menuOverlay.classList.remove('active');
-            menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-            document.body.style.overflow = 'auto';
-        });
-        
-        // بستن منو با کلیک روی لینک‌ها
+        // 4. بستن منو با کلیک روی لینک‌ها
         const navLinks = mainNav.querySelectorAll('.nav-link');
+        console.log('Found nav links:', navLinks.length);
+        
         navLinks.forEach(link => {
             link.addEventListener('click', function(e) {
-                // اگر لینک خارجی است، اجازه بده لود شود
-                if (this.getAttribute('href').startsWith('http') || 
-                    this.getAttribute('href').includes('.html')) {
-                    return;
-                }
+                console.log('🔗 Nav link clicked:', this.href);
                 
-                e.preventDefault();
-                
-                mainNav.classList.remove('active');
-                menuOverlay.classList.remove('active');
-                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-                document.body.style.overflow = 'auto';
-                
-                // اسکرول به بخش مورد نظر
-                const targetId = this.getAttribute('href');
-                if (targetId.startsWith('#')) {
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
+                // اگر لینک خارجی است یا به صفحه دیگری می‌رود
+                if (this.getAttribute('href').includes('http') || 
+                    this.getAttribute('href').includes('.html') ||
+                    this.getAttribute('href').startsWith('#')) {
+                    
+                    // بستن منو
+                    mainNav.style.right = '-100%';
+                    mainNav.classList.remove('active');
+                    if (menuToggle) {
+                        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                    document.body.style.overflow = 'auto';
+                    
+                    console.log('🔒 Closing menu after link click');
+                    
+                    // اگر لینک داخلی است، اسکرول کن
+                    if (this.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                        }
                     }
                 }
             });
         });
         
-        // بستن منو با کلیک روی overlay
-        menuOverlay.addEventListener('click', function() {
-            mainNav.classList.remove('active');
-            menuOverlay.classList.remove('active');
-            menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-            document.body.style.overflow = 'auto';
-        });
-        
-        // بستن منو با دکمه ESC
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && mainNav.classList.contains('active')) {
+        // 5. بستن منو با کلیک روی overlay
+        // ایجاد overlay دینامیک
+        let menuOverlay = document.querySelector('.menu-overlay');
+        if (!menuOverlay) {
+            menuOverlay = document.createElement('div');
+            menuOverlay.className = 'menu-overlay';
+            document.body.appendChild(menuOverlay);
+            
+            // استایل overlay
+            menuOverlay.style.position = 'fixed';
+            menuOverlay.style.top = '0';
+            menuOverlay.style.left = '0';
+            menuOverlay.style.width = '100%';
+            menuOverlay.style.height = '100%';
+            menuOverlay.style.background = 'rgba(0, 0, 0, 0.7)';
+            menuOverlay.style.zIndex = '9998';
+            menuOverlay.style.backdropFilter = 'blur(5px)';
+            menuOverlay.style.display = 'none';
+            menuOverlay.style.transition = 'opacity 0.3s ease';
+            
+            // رویداد کلیک روی overlay
+            menuOverlay.addEventListener('click', function() {
+                mainNav.style.right = '-100%';
                 mainNav.classList.remove('active');
-                menuOverlay.classList.remove('active');
                 menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                this.style.display = 'none';
                 document.body.style.overflow = 'auto';
-            }
+                console.log('🔒 Closing menu via overlay');
+            });
+        }
+        
+        // 6. به‌روزرسانی overlay هنگام باز شدن منو
+        menuToggle.addEventListener('click', function() {
+            setTimeout(() => {
+                const isActive = mainNav.style.right === '0px' || mainNav.classList.contains('active');
+                if (menuOverlay) {
+                    if (isActive) {
+                        menuOverlay.style.display = 'block';
+                        setTimeout(() => {
+                            menuOverlay.style.opacity = '1';
+                        }, 10);
+                    } else {
+                        menuOverlay.style.opacity = '0';
+                        setTimeout(() => {
+                            menuOverlay.style.display = 'none';
+                        }, 300);
+                    }
+                }
+            }, 10);
         });
     }
     
-    // مدیریت تغییر تم
-    const themeToggle = document.getElementById('themeToggle');
+    // 7. مدیریت تغییر تم
     if (themeToggle) {
-        // بررسی تم ذخیره شده
+        console.log('🌙 Setting up theme toggle');
+        
+        // تنظیم تم اولیه
         const savedTheme = localStorage.getItem('theme') || 'dark';
         document.documentElement.setAttribute('data-theme', savedTheme);
-        updateThemeIcon(savedTheme);
         
+        // آیکون تم
+        if (savedTheme === 'light') {
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        } else {
+            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        }
+        
+        // رویداد تغییر تم
         themeToggle.addEventListener('click', function() {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             const newTheme = currentTheme === 'light' ? 'dark' : 'light';
             
+            console.log('Changing theme from', currentTheme, 'to', newTheme);
+            
             document.documentElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
             
-            updateThemeIcon(newTheme);
+            if (newTheme === 'light') {
+                this.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                this.innerHTML = '<i class="fas fa-moon"></i>';
+            }
             
-            // انیمیشن برای دکمه
+            // انیمیشن
             this.style.transform = 'rotate(360deg)';
             setTimeout(() => {
                 this.style.transform = 'rotate(0deg)';
             }, 300);
         });
-        
-        function updateThemeIcon(theme) {
-            if (theme === 'light') {
-                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-            } else {
-                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-            }
-        }
     }
     
-    // مدیریت دکمه بازگشت به بالا
+    // 8. دکمه بازگشت به بالا
     const backToTop = document.getElementById('backToTop');
     if (backToTop) {
+        console.log('⬆️ Setting up back to top');
+        
         window.addEventListener('scroll', function() {
             if (window.pageYOffset > 300) {
                 backToTop.style.display = 'flex';
@@ -870,34 +256,98 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // تنظیم اولیه برای موبایل
-    function initMobileSettings() {
-        if (window.innerWidth <= 768) {
-            // مخفی کردن ناوبری اصلی در موبایل
-            const mainNav = document.querySelector('.main-nav');
-            if (mainNav) {
-                mainNav.style.display = 'none';
-            }
-            
-            // نمایش دکمه منو
-            const menuToggle = document.getElementById('menuToggle');
+    // 9. اجرای اولیه برای موبایل
+    checkMobileMenu();
+    
+    // 10. بررسی دوباره هنگام تغییر سایز پنجره
+    window.addEventListener('resize', function() {
+        console.log('🔄 Window resized:', window.innerWidth);
+        checkMobileMenu();
+    });
+    
+    // 11. بستن منو با کلید ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && mainNav && mainNav.classList.contains('active')) {
+            mainNav.style.right = '-100%';
+            mainNav.classList.remove('active');
             if (menuToggle) {
-                menuToggle.style.display = 'flex';
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+            document.body.style.overflow = 'auto';
+            
+            // مخفی کردن overlay
+            const menuOverlay = document.querySelector('.menu-overlay');
+            if (menuOverlay) {
+                menuOverlay.style.opacity = '0';
+                setTimeout(() => {
+                    menuOverlay.style.display = 'none';
+                }, 300);
             }
             
-            // تنظیم عکس پروفایل برای موبایل
-            const profileImg = document.querySelector('.profile-img');
-            if (profileImg) {
-                profileImg.style.width = '100%';
-                profileImg.style.maxWidth = '280px';
-                profileImg.style.margin = '0 auto';
+            console.log('🔒 Closing menu via ESC key');
+        }
+    });
+    
+    // 12. تصحیح مشکل badge روی عکس در موبایل
+    function fixMobileBadge() {
+        if (window.innerWidth <= 768) {
+            const imageBadge = document.querySelector('.image-badge');
+            if (imageBadge) {
+                imageBadge.style.position = 'relative';
+                imageBadge.style.bottom = 'auto';
+                imageBadge.style.right = 'auto';
+                imageBadge.style.margin = '15px auto 30px';
+                imageBadge.style.width = 'auto';
+                imageBadge.style.maxWidth = '250px';
+                imageBadge.style.display = 'inline-flex';
+                imageBadge.style.fontSize = '0.9rem';
+                imageBadge.style.padding = '10px 20px';
+                imageBadge.style.transform = 'none';
             }
         }
     }
     
     // اجرای اولیه
-    initMobileSettings();
+    fixMobileBadge();
+    window.addEventListener('resize', fixMobileBadge);
     
-    // اجرا در تغییر سایز
-    window.addEventListener('resize', initMobileSettings);
+    console.log('✅ All scripts loaded successfully');
 });
+
+// 13. تابع برای دیباگ کردن
+function debugMenu() {
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.querySelector('.main-nav');
+    
+    console.log('=== MENU DEBUG ===');
+    console.log('Window width:', window.innerWidth);
+    console.log('Menu toggle exists:', !!menuToggle);
+    console.log('Main nav exists:', !!mainNav);
+    
+    if (menuToggle) {
+        console.log('Menu toggle display:', menuToggle.style.display);
+        console.log('Menu toggle HTML:', menuToggle.innerHTML);
+    }
+    
+    if (mainNav) {
+        console.log('Main nav display:', mainNav.style.display);
+        console.log('Main nav position:', mainNav.style.position);
+        console.log('Main nav right:', mainNav.style.right);
+        console.log('Main nav classes:', mainNav.classList);
+    }
+    
+    // تست کلیک
+    if (menuToggle) {
+        console.log('Clicking menu toggle...');
+        menuToggle.click();
+        setTimeout(() => {
+            console.log('After click - Main nav right:', mainNav.style.right);
+        }, 100);
+    }
+}
+
+// 14. تست سریع
+setTimeout(() => {
+    console.log('🧪 Running quick test...');
+    debugMenu();
+}, 1000);
