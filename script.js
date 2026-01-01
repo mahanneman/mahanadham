@@ -530,7 +530,89 @@ function checkProductImages() {
         };
     });
 }
+// منوی موبایل
+const menuToggle = document.getElementById('menuToggle');
+const mainNav = document.querySelector('.main-nav');
 
+if (menuToggle && mainNav) {
+    menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        menuToggle.classList.toggle('active');
+        mainNav.classList.toggle('active');
+    });
+    
+    // بستن منو با کلیک روی لینک‌ها
+    const navLinks = mainNav.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            mainNav.classList.remove('active');
+        });
+    });
+    
+    // بستن منو با کلیک خارج از آن
+    document.addEventListener('click', (e) => {
+        if (!mainNav.contains(e.target) && !menuToggle.contains(e.target)) {
+            menuToggle.classList.remove('active');
+            mainNav.classList.remove('active');
+        }
+    });
+}
+
+// دکمه بازگشت به بالا
+const backToTop = document.querySelector('.back-to-top');
+if (backToTop) {
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            backToTop.style.display = 'flex';
+        } else {
+            backToTop.style.display = 'none';
+        }
+    });
+    
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
+// تغییر تم
+const themeToggle = document.querySelector('.theme-toggle');
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+    });
+    
+    // بارگذاری تم ذخیره شده
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+}
+
+// انیمیشن مهارت‌ها
+const skillItems = document.querySelectorAll('.skill-item');
+if (skillItems.length > 0) {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const barFill = entry.target.querySelector('.bar-fill');
+                const percent = barFill.style.getPropertyValue('--percent') || '0';
+                barFill.style.width = `${percent}%`;
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.2
+    });
+    
+    skillItems.forEach(item => {
+        observer.observe(item);
+    });
+}
 // بارگذاری اولیه
 window.addEventListener('DOMContentLoaded', () => {
     checkProductImages();
@@ -543,4 +625,5 @@ window.addEventListener('DOMContentLoaded', () => {
     📞 پشتیبانی: ۰۹۹۰۲۲۷۹۷۰۲
     ✉️  تلگرام: @mahanenman
     `);
+
 });
