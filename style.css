@@ -461,3 +461,17 @@ body {
     }
 }
 
+/* Mobile Menu Styles */
+@media (max-width: 768px) {
+    .main-nav {
+        display: none !important;
+    }
+    
+    .main-nav.active {
+        display: flex !important;
+    }
+    
+    .menu-toggle {
+        display: flex !important;
+    }
+}
