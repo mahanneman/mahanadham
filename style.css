@@ -1802,3 +1802,81 @@ a:hover {
 .menu-overlay.active {
     display: block;
 }
+=================== MOBILE SPECIFIC FIXES ==================== */
+@media (max-width: 768px) {
+    /* اطمینان از نمایش دکمه منو */
+    .menu-toggle {
+        display: flex !important;
+        width: 40px;
+        height: 40px;
+        background: var(--card-bg);
+        border: 1px solid var(--border-light);
+        border-radius: var(--radius-sm);
+        color: var(--text);
+        cursor: pointer;
+        transition: var(--transition);
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        position: relative;
+        z-index: 9999;
+    }
+    
+    .menu-toggle:hover {
+        background: var(--card-hover);
+    }
+    
+    .menu-toggle.active {
+        background: var(--gradient-secondary);
+        color: white;
+    }
+    
+    /* هدر در موبایل */
+    .header-content {
+        position: relative;
+        z-index: 1000;
+    }
+    
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    /* تصحیح عکس پروفایل در موبایل */
+    .profile-img {
+        width: 100% !important;
+        max-width: 280px !important;
+        height: 280px !important;
+        margin: 0 auto !important;
+        display: block !important;
+    }
+    
+    .image-badge {
+        position: relative !important;
+        bottom: auto !important;
+        right: auto !important;
+        transform: none !important;
+        margin: 15px auto 30px !important;
+        width: auto !important;
+        max-width: 250px !important;
+        display: inline-flex !important;
+        font-size: 0.9rem !important;
+        padding: 10px 20px !important;
+    }
+    
+    /* جلوگیری از اسکرول هنگام باز بودن منو */
+    body.menu-open {
+        overflow: hidden !important;
+        height: 100vh !important;
+    }
+}
+
+/* ==================== DEBUG STYLES ==================== */
+.debug-border {
+    border: 2px solid red !important;
+}
+
+.debug-bg {
+    background: rgba(255, 0, 0, 0.1) !important;
+}
