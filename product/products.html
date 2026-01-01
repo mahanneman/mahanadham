@@ -8,6 +8,7 @@
 
     <!-- آیکن و فونت -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- استایل اصلی سایت -->
     <link rel="stylesheet" href="../style.css">
@@ -21,14 +22,112 @@
             margin: 0;
         }
 
+        /* استایل هدر - مشابه صفحه اصلی */
+        .main-header {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 255, 170, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo h1 {
+            color: #ffffff;
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .title {
+            color: #00ffaa;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        /* استایل نویگیشن */
+        .main-nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: #ffffff !important; /* رنگ سفید برای منوها */
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background: rgba(0, 255, 170, 0.1);
+            color: #00ffaa !important;
+        }
+
+        .nav-link.active {
+            color: #00ffaa !important;
+            background: rgba(0, 255, 170, 0.1);
+        }
+
+        .nav-link i {
+            margin-left: 8px;
+            font-size: 0.9rem;
+        }
+
+        /* منوی همبرگری برای موبایل */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .theme-toggle {
+            background: rgba(0, 255, 170, 0.1);
+            border: 1px solid rgba(0, 255, 170, 0.2);
+            color: #00ffaa;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(0, 255, 170, 0.2);
+        }
+
+        /* استایل بخش محصولات */
         .products-page {
             max-width: 1200px;
             margin: auto;
-            padding: 100px 20px 50px;
+            padding: 120px 20px 50px;
             position: relative;
         }
 
-        /* استایل هدر */
+        /* استایل هدر محصولات */
         .products-header {
             text-align: center;
             margin-bottom: 60px;
@@ -56,7 +155,7 @@
             font-size: 1.1rem;
         }
 
-        /* تغییر در گرید محصولات - چیدمان عمودی */
+        /* تغییر در گرید محصولات */
         .products-grid {
             display: flex;
             flex-direction: column;
@@ -235,57 +334,15 @@
             transform: scale(1.03);
         }
 
-        /* استایل واکنش‌گرا */
-        @media (max-width: 992px) {
-            .product-card {
-                padding: 30px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .products-page {
-                padding: 80px 15px 40px;
-            }
-            
-            .products-header h1 {
-                font-size: 2rem;
-            }
-            
-            .product-card h2 {
-                font-size: 1.5rem;
-            }
-            
-            .product-actions {
-                flex-direction: column;
-            }
-            
-            .btn-main, .btn-secondary {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .product-tags {
-                justify-content: center;
-            }
-            
-            .product-image {
-                max-width: 100%;
-                height: 200px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .product-card {
-                padding: 25px;
-            }
-            
-            .products-header h1 {
-                font-size: 1.8rem;
-            }
-            
-            .products-header p {
-                font-size: 1rem;
-            }
+        /* استایل برای محتوای محصول */
+        .product-intro {
+            background: rgba(0, 255, 170, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(0, 255, 170, 0.1);
+            color: #ddd;
+            line-height: 1.8;
         }
 
         /* انیمیشن برای ظاهر شدن کارت‌ها */
@@ -307,21 +364,211 @@
         .product-card:nth-child(2) {
             animation-delay: 0.2s;
         }
-        
-        /* استایل برای محتوای محصول */
-        .product-intro {
-            background: rgba(0, 255, 170, 0.05);
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            border: 1px solid rgba(0, 255, 170, 0.1);
-            color: #ddd;
-            line-height: 1.8;
+
+        /* استایل واکنش‌گرا */
+        @media (max-width: 992px) {
+            .product-card {
+                padding: 30px;
+                border-radius: 18px; /* گوشه‌های کمتر گرد */
+            }
+            
+            .nav-link {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .products-page {
+                padding: 100px 15px 40px;
+            }
+            
+            .products-header h1 {
+                font-size: 2rem;
+            }
+            
+            .product-card {
+                padding: 25px;
+                border-radius: 15px; /* گوشه‌های کمتر گرد برای موبایل */
+            }
+            
+            .product-card h2 {
+                font-size: 1.5rem;
+            }
+            
+            .product-actions {
+                flex-direction: column;
+            }
+            
+            .btn-main, .btn-secondary {
+                width: 100%;
+                justify-content: center;
+                border-radius: 10px; /* گوشه‌های کمتر گرد برای دکمه‌ها */
+            }
+            
+            .product-tags {
+                justify-content: center;
+            }
+            
+            .product-image {
+                max-width: 100%;
+                height: 200px;
+                border-radius: 10px; /* گوشه‌های کمتر گرد برای عکس */
+            }
+            
+            /* استایل منوی موبایل */
+            .menu-toggle {
+                display: block;
+            }
+            
+            .main-nav {
+                position: fixed;
+                top: 70px;
+                right: 20px;
+                background: rgba(20, 20, 20, 0.95);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(0, 255, 170, 0.2);
+                border-radius: 15px; /* گوشه‌های کمتر گرد برای منوی موبایل */
+                padding: 15px;
+                flex-direction: column;
+                gap: 10px;
+                width: 200px;
+                display: none;
+                z-index: 1001;
+            }
+            
+            .main-nav.active {
+                display: flex;
+            }
+            
+            .nav-link {
+                color: #ffffff !important;
+                padding: 12px 15px;
+                border-radius: 10px; /* گوشه‌های کمتر گرد برای لینک‌ها */
+                text-align: right;
+            }
+            
+            .header-content {
+                padding: 12px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-card {
+                padding: 20px;
+                border-radius: 12px; /* گوشه‌های کمتر گرد برای موبایل کوچک */
+            }
+            
+            .products-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .products-header p {
+                font-size: 1rem;
+            }
+            
+            .main-nav {
+                width: 180px;
+                right: 10px;
+                border-radius: 12px; /* گوشه‌های کمتر گرد */
+            }
+        }
+
+        /* فوتر */
+        .main-footer {
+            background: rgba(10, 10, 10, 0.95);
+            border-top: 1px solid rgba(0, 255, 170, 0.1);
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .footer-logo h3 {
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #00ffaa;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-icon {
+            color: #ffffff;
+            background: rgba(0, 255, 170, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .social-icon:hover {
+            background: rgba(0, 255, 170, 0.2);
+            transform: translateY(-3px);
         }
     </style>
 </head>
 
 <body>
+
+<!-- هدر مشابه صفحه اصلی -->
+<header class="main-header">
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">
+                <h1>ماهان ادهم قزوینی</h1>
+                <p class="title">مهندس مکانیک گرایش سیالات</p>
+            </div>
+            
+            <div class="header-actions">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <button id="themeToggle" class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+            
+            <nav class="main-nav" id="mainNav">
+                <a href="../index.html#home" class="nav-link"><i class="fas fa-home"></i> خانه</a>
+                <a href="../index.html#about" class="nav-link"><i class="fas fa-user"></i> درباره من</a>
+                <a href="../index.html#skills" class="nav-link"><i class="fas fa-cogs"></i> مهارت‌ها</a>
+                <a href="../index.html#education" class="nav-link"><i class="fas fa-graduation-cap"></i> تحصیلات</a>
+                <a href="../index.html#resume" class="nav-link"><i class="fas fa-file-alt"></i> رزومه</a>
+                <a href="products.html" class="nav-link active"><i class="fas fa-cube"></i> محصولات 3D</a>
+                <a href="../index.html#hvac" class="nav-link"><i class="fas fa-snowflake"></i> تأسیسات</a>
+                <a href="../archive.html" class="nav-link"><i class="fas fa-archive"></i> آرشیو</a>
+                <a href="../index.html#contact" class="nav-link"><i class="fas fa-envelope"></i> تماس</a>
+            </nav>
+        </div>
+    </div>
+</header>
 
 <section class="products-page">
 
@@ -411,6 +658,110 @@
     </a>
 
 </section>
+
+<!-- فوتر -->
+<footer class="main-footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <h3>ماهان ادهم قزوینی</h3>
+                <p>مهندس مکانیک گرایش سیالات</p>
+                <p>طراح و تولید کننده قطعات پرینتر سه بعدی</p>
+            </div>
+            
+            <div class="footer-links">
+                <h4>لینک‌های مفید</h4>
+                <a href="../index.html">خانه</a>
+                <a href="../index.html#resume">رزومه</a>
+                <a href="products.html">محصولات</a>
+                <a href="../archive.html">آرشیو</a>
+                <a href="../index.html#contact">تماس</a>
+            </div>
+            
+            <div class="footer-social">
+                <h4>شبکه‌های اجتماعی</h4>
+                <div class="social-icons">
+                    <a href="https://t.me/mahanenman" class="social-icon" title="تلگرام">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                    <a href="https://instagram.com/mahantheloner" class="social-icon" title="اینستاگرام">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="mailto:mahan.neman2020@gmail.com" class="social-icon" title="ایمیل">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© ۱۴۰۳ ماهان ادهم قزوینی. تمامی حقوق محفوظ است.</p>
+            <p class="university">دانشگاه آزاد اسلامی واحد تهران مرکز - دانشکده فنی مهندسی</p>
+        </div>
+    </div>
+</footer>
+
+<!-- اسکریپت -->
+<script>
+    // منوی موبایل
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.getElementById('mainNav');
+
+    menuToggle.addEventListener('click', () => {
+        mainNav.classList.toggle('active');
+    });
+
+    // بستن منو با کلیک خارج از آن
+    document.addEventListener('click', (e) => {
+        if (!mainNav.contains(e.target) && !menuToggle.contains(e.target)) {
+            mainNav.classList.remove('active');
+        }
+    });
+
+    // تغییر تم
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = themeToggle.querySelector('i');
+
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('light-mode');
+        if (document.body.classList.contains('light-mode')) {
+            themeIcon.className = 'fas fa-sun';
+        } else {
+            themeIcon.className = 'fas fa-moon';
+        }
+    });
+
+    // استایل برای حالت light (در صورت نیاز)
+    const style = document.createElement('style');
+    style.textContent = `
+        body.light-mode {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+        }
+        
+        body.light-mode .main-header {
+            background: rgba(255, 255, 255, 0.95);
+        }
+        
+        body.light-mode .logo h1 {
+            color: #333;
+        }
+        
+        body.light-mode .nav-link {
+            color: #333 !important;
+        }
+        
+        body.light-mode .product-card {
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        body.light-mode .product-card h2,
+        body.light-mode .product-card p,
+        body.light-mode .products-header h1 {
+            color: #333;
+        }
+    `;
+    document.head.appendChild(style);
+</script>
 
 </body>
 </html>
