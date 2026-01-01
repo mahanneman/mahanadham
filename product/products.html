@@ -2,56 +2,391 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
-    <title>محصولات مهندسی و چاپ سه‌بعدی | ماهان ادهم قزوینی</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محصولات پرینتر سه‌بعدی | ماهان ادهم قزوینی</title>
     
-    <!-- Meta Tags for SEO -->
-    <meta name="description" content="محصولات مهندسی و قطعات چاپ سه‌بعدی طراحی‌شده توسط مهندس ماهان ادهم قزوینی - گیربکس مکانیکی، پمپ آب، سیستم‌های انتقال قدرت و قطعات سفارشی">
-    <meta name="keywords" content="چاپ سه بعدی, قطعات مکانیکی, گیربکس, پمپ آب, طراحی CAD, پرینتر سه بعدی, مهندسی مکانیک, ماهان ادهم قزوینی">
+    <!-- Meta Tags -->
+    <meta name="description" content="محصولات پرینتر سه‌بعدی طراحی شده توسط مهندس ماهان ادهم قزوینی - گیربکس صنعتی و واتر پمپ">
+    <meta name="keywords" content="پرینتر سه بعدی, محصولات 3D, گیربکس صنعتی, واتر پمپ, طراحی مکانیکی, ماهان ادهم قزوینی">
     <meta name="author" content="ماهان ادهم قزوینی">
-    <meta name="robots" content="index, follow">
-    
-    <!-- Open Graph / Social Media Meta Tags -->
-    <meta property="og:title" content="محصولات مهندسی و چاپ سه‌بعدی | ماهان ادهم قزوینی">
-    <meta property="og:description" content="قطعات مهندسی طراحی‌شده با تکنولوژی چاپ سه‌بعدی - گیربکس، پمپ آب و سیستم‌های انتقال قدرت">
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="fa_IR">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="محصولات مهندسی و چاپ سه‌بعدی">
-    <meta name="twitter:description" content="قطعات مهندسی طراحی‌شده با تکنولوژی چاپ سه‌بعدی توسط مهندس ماهان ادهم قزوینی">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../favicon.ico">
     
     <!-- CSS Libraries -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
-          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
-          crossorigin="anonymous" referrerpolicy="no-referrer">
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" 
-          rel="stylesheet" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" 
-          integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw==" 
-          crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
-    <!-- Main CSS -->
-    <link rel="stylesheet" href="../style.css">
-    
-    <!-- Page Specific CSS -->
     <style>
         /* ==========================================================================
-           Products Page Specific Styles
+           CSS Variables & Reset
            ========================================================================== */
-        
-        /* Page Header */
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #3b82f6;
+            --secondary-color: #10b981;
+            --secondary-dark: #059669;
+            --secondary-light: #34d399;
+            
+            --bg-dark: #0f172a;
+            --bg-dark-secondary: #1e293b;
+            --bg-dark-tertiary: #334155;
+            --text-dark: #f8fafc;
+            --text-dark-secondary: #cbd5e1;
+            --border-dark: #475569;
+            
+            --bg-light: #ffffff;
+            --bg-light-secondary: #f8fafc;
+            --bg-light-tertiary: #e2e8f0;
+            --text-light: #1e293b;
+            --text-light-secondary: #475569;
+            --border-light: #cbd5e1;
+            
+            --gradient-primary: linear-gradient(135deg, var(--primary-color), #8b5cf6);
+            --gradient-secondary: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            --gradient-dark: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-secondary));
+            
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-full: 9999px;
+            
+            --transition-fast: 150ms ease;
+            --transition-normal: 300ms ease;
+            --transition-slow: 500ms ease;
+            
+            --font-family: 'Vazirmatn', sans-serif;
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+            --font-size-4xl: 2.25rem;
+            
+            --header-height: 4rem;
+            --max-width: 1280px;
+            --container-padding: 1rem;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: var(--bg-dark);
+            --bg-secondary: var(--bg-dark-secondary);
+            --bg-tertiary: var(--bg-dark-tertiary);
+            --text-primary: var(--text-dark);
+            --text-secondary: var(--text-dark-secondary);
+            --border-color: var(--border-dark);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: var(--bg-light);
+            --bg-secondary: var(--bg-light-secondary);
+            --bg-tertiary: var(--bg-light-tertiary);
+            --text-primary: var(--text-light);
+            --text-secondary: var(--text-light-secondary);
+            --border-color: var(--border-light);
+        }
+
+        /* Reset & Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+            direction: rtl;
+        }
+
+        body {
+            font-family: var(--font-family);
+            font-size: var(--font-size-base);
+            line-height: 1.6;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color var(--transition-normal), color var(--transition-normal);
+            overflow-x: hidden;
+        }
+
+        body.no-scroll {
+            overflow: hidden;
+        }
+
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        a:hover {
+            color: var(--primary-light);
+        }
+
+        /* Header & Navigation */
+        .main-header {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            background-color: var(--bg-secondary);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-md);
+            z-index: 1000;
+            height: var(--header-height);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: var(--font-size-xl);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-name {
+            font-size: var(--font-size-lg);
+            font-weight: 700;
+            margin: 0;
+            color: var(--text-primary);
+        }
+
+        .logo-title {
+            font-size: var(--font-size-xs);
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        /* Main Navigation */
+        .main-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background-color: var(--bg-secondary);
+            box-shadow: var(--shadow-lg);
+            transition: right var(--transition-normal);
+            z-index: 1001;
+            overflow-y: auto;
+        }
+
+        .main-nav.active {
+            right: 0;
+        }
+
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+        }
+
+        .nav-close {
+            background: none;
+            border: none;
+            font-size: var(--font-size-xl);
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        .nav-list {
+            list-style: none;
+            padding: 1.5rem;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            color: var(--text-secondary);
+            border-radius: var(--radius-md);
+            transition: all var(--transition-fast);
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-color);
+            background-color: var(--bg-tertiary);
+        }
+
+        .nav-link.active .nav-indicator {
+            width: 4px;
+            opacity: 1;
+        }
+
+        .nav-indicator {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 60%;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-full);
+            opacity: 0;
+            transition: all var(--transition-fast);
+        }
+
+        /* Menu Toggle */
+        .menu-toggle {
+            background: none;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .bar {
+            width: 24px;
+            height: 2px;
+            background-color: var(--text-primary);
+            border-radius: var(--radius-full);
+            transition: all var(--transition-fast);
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-normal);
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.5rem;
+            font-family: var(--font-family);
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--gradient-secondary);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-lg {
+            padding: 1rem 2rem;
+            font-size: var(--font-size-base);
+        }
+
+        /* Hero Section Products */
         .products-hero {
-            background: linear-gradient(135deg, 
-                rgba(15, 23, 42, 0.95) 0%, 
-                rgba(30, 41, 59, 0.95) 50%, 
-                rgba(15, 23, 42, 0.95) 100%);
-            padding: calc(var(--header-height) + var(--spacing-3xl)) 0 var(--spacing-3xl);
+            padding: calc(var(--header-height) + 3rem) 0 3rem;
+            background: var(--gradient-dark);
             position: relative;
             overflow: hidden;
         }
@@ -64,124 +399,136 @@
             width: 100%;
             height: 100%;
             background-image: 
-                radial-gradient(circle at 20% 80%, rgba(0, 255, 170, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
-            z-index: -1;
+                radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
         }
 
         .hero-content {
+            position: relative;
+            z-index: 1;
             text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
         }
 
-        .products-title {
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-tertiary);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-full);
+            margin-bottom: 1.5rem;
+            font-size: var(--font-size-sm);
+        }
+
+        .hero-title {
             font-size: var(--font-size-4xl);
-            margin-bottom: var(--spacing-lg);
-            background: linear-gradient(90deg, var(--secondary-color), var(--primary-light));
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             display: inline-block;
         }
 
-        @media (min-width: 768px) {
-            .products-title {
-                font-size: var(--font-size-5xl);
-            }
-        }
-
-        .products-subtitle {
+        .hero-description {
             font-size: var(--font-size-lg);
             color: var(--text-secondary);
-            line-height: 1.8;
-            margin-bottom: var(--spacing-2xl);
-        }
-
-        /* Product Stats */
-        .product-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: var(--spacing-lg);
             max-width: 600px;
-            margin: var(--spacing-3xl) auto;
+            margin: 0 auto 2rem;
         }
 
-        .stat-item {
-            text-align: center;
-            padding: var(--spacing-lg);
+        /* Search Section */
+        .search-section {
+            padding: 2rem 0;
             background: var(--bg-secondary);
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--border-color);
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem 1rem 3.5rem;
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-full);
+            font-family: var(--font-family);
+            font-size: var(--font-size-base);
+            color: var(--text-primary);
             transition: all var(--transition-fast);
         }
 
-        .stat-item:hover {
-            transform: translateY(-5px);
+        .search-input:focus {
+            outline: none;
             border-color: var(--primary-color);
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
-        .stat-icon {
-            width: 50px;
-            height: 50px;
-            margin: 0 auto var(--spacing-md);
-            background: var(--gradient-primary);
-            border-radius: var(--radius-full);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: var(--font-size-xl);
-        }
-
-        .stat-number {
-            font-size: var(--font-size-2xl);
-            font-weight: 800;
-            color: var(--text-primary);
-            display: block;
-            margin-bottom: var(--spacing-xs);
-        }
-
-        .stat-label {
-            font-size: var(--font-size-sm);
+        .search-icon {
+            position: absolute;
+            top: 50%;
+            right: 1.5rem;
+            transform: translateY(-50%);
             color: var(--text-secondary);
+        }
+
+        .search-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+
+        .search-tag {
+            padding: 0.25rem 0.75rem;
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-sm);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            border: 1px solid var(--border-color);
+        }
+
+        .search-tag:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: transparent;
         }
 
         /* Products Section */
         .products-section {
-            padding: var(--spacing-3xl) 0;
-            background: var(--bg-primary);
+            padding: 3rem 0;
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: var(--spacing-3xl);
+            margin-bottom: 3rem;
         }
 
         .section-badge {
             display: inline-flex;
             align-items: center;
-            gap: var(--spacing-sm);
+            gap: 0.5rem;
             background: var(--gradient-primary);
             color: white;
-            padding: var(--spacing-sm) var(--spacing-lg);
+            padding: 0.5rem 1.5rem;
             border-radius: var(--radius-full);
             font-size: var(--font-size-sm);
             font-weight: 600;
-            margin-bottom: var(--spacing-xl);
+            margin-bottom: 1.5rem;
         }
 
         .section-title {
             font-size: var(--font-size-3xl);
-            margin-bottom: var(--spacing-lg);
-        }
-
-        @media (min-width: 768px) {
-            .section-title {
-                font-size: var(--font-size-4xl);
-            }
+            margin-bottom: 1rem;
         }
 
         .section-description {
@@ -189,34 +536,21 @@
             color: var(--text-secondary);
             max-width: 600px;
             margin: 0 auto;
-            line-height: 1.8;
         }
 
-        /* Products Grid */
         .products-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: var(--spacing-3xl);
-            max-width: 1000px;
-            margin: 0 auto;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
         }
 
-        @media (min-width: 992px) {
-            .products-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        /* Product Card */
         .product-card {
             background: var(--bg-secondary);
             border-radius: var(--radius-xl);
             overflow: hidden;
             border: 1px solid var(--border-color);
             transition: all var(--transition-normal);
-            height: 100%;
-            display: flex;
-            flex-direction: column;
         }
 
         .product-card:hover {
@@ -244,332 +578,288 @@
 
         .product-badge {
             position: absolute;
-            top: var(--spacing-md);
-            left: var(--spacing-md);
-            background: var(--gradient-secondary);
+            top: 1rem;
+            right: 1rem;
+            padding: 0.25rem 0.75rem;
+            background: var(--gradient-primary);
             color: white;
-            padding: var(--spacing-xs) var(--spacing-md);
             border-radius: var(--radius-full);
             font-size: var(--font-size-xs);
             font-weight: 600;
-            z-index: 1;
         }
 
         .product-content {
-            padding: var(--spacing-xl);
-            flex: 1;
-            display: flex;
-            flex-direction: column;
+            padding: 1.5rem;
         }
 
         .product-header {
-            margin-bottom: var(--spacing-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
         }
 
         .product-title {
             font-size: var(--font-size-xl);
-            margin-bottom: var(--spacing-sm);
-            color: var(--text-primary);
+            margin: 0;
         }
 
-        .product-rating {
-            display: flex;
-            align-items: center;
-            gap: var(--spacing-xs);
-            color: var(--accent-yellow);
-            font-size: var(--font-size-sm);
+        .product-price {
+            font-size: var(--font-size-lg);
+            font-weight: 700;
+            color: var(--primary-color);
         }
 
         .product-description {
             color: var(--text-secondary);
+            margin-bottom: 1.5rem;
             line-height: 1.7;
-            margin-bottom: var(--spacing-lg);
-            flex: 1;
-        }
-
-        .product-features {
-            list-style: none;
-            padding: 0;
-            margin-bottom: var(--spacing-lg);
-        }
-
-        .product-features li {
-            display: flex;
-            align-items: center;
-            gap: var(--spacing-sm);
-            margin-bottom: var(--spacing-sm);
-            color: var(--text-secondary);
-            font-size: var(--font-size-sm);
-        }
-
-        .product-features li i {
-            color: var(--secondary-color);
         }
 
         .product-specs {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: var(--spacing-md);
-            margin-bottom: var(--spacing-lg);
-            padding: var(--spacing-md);
-            background: var(--bg-tertiary);
-            border-radius: var(--radius-md);
-        }
-
-        .spec-item {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: var(--spacing-sm);
-            border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
         }
 
-        .spec-label {
+        .spec-tag {
+            padding: 0.25rem 0.75rem;
+            background: var(--bg-tertiary);
             color: var(--text-secondary);
-            font-size: var(--font-size-sm);
-        }
-
-        .spec-value {
-            color: var(--text-primary);
-            font-weight: 600;
-            font-size: var(--font-size-sm);
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-xs);
+            border: 1px solid var(--border-color);
         }
 
         .product-actions {
             display: flex;
-            gap: var(--spacing-md);
-            margin-top: auto;
+            gap: 0.75rem;
         }
 
-        .product-actions .btn {
+        .btn-view, .btn-order {
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: var(--spacing-sm);
-            padding: var(--spacing-sm);
-            text-align: center;
+            gap: 0.5rem;
         }
 
-        /* Categories Filter */
-        .categories-filter {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: var(--spacing-sm);
-            margin-bottom: var(--spacing-2xl);
-        }
-
-        .category-btn {
-            padding: var(--spacing-sm) var(--spacing-lg);
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-full);
-            color: var(--text-secondary);
-            font-family: var(--font-family);
-            font-size: var(--font-size-sm);
-            font-weight: 600;
-            cursor: pointer;
-            transition: all var(--transition-fast);
-        }
-
-        .category-btn:hover {
+        /* About Products Section */
+        .about-products {
+            padding: 3rem 0;
             background: var(--bg-secondary);
-            color: var(--text-primary);
         }
 
-        .category-btn.active {
-            background: var(--gradient-primary);
-            color: white;
-            border-color: transparent;
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            align-items: center;
         }
 
-        /* CTA Section */
-        .products-cta {
-            background: linear-gradient(135deg, var(--bg-dark), var(--bg-dark-secondary));
-            border-radius: var(--radius-2xl);
-            padding: var(--spacing-3xl);
-            text-align: center;
-            margin-top: var(--spacing-3xl);
-            border: 1px solid var(--border-color);
+        .about-image img {
+            width: 100%;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
         }
 
-        .cta-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .cta-title {
+        .about-content h3 {
             font-size: var(--font-size-2xl);
-            margin-bottom: var(--spacing-md);
+            margin-bottom: 1rem;
         }
 
-        .cta-description {
+        .about-content p {
             color: var(--text-secondary);
-            font-size: var(--font-size-lg);
-            margin-bottom: var(--spacing-2xl);
+            margin-bottom: 1.5rem;
         }
 
-        .cta-buttons {
+        .features-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .features-list li {
             display: flex;
-            flex-direction: column;
-            gap: var(--spacing-md);
-            justify-content: center;
-        }
-
-        @media (min-width: 768px) {
-            .cta-buttons {
-                flex-direction: row;
-            }
-        }
-
-        /* Back to Home */
-        .back-home {
-            display: inline-flex;
             align-items: center;
-            gap: var(--spacing-sm);
-            margin-top: var(--spacing-3xl);
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .features-list li i {
+            color: var(--secondary-color);
+        }
+
+        /* Footer */
+        .main-footer {
+            background: var(--bg-primary);
+            padding: 3rem 0 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h4 {
+            font-size: var(--font-size-lg);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-menu {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-menu li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-menu a {
+            color: var(--text-secondary);
+            transition: color var(--transition-fast);
+        }
+
+        .footer-menu a:hover {
             color: var(--primary-color);
-            text-decoration: none;
-            padding: var(--spacing-md) var(--spacing-xl);
-            border-radius: var(--radius-full);
-            border: 2px solid var(--primary-color);
-            font-weight: 600;
-            transition: all var(--transition-fast);
         }
 
-        .back-home:hover {
-            background: var(--primary-color);
-            color: white;
-            transform: translateX(-5px);
-        }
-
-        /* Print Page */
-        .print-page {
+        .footer-bottom {
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
             text-align: center;
-            margin-top: var(--spacing-2xl);
+            color: var(--text-secondary);
+            font-size: var(--font-size-sm);
         }
-
-        .btn-print {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--spacing-sm);
-            background: var(--bg-tertiary);
-            color: var(--text-primary);
-            padding: var(--spacing-md) var(--spacing-xl);
-            border-radius: var(--radius-full);
-            text-decoration: none;
-            font-weight: 600;
-            border: 1px solid var(--border-color);
-            transition: all var(--transition-fast);
-        }
-
-        .btn-print:hover {
-            background: var(--gradient-primary);
-            color: white;
-            border-color: transparent;
-        }
-
-        /* Animation for product cards */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .product-card {
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        .product-card:nth-child(1) { animation-delay: 0.1s; }
-        .product-card:nth-child(2) { animation-delay: 0.2s; }
-        .product-card:nth-child(3) { animation-delay: 0.3s; }
-        .product-card:nth-child(4) { animation-delay: 0.4s; }
 
         /* Responsive Design */
+        @media (min-width: 1024px) {
+            .menu-toggle {
+                display: none;
+            }
+            
+            .main-nav {
+                position: static;
+                width: auto;
+                height: auto;
+                background: transparent;
+                box-shadow: none;
+                overflow: visible;
+            }
+            
+            .nav-header {
+                display: none;
+            }
+            
+            .nav-list {
+                display: flex;
+                padding: 0;
+                gap: 0.5rem;
+            }
+            
+            .nav-item {
+                margin: 0;
+            }
+            
+            .nav-link {
+                padding: 0.5rem 1rem;
+            }
+            
+            .nav-indicator {
+                right: 50%;
+                bottom: -5px;
+                top: auto;
+                transform: translateX(50%);
+                height: 3px;
+                width: 0;
+            }
+            
+            .nav-link.active .nav-indicator {
+                width: 20px;
+            }
+        }
+
         @media (max-width: 768px) {
-            .products-title {
-                font-size: var(--font-size-2xl);
-            }
-            
-            .products-subtitle {
-                font-size: var(--font-size-base);
-            }
-            
-            .product-stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .product-image {
-                height: 200px;
-            }
-            
-            .product-specs {
-                grid-template-columns: 1fr;
+            .hero-title {
+                font-size: var(--font-size-3xl);
             }
             
             .product-actions {
                 flex-direction: column;
             }
             
-            .cta-content {
-                padding: var(--spacing-xl);
-            }
-        }
-
-        @media (max-width: 480px) {
-            .product-stats {
+            .products-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .categories-filter {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .category-btn {
-                width: 100%;
-                max-width: 250px;
-            }
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: var(--bg-tertiary);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theme-icon {
+            position: absolute;
+            top: 50%;
+            right: 50%;
+            transform: translate(50%, -50%);
+            transition: all var(--transition-normal);
+        }
+
+        .fa-moon {
+            opacity: 1;
+        }
+
+        .fa-sun {
+            opacity: 0;
+            transform: translate(50%, -50%) rotate(90deg);
+        }
+
+        [data-theme="light"] .fa-moon {
+            opacity: 0;
+            transform: translate(50%, -50%) rotate(-90deg);
+        }
+
+        [data-theme="light"] .fa-sun {
+            opacity: 1;
+            transform: translate(50%, -50%) rotate(0);
+        }
+
+        /* No Results Message */
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+            display: none;
+        }
+
+        .no-results.show {
+            display: block;
+        }
+
+        .no-results i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+            opacity: 0.5;
         }
     </style>
-    
-    <!-- Preload Critical Resources -->
-    <link rel="preload" href="../style.css" as="style">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" 
-          as="style" crossorigin="anonymous">
-    
-    <!-- Preconnect to important domains -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 </head>
-
-<body>
-    <!-- Loading Screen -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="spinner-container">
-            <div class="spinner">
-                <div class="double-bounce1"></div>
-                <div class="double-bounce2"></div>
-            </div>
-            <div class="loading-text">
-                <p class="loading-message">در حال بارگذاری محصولات...</p>
-                <div class="loading-progress">
-                    <div class="progress-bar">
-                        <div class="progress-fill"></div>
-                    </div>
-                    <span class="progress-text">0%</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
+<body data-theme="dark">
     <!-- Header -->
     <header class="main-header">
         <div class="container">
@@ -586,6 +876,7 @@
                     </a>
                 </div>
                 
+                <!-- Navigation -->
                 <nav class="main-nav" id="mainNav">
                     <div class="nav-header">
                         <div class="nav-logo">
@@ -627,6 +918,20 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="../index.html#education" class="nav-link">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>تحصیلات</span>
+                                <span class="nav-indicator"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="../archive.html" class="nav-link">
+                                <i class="fas fa-archive"></i>
+                                <span>آرشیو</span>
+                                <span class="nav-indicator"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="products.html" class="nav-link active">
                                 <i class="fas fa-cube"></i>
                                 <span>محصولات</span>
@@ -641,54 +946,16 @@
                             </a>
                         </li>
                     </ul>
-                    
-                    <div class="mobile-contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <a href="tel:+989902279702">۰۹۹۰۲۲۷۹۷۰۲</a>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <a href="mailto:mahan.neman2020@gmail.com">mahan.neman2020@gmail.com</a>
-                        </div>
-                    </div>
-                    
-                    <div class="mobile-social">
-                        <a href="https://t.me/mahanenman" class="social-icon" target="_blank" aria-label="تلگرام">
-                            <i class="fab fa-telegram"></i>
-                        </a>
-                        <a href="https://www.instagram.com/mahantheloner" class="social-icon" target="_blank" aria-label="اینستاگرام">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="mailto:mahan.neman2020@gmail.com" class="social-icon" aria-label="ایمیل">
-                            <i class="fas fa-envelope"></i>
-                        </a>
-                    </div>
-                    
-                    <div class="mobile-actions">
-                        <a href="../resume.pdf" download class="btn btn-download-mobile">
-                            <i class="fas fa-download"></i>
-                            دانلود رزومه
-                        </a>
-                        <a href="../index.html#contact" class="btn btn-primary-mobile">
-                            <i class="fas fa-paper-plane"></i>
-                            درخواست همکاری
-                        </a>
-                    </div>
                 </nav>
                 
+                <!-- Header Actions -->
                 <div class="header-actions">
-                    <a href="../resume.pdf" download class="btn btn-outline btn-resume">
-                        <i class="fas fa-file-download"></i>
-                        <span class="btn-text">رزومه PDF</span>
-                    </a>
-                    
                     <button id="themeToggle" class="theme-toggle" aria-label="تغییر تم">
                         <i class="fas fa-moon theme-icon"></i>
                         <i class="fas fa-sun theme-icon"></i>
-                        <span class="theme-label">تم</span>
                     </button>
                     
+                    <!-- Mobile Menu Toggle -->
                     <button class="menu-toggle" id="menuToggle" aria-label="منو" aria-expanded="false">
                         <span class="hamburger">
                             <span class="bar bar1"></span>
@@ -709,760 +976,393 @@
     <section class="products-hero">
         <div class="container">
             <div class="hero-content">
-                <div class="intro-badge">
+                <div class="hero-badge">
                     <i class="fas fa-cube"></i>
-                    <span>فروشگاه مهندسی</span>
+                    <span>پرینتر سه‌بعدی</span>
                 </div>
-                
-                <h1 class="products-title">
-                    محصولات مهندسی و چاپ سه‌بعدی
-                </h1>
-                
-                <p class="products-subtitle">
-                    طراحی و تولید قطعات مکانیکی با تمرکز بر کاربرد واقعی، تحلیل مهندسی، قابلیت ساخت و شخصی‌سازی برای پروژه‌های صنعتی، دانشگاهی و تحقیقاتی
+                <h1 class="hero-title">محصولات پرینتر سه‌بعدی</h1>
+                <p class="hero-description">
+                    طراحی و تولید قطعات صنعتی با کیفیت بالا توسط پرینتر سه‌بعدی. محصولاتی با دقت بالا و مقاومت مناسب برای کاربردهای صنعتی.
                 </p>
-                
-                <div class="product-stats">
-                    <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
-                        <div class="stat-icon">
-                            <i class="fas fa-cube"></i>
-                        </div>
-                        <span class="stat-number" data-count="8" data-speed="200">0</span>
-                        <span class="stat-label">محصول فعال</span>
+                <a href="#products" class="btn btn-primary btn-lg">
+                    <i class="fas fa-shopping-cart"></i>
+                    مشاهده محصولات
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" 
+                           id="productSearch" 
+                           class="search-input" 
+                           placeholder="جستجو در محصولات...">
+                    <div class="search-icon">
+                        <i class="fas fa-search"></i>
                     </div>
-                    <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
-                        <div class="stat-icon">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <span class="stat-number" data-count="25" data-speed="150">0</span>
-                        <span class="stat-label">فروش موفق</span>
-                    </div>
-                    <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
-                        <div class="stat-icon">
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <span class="stat-number" data-count="4.8" data-speed="100">0</span>
-                        <span class="stat-label">رضایت مشتری</span>
-                    </div>
-                    <div class="stat-item" data-aos="fade-up" data-aos-delay="400">
-                        <div class="stat-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <span class="stat-number" data-count="24" data-speed="250">0</span>
-                        <span class="stat-label">ساعت پشتیبانی</span>
-                    </div>
+                </div>
+                <div class="search-tags">
+                    <span class="search-tag" data-filter="all">همه محصولات</span>
+                    <span class="search-tag" data-filter="گیربکس">گیربکس</span>
+                    <span class="search-tag" data-filter="واتر پمپ">واتر پمپ</span>
+                    <span class="search-tag" data-filter="صنعتی">صنعتی</span>
+                    <span class="search-tag" data-filter="پرینتر سه‌بعدی">پرینتر سه‌بعدی</span>
+                    <span class="search-tag" data-filter="مکانیکی">مکانیکی</span>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Products Section -->
-    <section class="products-section">
+    <section id="products" class="products-section">
         <div class="container">
-            <div class="section-header" data-aos="fade-up">
+            <div class="section-header">
                 <span class="section-badge">
-                    <i class="fas fa-shopping-cart"></i>
-                    محصولات منتخب
+                    <i class="fas fa-box-open"></i>
+                    محصولات ما
                 </span>
-                <h2 class="section-title">محصولات مهندسی طراحی شده</h2>
-                <div class="section-divider">
-                    <div class="divider-line"></div>
-                    <div class="divider-icon">
-                        <i class="fas fa-cog fa-spin"></i>
-                    </div>
-                    <div class="divider-line"></div>
-                </div>
+                <h2 class="section-title">محصولات پرینتر سه‌بعدی</h2>
                 <p class="section-description">
-                    قطعات مکانیکی طراحی و تولید شده با تکنولوژی چاپ سه‌بعدی و متریال با کیفیت
+                    قطعات صنعتی طراحی و تولید شده با پرینتر سه‌بعدی با بالاترین کیفیت و دقت
                 </p>
             </div>
-            
-            <!-- Categories Filter -->
-            <div class="categories-filter" data-aos="fade-up">
-                <button class="category-btn active" data-category="all">
-                    <i class="fas fa-layer-group"></i>
-                    همه محصولات
-                </button>
-                <button class="category-btn" data-category="gearbox">
-                    <i class="fas fa-cogs"></i>
-                    گیربکس و انتقال قدرت
-                </button>
-                <button class="category-btn" data-category="pump">
-                    <i class="fas fa-water"></i>
-                    پمپ و سیستم‌های سیالاتی
-                </button>
-                <button class="category-btn" data-category="custom">
-                    <i class="fas fa-wrench"></i>
-                    قطعات سفارشی
-                </button>
-                <button class="category-btn" data-category="educational">
-                    <i class="fas fa-graduation-cap"></i>
-                    آموزش و تحقیقات
-                </button>
-            </div>
-            
-            <!-- Products Grid -->
-            <div class="products-grid">
+
+            <div class="products-grid" id="productsGrid">
                 <!-- Product 1: Gearbox -->
-                <div class="product-card" data-category="gearbox" data-aos="zoom-in" data-aos-delay="100">
+                <div class="product-card" data-categories="گیربکس صنعتی پرینتر سه‌بعدی مکانیکی">
                     <div class="product-image">
-                        <img src="../photo3d/11.png" 
-                             alt="گیربکس مکانیکی چاپ سه‌بعدی" 
-                             class="product-img lazy"
-                             loading="lazy"
-                             onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
-                        <div class="product-badge">
-                            <i class="fas fa-fire"></i>
-                            پرفروش
-                        </div>
+                        <img src="gearbox.jpg" alt="گیربکس صنعتی پرینتر سه‌بعدی" class="product-img">
+                        <div class="product-badge">پرینتر سه‌بعدی</div>
                     </div>
-                    
                     <div class="product-content">
                         <div class="product-header">
-                            <h3 class="product-title">گیربکس مکانیکی چاپ سه‌بعدی</h3>
-                            <div class="product-rating">
-                                <i class="fas fa-star"></i>
-                                <span>۴.۹</span>
-                                <span class="rating-count">(۱۲ نظر)</span>
-                            </div>
+                            <h3 class="product-title">گیربکس صنعتی</h3>
+                            <div class="product-price">شروع از ۲۹۰,۰۰۰ تومان</div>
                         </div>
-                        
                         <p class="product-description">
-                            گیربکس طراحی شده با تمرکز بر کارایی و قابلیت اطمینان، مناسب برای سیستم‌های رباتیک و مکاترونیک. این گیربکس با نسبت انتقال بهینه و ساختار مدولار امکان استفاده در پروژه‌های مختلف صنعتی و دانشگاهی را فراهم می‌کند.
+                            گیربکس صنعتی با طراحی بهینه و مواد با کیفیت بالا. مناسب برای استفاده در سیستم‌های انتقال قدرت صنعتی با کارایی بالا و طول عمر زیاد.
                         </p>
                         
-                        <ul class="product-features">
-                            <li><i class="fas fa-check"></i> نسبت انتقال قابل تنظیم</li>
-                            <li><i class="fas fa-check"></i> طراحی مدولار</li>
-                            <li><i class="fas fa-check"></i> مونتاژ آسان</li>
-                            <li><i class="fas fa-check"></i> قابلیت شخصی‌سازی</li>
-                        </ul>
-                        
                         <div class="product-specs">
-                            <div class="spec-item">
-                                <span class="spec-label">جنس</span>
-                                <span class="spec-value">PLA+ / PETG</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">نسبت انتقال</span>
-                                <span class="spec-value">۱:۵ تا ۱:۲۰</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">ولتاژ کاری</span>
-                                <span class="spec-value">۶-۱۲ ولت</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">گشتاور خروجی</span>
-                                <span class="spec-value">تا ۲ N.m</span>
-                            </div>
+                            <span class="spec-tag">جنس: PLA+</span>
+                            <span class="spec-tag">دقت: ±۰.۱mm</span>
+                            <span class="spec-tag">مقاومت حرارتی: ۶۰°C</span>
+                            <span class="spec-tag">وزن: ۲۵۰g</span>
                         </div>
                         
                         <div class="product-actions">
-                            <a href="gearbox.html" class="btn btn-primary">
+                            <a href="gearbox.html" class="btn btn-outline btn-view">
                                 <i class="fas fa-eye"></i>
-                                مشاهده جزییات
+                                مشاهده محصول
                             </a>
-                            <a href="https://docs.google.com/forms/d/e/1FAIpQLScBzAVQ8Jq9ua9qxVseNzVNmCZ998W_zGLGaCohayokzXKbng/viewform?usp=dialog" 
-                               target="_blank" class="btn btn-secondary">
+                            <a href=https://forms.gle/sNCzEuyLStef2CcQ7" target="_blank" class="btn btn-primary btn-order">
                                 <i class="fas fa-shopping-cart"></i>
-                                درخواست خرید
+                                سفارش محصول
                             </a>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Product 2: Water Pump -->
-                <div class="product-card" data-category="pump" data-aos="zoom-in" data-aos-delay="200">
+                <div class="product-card" data-categories="واتر پمپ صنعتی پرینتر سه‌بعدی مکانیکی">
                     <div class="product-image">
-                        <img src="../photo3d/11.png" 
-                             alt="پمپ آب و سیالات چاپ سه‌بعدی" 
-                             class="product-img lazy"
-                             loading="lazy"
-                             onerror="this.src='https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
-                        <div class="product-badge">
-                            <i class="fas fa-bolt"></i>
-                            جدید
-                        </div>
+                        <img src="waterpump.jpg" alt="واتر پمپ پرینتر سه‌بعدی" class="product-img">
+                        <div class="product-badge">پرینتر سه‌بعدی</div>
                     </div>
-                    
                     <div class="product-content">
                         <div class="product-header">
-                            <h3 class="product-title">پمپ آب و سیالات چاپ سه‌بعدی</h3>
-                            <div class="product-rating">
-                                <i class="fas fa-star"></i>
-                                <span>۴.۷</span>
-                                <span class="rating-count">(۸ نظر)</span>
-                            </div>
+                            <h3 class="product-title">واتر پمپ صنعتی</h3>
+                            <div class="product-price">شروع از ۳۵۰,۰۰۰ تومان</div>
                         </div>
-                        
                         <p class="product-description">
-                            پمپ آب طراحی شده برای سیستم‌های ولتاژ پایین با راندمان بالا و مصرف انرژی کم. مناسب برای کاربردهای خنک‌کاری، آبیاری هوشمند و پروژه‌های DIY با قابلیت اطمینان بالا و نگهداری آسان.
+                            پمپ آب صنعتی با طراحی مقاوم در برابر خوردگی و سایش. مناسب برای سیستم‌های آبیاری و صنعتی با دبی و فشار قابل تنظیم.
                         </p>
                         
-                        <ul class="product-features">
-                            <li><i class="fas fa-check"></i> طراحی کامپکت</li>
-                            <li><i class="fas fa-check"></i> آب‌بندی کامل</li>
-                            <li><i class="fas fa-check"></i> مصرف انرژی کم</li>
-                            <li><i class="fas fa-check"></i> نگهداری آسان</li>
-                        </ul>
-                        
                         <div class="product-specs">
-                            <div class="spec-item">
-                                <span class="spec-label">ولتاژ کاری</span>
-                                <span class="spec-value">۵-۱۲ ولت DC</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">دبی آب</span>
-                                <span class="spec-value">تا ۳ لیتر در دقیقه</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">هد پمپ</span>
-                                <span class="spec-value">تا ۲ متر</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">جنس بدنه</span>
-                                <span class="spec-value">PETG / ABS</span>
-                            </div>
+                            <span class="spec-tag">جنس: PETG</span>
+                            <span class="spec-tag">دقت: ±۰.۱۵mm</span>
+                            <span class="spec-tag">مقاومت شیمیایی: بالا</span>
+                            <span class="spec-tag">وزن: ۳۲۰g</span>
                         </div>
                         
                         <div class="product-actions">
-                            <a href="waterpump.html" class="btn btn-primary">
+                            <a href="waterpump.html" class="btn btn-outline btn-view">
                                 <i class="fas fa-eye"></i>
-                                مشاهده جزییات
+                                مشاهده محصول
                             </a>
-                            <a href="https://docs.google.com/forms/d/e/1FAIpQLScBzAVQ8Jq9ua9qxVseNzVNmCZ998W_zGLGaCohayokzXKbng/viewform?usp=dialog" 
-                               target="_blank" class="btn btn-secondary">
+                            <a href="https://forms.gle/sNCzEuyLStef2CcQ7" target="_blank" class="btn btn-primary btn-order">
                                 <i class="fas fa-shopping-cart"></i>
-                                درخواست خرید
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Product 3: Custom Mechanical Parts -->
-                <div class="product-card" data-category="custom" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="product-image">
-                        <img src="../photo3d/11.png" 
-                             alt="قطعات مکانیکی سفارشی" 
-                             class="product-img lazy"
-                             loading="lazy"
-                             onerror="this.src='https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
-                        <div class="product-badge">
-                            <i class="fas fa-star"></i>
-                            ویژه
-                        </div>
-                    </div>
-                    
-                    <div class="product-content">
-                        <div class="product-header">
-                            <h3 class="product-title">قطعات مکانیکی سفارشی</h3>
-                            <div class="product-rating">
-                                <i class="fas fa-star"></i>
-                                <span>۴.۸</span>
-                                <span class="rating-count">(۱۵ نظر)</span>
-                            </div>
-                        </div>
-                        
-                        <p class="product-description">
-                            طراحی و تولید قطعات مکانیکی سفارشی بر اساس نیاز مشتری. از قطعات ساده تا مجموعه‌های پیچیده مکانیکی با دقت بالا و قابلیت اطمینان مناسب برای کاربردهای صنعتی و تحقیقاتی.
-                        </p>
-                        
-                        <ul class="product-features">
-                            <li><i class="fas fa-check"></i> طراحی اختصاصی</li>
-                            <li><i class="fas fa-check"></i> متریال متنوع</li>
-                            <li><i class="fas fa-check"></i> دقت بالا</li>
-                            <li><i class="fas fa-check"></i> پشتیبانی فنی</li>
-                        </ul>
-                        
-                        <div class="product-specs">
-                            <div class="spec-item">
-                                <span class="spec-label">دقت ساخت</span>
-                                <span class="spec-value">±۰.۱ میلی‌متر</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">متریال</span>
-                                <span class="spec-value">PLA, PETG, ABS, Nylon</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">زمان تحویل</span>
-                                <span class="spec-value">۳-۷ روز کاری</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">پشتیبانی</span>
-                                <span class="spec-value">۶ ماه</span>
-                            </div>
-                        </div>
-                        
-                        <div class="product-actions">
-                            <a href="custom-parts.html" class="btn btn-primary">
-                                <i class="fas fa-eye"></i>
-                                مشاهده نمونه‌ها
-                            </a>
-                            <a href="../index.html#contact" class="btn btn-secondary">
-                                <i class="fas fa-pen"></i>
-                                درخواست طراحی
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Product 4: Educational Kits -->
-                <div class="product-card" data-category="educational" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="product-image">
-                        <img src="../photo3d/11.png" 
-                             alt="کیت آموزشی مکانیک" 
-                             class="product-img lazy"
-                             loading="lazy"
-                             onerror="this.src='https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
-                        <div class="product-badge">
-                            <i class="fas fa-graduation-cap"></i>
-                            آموزشی
-                        </div>
-                    </div>
-                    
-                    <div class="product-content">
-                        <div class="product-header">
-                            <h3 class="product-title">کیت آموزشی مکانیک و رباتیک</h3>
-                            <div class="product-rating">
-                                <i class="fas fa-star"></i>
-                                <span>۴.۹</span>
-                                <span class="rating-count">(۱۰ نظر)</span>
-                            </div>
-                        </div>
-                        
-                        <p class="product-description">
-                            کیت آموزشی طراحی شده برای دانشجویان و علاقه‌مندان به مهندسی مکانیک و رباتیک. شامل قطعات مختلف مکانیکی، راهنمای مونتاژ و مثال‌های عملی برای درک بهتر مفاهیم مهندسی.
-                        </p>
-                        
-                        <ul class="product-features">
-                            <li><i class="fas fa-check"></i> قطعات متنوع</li>
-                            <li><i class="fas fa-check"></i> راهنمای فارسی</li>
-                            <li><i class="fas fa-check"></i> مثال‌های عملی</li>
-                            <li><i class="fas fa-check"></i> پشتیبانی آموزشی</li>
-                        </ul>
-                        
-                        <div class="product-specs">
-                            <div class="spec-item">
-                                <span class="spec-label">تعداد قطعات</span>
-                                <span class="spec-value">۵۰+ قطعه</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">سطح آموزشی</span>
-                                <span class="spec-value">مقدماتی تا پیشرفته</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">مناسب برای</span>
-                                <span class="spec-value">دانشگاه‌ها و مدارس</span>
-                            </div>
-                            <div class="spec-item">
-                                <span class="spec-label">گارانتی</span>
-                                <span class="spec-value">۱۲ ماه</span>
-                            </div>
-                        </div>
-                        
-                        <div class="product-actions">
-                            <a href="educational-kits.html" class="btn btn-primary">
-                                <i class="fas fa-eye"></i>
-                                مشاهده کیت‌ها
-                            </a>
-                            <a href="https://docs.google.com/forms/d/e/1FAIpQLScBzAVQ8Jq9ua9qxVseNzVNmCZ998W_zGLGaCohayokzXKbng/viewform?usp=dialog" 
-                               target="_blank" class="btn btn-secondary">
-                                <i class="fas fa-shopping-cart"></i>
-                                درخواست خرید
+                                سفارش محصول
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- CTA Section -->
-            <div class="products-cta" data-aos="fade-up">
-                <div class="cta-content">
-                    <h3 class="cta-title">نیاز به قطعه خاصی دارید؟</h3>
-                    <p class="cta-description">
-                        اگر قطعه یا محصول خاصی مد نظر شماست، می‌توانیم آن را به صورت سفارشی طراحی و تولید کنیم. کافیست نیازهای خود را با ما در میان بگذارید.
+
+            <!-- No Results Message -->
+            <div class="no-results" id="noResults">
+                <i class="fas fa-search"></i>
+                <h3>محصولی یافت نشد</h3>
+                <p>لطفاً عبارت جستجوی خود را تغییر دهید</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Products Section -->
+    <section class="about-products">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="پرینتر سه‌بعدی">
+                </div>
+                <div class="about-content">
+                    <h3>درباره محصولات پرینتر سه‌بعدی</h3>
+                    <p>
+                        محصولات ارائه شده با استفاده از پیشرفته‌ترین پرینترهای سه‌بعدی و مواد اولیه با کیفیت تولید می‌شوند. هر محصول پس از طراحی دقیق در نرم‌افزارهای CAD، با دقت بالا چاپ شده و برای اطمینان از کیفیت، تست‌های لازم بر روی آن انجام می‌شود.
                     </p>
-                    <div class="cta-buttons">
-                        <a href="../index.html#contact" class="btn btn-primary btn-lg">
-                            <i class="fas fa-pen"></i>
-                            درخواست طراحی سفارشی
-                        </a>
-                        <a href="tel:+989902279702" class="btn btn-secondary btn-lg">
-                            <i class="fas fa-phone"></i>
-                            تماس برای مشاوره
-                        </a>
-                    </div>
+                    <p>
+                        ما افتخار می‌کنیم که با دانش فنی و تجربه در زمینه مهندسی مکانیک، محصولاتی با کیفیت و کاربردی برای صنایع مختلف ارائه می‌دهیم.
+                    </p>
+                    
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> طراحی بهینه با نرم‌افزارهای CAD</li>
+                        <li><i class="fas fa-check-circle"></i> چاپ با دقت بالا (±۰.۱mm)</li>
+                        <li><i class="fas fa-check-circle"></i> استفاده از مواد با کیفیت (PLA+, PETG, ABS)</li>
+                        <li><i class="fas fa-check-circle"></i> تست کیفیت قبل از ارسال</li>
+                        <li><i class="fas fa-check-circle"></i> پشتیبانی فنی پس از فروش</li>
+                    </ul>
                 </div>
-            </div>
-            
-            <!-- Print Page -->
-            <div class="print-page" data-aos="fade-up">
-                <a href="javascript:window.print()" class="btn-print">
-                    <i class="fas fa-print"></i>
-                    چاپ لیست محصولات
-                </a>
-            </div>
-            
-            <!-- Back to Home -->
-            <div class="text-center" data-aos="fade-up">
-                <a href="../index.html" class="back-home">
-                    <i class="fas fa-arrow-right"></i>
-                    بازگشت به صفحه اصلی
-                </a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="main-footer">
-        <div class="footer-wave">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"></path>
-            </svg>
-        </div>
-        
         <div class="container">
             <div class="footer-content">
-                <div class="footer-col footer-about">
-                    <div class="footer-logo">
-                        <div class="logo-icon">
-                            <i class="fas fa-cogs"></i>
-                        </div>
-                        <div class="logo-content">
-                            <h3>مهندس ماهان ادهم قزوینی</h3>
-                            <p class="logo-subtitle">طراحی و تولید قطعات مهندسی</p>
-                        </div>
-                    </div>
-                    
-                    <p class="footer-description">
-                        طراحی و تولید قطعات مکانیکی با کیفیت بالا و تکنولوژی چاپ سه‌بعدی. مناسب برای پروژه‌های صنعتی، دانشگاهی و تحقیقاتی.
-                    </p>
-                    
-                    <div class="footer-actions">
-                        <a href="../resume.pdf" download class="btn btn-outline btn-sm">
-                            <i class="fas fa-download"></i>
-                            دانلود رزومه
-                        </a>
-                        <a href="../index.html#contact" class="btn btn-primary btn-sm">
-                            <i class="fas fa-envelope"></i>
-                            تماس با من
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="footer-col footer-links">
-                    <h4 class="footer-title">لینک‌های سریع</h4>
+                <div class="footer-col">
+                    <h4>دسترسی سریع</h4>
                     <ul class="footer-menu">
-                        <li>
-                            <a href="../index.html" class="footer-link">
-                                <i class="fas fa-chevron-left"></i>
-                                <span>خانه</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="../index.html#about" class="footer-link">
-                                <i class="fas fa-chevron-left"></i>
-                                <span>درباره من</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="../index.html#projects" class="footer-link">
-                                <i class="fas fa-chevron-left"></i>
-                                <span>پروژه‌ها</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="products.html" class="footer-link">
-                                <i class="fas fa-chevron-left"></i>
-                                <span>محصولات</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="../index.html#contact" class="footer-link">
-                                <i class="fas fa-chevron-left"></i>
-                                <span>تماس</span>
-                            </a>
-                        </li>
+                        <li><a href="../index.html">خانه</a></li>
+                        <li><a href="../index.html#about">درباره من</a></li>
+                        <li><a href="../index.html#projects">پروژه‌ها</a></li>
+                        <li><a href="../index.html#contact">تماس با من</a></li>
                     </ul>
                 </div>
                 
-                <div class="footer-col footer-services">
-                    <h4 class="footer-title">خدمات محصولات</h4>
-                    <ul class="services-list">
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span>طراحی قطعات مکانیکی</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span>چاپ سه‌بعدی با کیفیت</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span>تحلیل مهندسی قطعات</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span>تولید سفارشی</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span>پشتیبانی فنی</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span>آموزش و راهنمایی</span>
-                        </li>
+                <div class="footer-col">
+                    <h4>محصولات</h4>
+                    <ul class="footer-menu">
+                        <li><a href="gearbox.html">گیربکس صنعتی</a></li>
+                        <li><a href="waterpump.html">واتر پمپ</a></li>
+                        <li><a href="#products">همه محصولات</a></li>
                     </ul>
                 </div>
                 
-                <div class="footer-col footer-social">
-                    <h4 class="footer-title">شبکه‌های اجتماعی</h4>
-                    <div class="social-links">
-                        <a href="https://t.me/mahanenman" class="social-link telegram" target="_blank" aria-label="تلگرام">
-                            <div class="link-icon">
-                                <i class="fab fa-telegram"></i>
-                            </div>
-                            <div class="link-content">
-                                <span class="link-name">تلگرام</span>
-                                <span class="link-handle">@mahanenman</span>
-                            </div>
-                            <div class="link-action">
-                                <i class="fas fa-external-link-alt"></i>
-                            </div>
-                        </a>
-                        
-                        <a href="https://www.instagram.com/mahantheloner" class="social-link instagram" target="_blank" aria-label="اینستاگرام">
-                            <div class="link-icon">
-                                <i class="fab fa-instagram"></i>
-                            </div>
-                            <div class="link-content">
-                                <span class="link-name">اینستاگرام</span>
-                                <span class="link-handle">@mahantheloner</span>
-                            </div>
-                            <div class="link-action">
-                                <i class="fas fa-external-link-alt"></i>
-                            </div>
-                        </a>
-                        
-                        <a href="mailto:mahan.neman2020@gmail.com" class="social-link email" aria-label="ایمیل">
-                            <div class="link-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="link-content">
-                                <span class="link-name">ایمیل</span>
-                                <span class="link-handle">mahan.neman2020</span>
-                            </div>
-                            <div class="link-action">
-                                <i class="fas fa-paper-plane"></i>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <div class="footer-contact">
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <a href="tel:+989902279702">۰۹۹۰۲۲۷۹۷۰۲</a>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <a href="mailto:mahan.neman2020@gmail.com">mahan.neman2020@gmail.com</a>
-                        </div>
-                    </div>
+                <div class="footer-col">
+                    <h4>ارتباط با من</h4>
+                    <ul class="footer-menu">
+                        <li><a href="tel:+989902279702">۰۹۹۰۲۲۷۹۷۰۲</a></li>
+                        <li><a href="mailto:mahan.neman2020@gmail.com">mahan.neman2020@gmail.com</a></li>
+                        <li><a href="https://t.me/mahanenman" target="_blank">تلگرام: @mahanenman</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>تخصص‌ها</h4>
+                    <ul class="footer-menu">
+                        <li><a href="../index.html#skills">تحلیل CFD</a></li>
+                        <li><a href="../index.html#skills">طراحی CAD</a></li>
+                        <li><a href="../index.html#skills">پرینتر سه‌بعدی</a></li>
+                    </ul>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <div class="copyright">
-                    <p>&copy; ۱۴۰۳ ماهان ادهم قزوینی. تمامی حقوق محفوظ است.</p>
-                    <p class="university">
-                        <i class="fas fa-university"></i>
-                        دانشگاه آزاد اسلامی واحد تهران مرکز - دانشکده فنی مهندسی
-                    </p>
-                </div>
-                
-                <div class="footer-badges">
-                    <div class="badge">
-                        <i class="fas fa-shipping-fast"></i>
-                        <span>ارسال سریع</span>
-                    </div>
-                    <div class="badge">
-                        <i class="fas fa-shield-alt"></i>
-                        <span>گارانتی کیفیت</span>
-                    </div>
-                    <div class="badge">
-                        <i class="fas fa-headset"></i>
-                        <span>پشتیبانی ۲۴ ساعته</span>
-                    </div>
-                </div>
+                <p>&copy; ۱۴۰۳ ماهان ادهم قزوینی. تمامی حقوق محفوظ است.</p>
+                <p>دانشگاه آزاد اسلامی واحد تهران مرکز - دانشکده فنی مهندسی</p>
             </div>
         </div>
     </footer>
 
-    <!-- Floating Action Buttons -->
-    <div class="fab-container">
-        <button class="fab fab-main" id="fabMain" aria-label="منوی عملیات سریع">
-            <i class="fas fa-bolt"></i>
-            <i class="fas fa-times"></i>
-        </button>
-        <div class="fab-options">
-            <a href="../index.html#contact" class="fab-option" title="تماس" aria-label="تماس با من">
-                <div class="option-icon">
-                    <i class="fas fa-phone"></i>
-                </div>
-                <span class="option-label">تماس</span>
-            </a>
-            <a href="tel:+989902279702" class="fab-option" title="تماس تلفنی" aria-label="تماس تلفنی">
-                <div class="option-icon">
-                    <i class="fas fa-mobile-alt"></i>
-                </div>
-                <span class="option-label">تلفن</span>
-            </a>
-            <button class="fab-option" id="themeFab" title="تغییر تم" aria-label="تغییر تم">
-                <div class="option-icon">
-                    <i class="fas fa-palette"></i>
-                </div>
-                <span class="option-label">تم</span>
-            </button>
-            <a href="#top" class="fab-option" title="بازگشت به بالا" aria-label="بازگشت به بالا">
-                <div class="option-icon">
-                    <i class="fas fa-arrow-up"></i>
-                </div>
-                <span class="option-label">بالا</span>
-            </a>
-            <a href="https://t.me/mahanenman" target="_blank" class="fab-option" title="تلگرام" aria-label="ارتباط از طریق تلگرام">
-                <div class="option-icon">
-                    <i class="fab fa-telegram"></i>
-                </div>
-                <span class="option-label">تلگرام</span>
-            </a>
-        </div>
-    </div>
-
-    <!-- Back to Top Button -->
-    <button id="backToTop" class="back-to-top" aria-label="بازگشت به بالا">
-        <i class="fas fa-chevron-up"></i>
-    </button>
-
-    <!-- JavaScript Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js" 
-            integrity="sha512-3J8teBiI3tt2o1d0mEhRXpWON70wG4QdC9VQF8GvLfL3f4Q8b8Q8zQ8zQ8zQ8zQ8zQ8zQ8zQ8zQ8zQ8zQ8zQ8A==" 
-            crossorigin="anonymous" 
-            referrerpolicy="no-referrer"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
-    <!-- Main JavaScript -->
-    <script src="../script.js"></script>
-    
-    <!-- Page Specific JavaScript -->
     <script>
+        // Initialize when DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize AOS
-            if (typeof AOS !== 'undefined') {
-                AOS.init({
-                    duration: 800,
-                    once: true,
-                    offset: 100,
-                    easing: 'ease-in-out',
-                    delay: 100
+            // Set active nav link
+            const currentPage = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === 'products.html') {
+                    link.classList.add('active');
+                }
+            });
+
+            // Theme Toggle
+            const themeToggle = document.getElementById('themeToggle');
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+            
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            
+            function toggleTheme() {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            }
+            
+            if (themeToggle) {
+                themeToggle.addEventListener('click', toggleTheme);
+            }
+
+            // Mobile Menu Toggle
+            const menuToggle = document.getElementById('menuToggle');
+            const mainNav = document.getElementById('mainNav');
+            const menuOverlay = document.getElementById('menuOverlay');
+            const navClose = document.getElementById('navClose');
+
+            function toggleMenu() {
+                const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+                menuToggle.setAttribute('aria-expanded', !isExpanded);
+                mainNav.classList.toggle('active');
+                menuOverlay.classList.toggle('active');
+                document.body.classList.toggle('no-scroll');
+            }
+
+            function closeMenu() {
+                menuToggle.setAttribute('aria-expanded', 'false');
+                mainNav.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                document.body.classList.remove('no-scroll');
+            }
+
+            if (menuToggle) menuToggle.addEventListener('click', toggleMenu);
+            if (menuOverlay) menuOverlay.addEventListener('click', closeMenu);
+            if (navClose) navClose.addEventListener('click', closeMenu);
+
+            // Close menu on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && mainNav.classList.contains('active')) {
+                    closeMenu();
+                }
+            });
+
+            // Search functionality
+            const productSearch = document.getElementById('productSearch');
+            const searchTags = document.querySelectorAll('.search-tag');
+            const productCards = document.querySelectorAll('.product-card');
+            const noResults = document.getElementById('noResults');
+            const productsGrid = document.getElementById('productsGrid');
+
+            function filterProducts(searchTerm) {
+                let hasResults = false;
+                
+                productCards.forEach(card => {
+                    const categories = card.getAttribute('data-categories').toLowerCase();
+                    const title = card.querySelector('.product-title').textContent.toLowerCase();
+                    const description = card.querySelector('.product-description').textContent.toLowerCase();
+                    
+                    const matches = categories.includes(searchTerm) || 
+                                   title.includes(searchTerm) || 
+                                   description.includes(searchTerm) ||
+                                   searchTerm === 'همه محصولات' ||
+                                   searchTerm === 'all';
+                    
+                    if (matches) {
+                        card.style.display = 'block';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 10);
+                        hasResults = true;
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 300);
+                    }
+                });
+                
+                // Show/hide no results message
+                if (hasResults || searchTerm === '') {
+                    noResults.classList.remove('show');
+                    productsGrid.style.display = 'grid';
+                } else {
+                    noResults.classList.add('show');
+                    productsGrid.style.display = 'none';
+                }
+            }
+
+            // Search input event
+            if (productSearch) {
+                productSearch.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase().trim();
+                    filterProducts(searchTerm);
                 });
             }
 
-            // Product Filtering
-            const categoryBtns = document.querySelectorAll('.category-btn');
-            const productCards = document.querySelectorAll('.product-card');
-            
-            categoryBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const category = this.getAttribute('data-category');
+            // Search tag click events
+            searchTags.forEach(tag => {
+                tag.addEventListener('click', function() {
+                    const filterText = this.getAttribute('data-filter').toLowerCase();
                     
-                    // Update active button
-                    categoryBtns.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
+                    // Update search input
+                    if (productSearch) {
+                        if (filterText === 'all') {
+                            productSearch.value = '';
+                        } else {
+                            productSearch.value = this.textContent;
+                        }
+                    }
                     
                     // Filter products
-                    productCards.forEach(card => {
-                        if (category === 'all' || card.getAttribute('data-category') === category) {
-                            card.style.display = 'flex';
-                            setTimeout(() => {
-                                card.style.opacity = '1';
-                                card.style.transform = 'translateY(0)';
-                            }, 10);
-                        } else {
-                            card.style.opacity = '0';
-                            card.style.transform = 'translateY(20px)';
-                            setTimeout(() => {
-                                card.style.display = 'none';
-                            }, 300);
-                        }
-                    });
+                    filterProducts(filterText === 'all' ? '' : filterText);
+                    
+                    // Update active tag
+                    searchTags.forEach(t => t.style.background = '');
+                    searchTags.forEach(t => t.style.color = '');
+                    this.style.background = 'var(--primary-color)';
+                    this.style.color = 'white';
+                    this.style.borderColor = 'transparent';
                 });
             });
 
-            // Counter Animation for Stats
-            function animateCounter(element) {
-                const target = parseFloat(element.getAttribute('data-count'));
-                const speed = parseInt(element.getAttribute('data-speed')) || 200;
-                const increment = target / speed;
-                let current = 0;
-                
-                const timer = setInterval(() => {
-                    current += increment;
-                    if (current >= target) {
-                        element.textContent = target.toFixed(1);
-                        clearInterval(timer);
-                    } else {
-                        element.textContent = current.toFixed(1);
-                    }
-                }, 20);
-            }
-
-            // Initialize counters when in viewport
-            const statsSection = document.querySelector('.product-stats');
-            const counters = document.querySelectorAll('.stat-number');
-            
-            if (statsSection && counters.length > 0) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            counters.forEach(counter => {
-                                if (!counter.classList.contains('animated')) {
-                                    counter.classList.add('animated');
-                                    animateCounter(counter);
-                                }
-                            });
-                            observer.disconnect();
-                        }
-                    });
-                }, { threshold: 0.5 });
-                
-                observer.observe(statsSection);
-            }
-
-            // Print Functionality
-            const printBtn = document.querySelector('.btn-print');
-            if (printBtn) {
-                printBtn.addEventListener('click', function(e) {
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
                     e.preventDefault();
-                    window.print();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        // Close mobile menu if open
+                        if (window.innerWidth <= 768 && mainNav.classList.contains('active')) {
+                            closeMenu();
+                        }
+                        
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
                 });
-            }
-
-            // Update Loading Screen Message
-            const loadingMessage = document.querySelector('.loading-message');
-            if (loadingMessage) {
-                loadingMessage.textContent = 'در حال بارگذاری محصولات...';
-            }
+            });
         });
 
-        // Product Image Fallback
+        // Update year in footer
         window.addEventListener('load', function() {
-            const productImages = document.querySelectorAll('.product-img');
-            productImages.forEach(img => {
-                img.addEventListener('error', function() {
-                    this.src = 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';
-                });
-            });
+            const currentYear = new Date().getFullYear();
+            const persianYear = currentYear - 621;
+            const yearElement = document.querySelector('.footer-bottom p');
+            if (yearElement) {
+                yearElement.innerHTML = yearElement.innerHTML.replace('۱۴۰۳', persianYear);
+            }
         });
     </script>
 </body>
