@@ -1,5 +1,5 @@
 // ==================== 3D PRINT SHOP - MAIN SCRIPT ====================
-// ترکیب و بهبود دو اسکریپت اصلی
+// نسخه نهایی و یکپارچه - بدون تکرار
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🛠️  در حال راه‌اندازی فروشگاه پرینتر سه بعدی...');
@@ -270,6 +270,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const filterButtons = document.querySelectorAll('.filter-btn');
         const productCards = document.querySelectorAll('.product-card');
         
+        if (filterButtons.length === 0 || productCards.length === 0) return;
+        
         filterButtons.forEach(button => {
             button.addEventListener('click', function() {
                 filterButtons.forEach(btn => btn.classList.remove('active'));
@@ -301,30 +303,32 @@ document.addEventListener('DOMContentLoaded', function() {
     // مرتب‌سازی محصولات
     function initProductSorting() {
         const sortSelect = document.getElementById('sort');
-        if (sortSelect) {
-            sortSelect.addEventListener('change', function() {
-                const productsGrid = document.getElementById('productsGrid');
-                const productCards = Array.from(document.querySelectorAll('.product-card'));
+        if (!sortSelect) return;
+        
+        sortSelect.addEventListener('change', function() {
+            const productsGrid = document.getElementById('productsGrid');
+            if (!productsGrid) return;
+            
+            const productCards = Array.from(document.querySelectorAll('.product-card'));
+            
+            productCards.sort((a, b) => {
+                const priceA = parseInt(a.querySelector('.price')?.textContent.replace(/[^0-9]/g, '') || 0);
+                const priceB = parseInt(b.querySelector('.price')?.textContent.replace(/[^0-9]/g, '') || 0);
                 
-                productCards.sort((a, b) => {
-                    const priceA = parseInt(a.querySelector('.price').textContent.replace(/[^0-9]/g, ''));
-                    const priceB = parseInt(b.querySelector('.price').textContent.replace(/[^0-9]/g, ''));
-                    
-                    switch(this.value) {
-                        case 'price-low': return priceA - priceB;
-                        case 'price-high': return priceB - priceA;
-                        case 'newest': return 0;
-                        case 'popular': return 0;
-                        default: return 0;
-                    }
-                });
-                
-                productsGrid.innerHTML = '';
-                productCards.forEach(card => {
-                    productsGrid.appendChild(card);
-                });
+                switch(this.value) {
+                    case 'price-low': return priceA - priceB;
+                    case 'price-high': return priceB - priceA;
+                    case 'newest': return 0;
+                    case 'popular': return 0;
+                    default: return 0;
+                }
             });
-        }
+            
+            productsGrid.innerHTML = '';
+            productCards.forEach(card => {
+                productsGrid.appendChild(card);
+            });
+        });
     }
     
     // ==================== مدیریت سبد خرید ====================
@@ -338,7 +342,7 @@ document.addEventListener('DOMContentLoaded', function() {
         addToCartButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const productId = this.getAttribute('data-product');
-                addToCart(productId);
+                if (productId) addToCart(productId);
             });
         });
         
@@ -347,7 +351,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (addToCartDetail) {
             addToCartDetail.addEventListener('click', function() {
                 const productId = getCurrentProductId();
-                const quantity = parseInt(document.getElementById('quantity')?.value || 1);
+                if (!productId) return;
+                
+                const quantityInput = document.getElementById('quantity');
+                const quantity = quantityInput ? parseInt(quantityInput.value) || 1 : 1;
                 addToCart(productId, quantity);
             });
         }
@@ -357,9 +364,18 @@ document.addEventListener('DOMContentLoaded', function() {
         if (buyNowBtn) {
             buyNowBtn.addEventListener('click', function() {
                 const productId = getCurrentProductId();
-                const quantity = parseInt(document.getElementById('quantity')?.value || 1);
+                if (!productId) return;
+                
+                const quantityInput = document.getElementById('quantity');
+                const quantity = quantityInput ? parseInt(quantityInput.value) || 1 : 1;
                 addToCart(productId, quantity);
-                window.location.href = 'checkout.html';
+                
+                // اگر صفحه checkout.html وجود دارد، هدایت شود
+                if (window.location.pathname.includes('checkout.html')) {
+                    window.location.reload();
+                } else {
+                    window.location.href = 'checkout.html';
+                }
             });
         }
         
@@ -373,7 +389,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
         
-        if (cartClose) {
+        if (cartClose && cartSidebar) {
             cartClose.addEventListener('click', () => {
                 cartSidebar.classList.remove('active');
             });
@@ -406,7 +422,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // افزودن محصول به سبد
     function addToCart(productId, quantity = 1) {
         const product = productsData[productId];
-        if (!product) return;
+        if (!product) {
+            console.error('محصول یافت نشد:', productId);
+            return;
+        }
         
         const existingItem = cart.find(item => item.id === productId);
         
@@ -523,36 +542,39 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
         
-        // اطلاعات مشتری
-        const customerName = prompt('لطفا نام خود را وارد کنید:');
+        // در حالت واقعی، این اطلاعات باید به سرور ارسال شود
+        // برای نمونه، با alert نمایش می‌دهیم
+        const orderSummary = `سفارش شما:\n${orderDetails}\n\nجمع کل: ${total.toLocaleString()} تومان`;
+        
+        // نمایش فرم ساده برای دریافت اطلاعات مشتری
+        const customerName = prompt('لطفا نام خود را وارد کنید:', '');
         if (!customerName) return;
         
-        const customerPhone = prompt('لطفا شماره تماس خود را وارد کنید:');
+        const customerPhone = prompt('لطفا شماره تماس خود را وارد کنید:', '');
         if (!customerPhone) return;
         
-        const customerEmail = prompt('لطفا ایمیل خود را وارد کنید: (اختیاری)') || '';
-        const customerAddress = prompt('لطفا آدرس ارسال را وارد کنید:');
+        const customerAddress = prompt('لطفا آدرس ارسال را وارد کنید:', '');
         if (!customerAddress) return;
         
-        // ذخیره سفارش
+        // ذخیره سفارش در localStorage (به صورت موقت)
         const orderData = {
+            id: Date.now(),
             products: cart,
             total: total,
             customer: {
                 name: customerName,
                 phone: customerPhone,
-                email: customerEmail,
                 address: customerAddress
             },
-            date: new Date().toISOString()
+            date: new Date().toLocaleString('fa-IR'),
+            status: 'در انتظار تایید'
         };
         
-        // ذخیره سفارش در localStorage
         const orders = JSON.parse(localStorage.getItem('3dprint_orders')) || [];
         orders.push(orderData);
         localStorage.setItem('3dprint_orders', JSON.stringify(orders));
         
-        alert(`سفارش شما ثبت شد!\n\n${orderDetails}\n\nجمع کل: ${total.toLocaleString()} تومان\n\nبه زودی با شما تماس گرفته خواهد شد.`);
+        alert(`سفارش شما ثبت شد!\n\n${orderSummary}\n\nبه زودی با شما تماس گرفته خواهد شد.\n\nشماره پیگیری: ${orderData.id}`);
         
         // پاک کردن سبد خرید
         clearCart();
@@ -567,10 +589,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // ==================== نمایش نوتیفیکیشن ====================
     
     function showNotification(message, type = 'success') {
-        const existingNotification = document.querySelector('.notification');
-        if (existingNotification) {
-            existingNotification.remove();
-        }
+        // حذف نوتیفیکیشن قبلی
+        const existingNotifications = document.querySelectorAll('.notification');
+        existingNotifications.forEach(notification => {
+            notification.remove();
+        });
         
         const notification = document.createElement('div');
         notification.className = `notification ${type}`;
@@ -581,10 +604,56 @@ document.addEventListener('DOMContentLoaded', function() {
         
         document.body.appendChild(notification);
         
+        // استایل نوتیفیکیشن
+        if (!document.querySelector('#notification-styles')) {
+            const style = document.createElement('style');
+            style.id = 'notification-styles';
+            style.textContent = `
+                .notification {
+                    position: fixed;
+                    top: 100px;
+                    right: 20px;
+                    background: var(--card-bg);
+                    color: var(--text-color);
+                    padding: 15px 20px;
+                    border-radius: 8px;
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                    z-index: 3000;
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+                    transform: translateX(150%);
+                    transition: transform 0.3s ease;
+                    border-right: 4px solid var(--secondary-color);
+                    max-width: 350px;
+                }
+                
+                .notification.show {
+                    transform: translateX(0);
+                }
+                
+                .notification.error {
+                    border-right-color: #ff4444;
+                }
+                
+                .notification i {
+                    font-size: 1.5rem;
+                    color: var(--secondary-color);
+                }
+                
+                .notification.error i {
+                    color: #ff4444;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        // نمایش با انیمیشن
         setTimeout(() => {
             notification.classList.add('show');
         }, 100);
         
+        // حذف خودکار بعد از 3 ثانیه
         setTimeout(() => {
             notification.classList.remove('show');
             setTimeout(() => {
@@ -595,52 +664,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 3000);
     }
     
-    // استایل نوتیفیکیشن
-    const notificationStyle = document.createElement('style');
-    notificationStyle.textContent = `
-        .notification {
-            position: fixed;
-            top: 100px;
-            left: 20px;
-            background: var(--card-bg);
-            color: var(--text-color);
-            padding: 15px 20px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            z-index: 3000;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transform: translateX(-150%);
-            transition: transform 0.3s ease;
-            border-right: 4px solid var(--secondary-color);
-            max-width: 350px;
-        }
-        
-        .notification.show {
-            transform: translateX(0);
-        }
-        
-        .notification.error {
-            border-right-color: #ff4444;
-        }
-        
-        .notification i {
-            font-size: 1.5rem;
-            color: var(--secondary-color);
-        }
-        
-        .notification.error i {
-            color: #ff4444;
-        }
-    `;
-    document.head.appendChild(notificationStyle);
-    
     // ==================== مدیریت تب‌ها و گالری ====================
     
     function initProductTabs() {
         const tabButtons = document.querySelectorAll('.tab-btn');
         const tabPanes = document.querySelectorAll('.tab-pane');
+        
+        if (tabButtons.length === 0 || tabPanes.length === 0) return;
         
         tabButtons.forEach(button => {
             button.addEventListener('click', function() {
@@ -650,7 +680,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 tabPanes.forEach(pane => pane.classList.remove('active'));
                 
                 this.classList.add('active');
-                document.getElementById(tabId).classList.add('active');
+                const targetTab = document.getElementById(tabId);
+                if (targetTab) {
+                    targetTab.classList.add('active');
+                }
             });
         });
     }
@@ -677,30 +710,30 @@ document.addEventListener('DOMContentLoaded', function() {
     // ==================== دکمه بازگشت به بالا ====================
     
     function initBackToTop() {
-        if (backToTop) {
-            window.addEventListener('scroll', function() {
-                if (window.pageYOffset > 300) {
-                    backToTop.style.display = 'flex';
-                    setTimeout(() => {
-                        backToTop.style.opacity = '1';
-                    }, 10);
-                } else {
-                    backToTop.style.opacity = '0';
-                    setTimeout(() => {
-                        if (window.pageYOffset <= 300) {
-                            backToTop.style.display = 'none';
-                        }
-                    }, 300);
-                }
+        if (!backToTop) return;
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.style.display = 'flex';
+                setTimeout(() => {
+                    backToTop.style.opacity = '1';
+                }, 10);
+            } else {
+                backToTop.style.opacity = '0';
+                setTimeout(() => {
+                    if (window.pageYOffset <= 300) {
+                        backToTop.style.display = 'none';
+                    }
+                }, 300);
+            }
+        });
+        
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
-            
-            backToTop.addEventListener('click', function() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-        }
+        });
     }
     
     // ==================== مدیریت تصاویر محصولات ====================
@@ -718,53 +751,53 @@ document.addEventListener('DOMContentLoaded', function() {
     // ==================== رویدادهای منو ====================
     
     function initMenuEvents() {
-        if (menuToggle && mainNav) {
-            menuToggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                if (isMobileMode) {
-                    const isActive = mainNav.classList.contains('active');
-                    if (isActive) {
-                        closeMobileMenu();
-                    } else {
-                        openMobileMenu();
-                    }
+        if (!menuToggle || !mainNav) return;
+        
+        menuToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            if (isMobileMode) {
+                const isActive = mainNav.classList.contains('active');
+                if (isActive) {
+                    closeMobileMenu();
                 } else {
-                    const isVisible = mainNav.style.display === 'flex';
-                    if (isVisible) {
-                        mainNav.style.display = 'none';
-                        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-                    } else {
-                        mainNav.style.display = 'flex';
-                        menuToggle.innerHTML = '<i class="fas fa-times"></i>';
+                    openMobileMenu();
+                }
+            } else {
+                const isVisible = mainNav.style.display === 'flex';
+                if (isVisible) {
+                    mainNav.style.display = 'none';
+                    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                } else {
+                    mainNav.style.display = 'flex';
+                    menuToggle.innerHTML = '<i class="fas fa-times"></i>';
+                }
+            }
+        });
+        
+        const navLinks = mainNav.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (isMobileMode && mainNav.classList.contains('active')) {
+                    closeMobileMenu();
+                    
+                    if (this.getAttribute('href')?.startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            setTimeout(() => {
+                                window.scrollTo({
+                                    top: targetElement.offsetTop - 80,
+                                    behavior: 'smooth'
+                                });
+                            }, 300);
+                        }
                     }
                 }
             });
-            
-            const navLinks = mainNav.querySelectorAll('.nav-link');
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    if (isMobileMode && mainNav.classList.contains('active')) {
-                        closeMobileMenu();
-                        
-                        if (this.getAttribute('href').startsWith('#')) {
-                            e.preventDefault();
-                            const targetId = this.getAttribute('href');
-                            const targetElement = document.querySelector(targetId);
-                            if (targetElement) {
-                                setTimeout(() => {
-                                    window.scrollTo({
-                                        top: targetElement.offsetTop - 80,
-                                        behavior: 'smooth'
-                                    });
-                                }, 300);
-                            }
-                        }
-                    }
-                });
-            });
-        }
+        });
         
         // بستن منو با کلیک خارج
         document.addEventListener('click', function(e) {
@@ -802,28 +835,28 @@ document.addEventListener('DOMContentLoaded', function() {
     // ==================== رویداد تغییر تم ====================
     
     function initThemeToggle() {
-        if (themeToggle) {
-            themeToggle.addEventListener('click', function() {
-                const currentTheme = document.documentElement.getAttribute('data-theme');
-                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-                
-                document.documentElement.setAttribute('data-theme', newTheme);
-                localStorage.setItem('theme', newTheme);
-                
-                if (newTheme === 'light') {
-                    this.innerHTML = '<i class="fas fa-sun"></i>';
-                } else {
-                    this.innerHTML = '<i class="fas fa-moon"></i>';
-                }
-                
-                this.style.transform = 'rotate(360deg)';
-                setTimeout(() => {
-                    this.style.transform = 'rotate(0deg)';
-                }, 300);
-                
-                console.log('🎨 تغییر تم به:', newTheme);
-            });
-        }
+        if (!themeToggle) return;
+        
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            if (newTheme === 'light') {
+                this.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                this.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+            
+            this.style.transform = 'rotate(360deg)';
+            setTimeout(() => {
+                this.style.transform = 'rotate(0deg)';
+            }, 300);
+            
+            console.log('🎨 تغییر تم به:', newTheme);
+        });
     }
     
     // ==================== مدیریت تغییر سایز پنجره ====================
@@ -837,25 +870,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 updateCartCounter();
             }, 100);
         });
-    }
-    
-    // ==================== توابع کمکی ====================
-    
-    function debugMenu() {
-        console.log('=== دیباگ منو ===');
-        console.log('عرض پنجره:', window.innerWidth);
-        console.log('دکمه منو:', menuToggle ? 'موجود' : 'مفقود');
-        console.log('ناوبری اصلی:', mainNav ? 'موجود' : 'مفقود');
-        
-        if (menuToggle) {
-            console.log('نمایش دکمه:', menuToggle.style.display);
-            console.log('آیکون:', menuToggle.innerHTML);
-        }
-        
-        if (mainNav) {
-            console.log('نمایش منو:', mainNav.style.display);
-            console.log('کلاس‌ها:', mainNav.classList);
-        }
     }
     
     // ==================== اجرای اولیه ====================
@@ -893,7 +907,38 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function debugShop() {
     console.log('=== وضعیت فروشگاه ===');
-    console.log('محصولات:', Object.keys(productsData).length);
+    console.log('محصولات:', Object.keys(window.productsData || {}).length);
     console.log('سبد خرید:', JSON.parse(localStorage.getItem('3dprint_cart')) || []);
     console.log('تم:', localStorage.getItem('theme'));
+    console.log('سفارشات:', JSON.parse(localStorage.getItem('3dprint_orders')) || []);
 }
+
+// در دسترس قرار دادن توابع مهم برای استفاده در کنسول مرورگر
+window.debugShop = debugShop;
+window.addToCart = function(productId, quantity = 1) {
+    const cart = JSON.parse(localStorage.getItem('3dprint_cart')) || [];
+    const product = window.productsData?.[productId];
+    
+    if (!product) {
+        console.error('محصول یافت نشد');
+        return;
+    }
+    
+    const existingItem = cart.find(item => item.id === productId);
+    
+    if (existingItem) {
+        existingItem.quantity += quantity;
+    } else {
+        cart.push({
+            id: productId,
+            name: product.name,
+            price: product.price,
+            image: product.image,
+            quantity: quantity
+        });
+    }
+    
+    localStorage.setItem('3dprint_cart', JSON.stringify(cart));
+    console.log(`محصول "${product.name}" به سبد خرید اضافه شد`);
+    window.location.reload();
+};
