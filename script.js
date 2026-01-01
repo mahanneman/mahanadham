@@ -576,6 +576,131 @@ function initLazyLoading() {
         images.forEach(img => {
             img.src = img.dataset.src;
         });
+        // مدیریت منوی موبایل
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.querySelector('.main-nav');
+    const themeToggle = document.getElementById('themeToggle');
+    
+    // مدیریت منوی موبایل
+    if (menuToggle && mainNav) {
+        menuToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const isActive = mainNav.classList.contains('active');
+            
+            if (isActive) {
+                mainNav.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            } else {
+                mainNav.classList.add('active');
+                menuToggle.innerHTML = '<i class="fas fa-times"></i>';
+            }
+        });
+        
+        // بستن منو با کلیک روی لینک‌ها
+        const navLinks = mainNav.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // بستن منو با کلیک خارج از آن
+        document.addEventListener('click', function(e) {
+            if (!mainNav.contains(e.target) && !menuToggle.contains(e.target)) {
+                mainNav.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+        
+        // جلوگیری از bubble up
+        mainNav.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    }
+    
+    // مدیریت تغییر تم
+    if (themeToggle) {
+        // بررسی تم ذخیره شده
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+        }
+        
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            updateThemeIcon(newTheme);
+            
+            // انیمیشن برای دکمه
+            this.style.transform = 'rotate(360deg)';
+            setTimeout(() => {
+                this.style.transform = 'rotate(0deg)';
+            }, 300);
+        });
+        
+        function updateThemeIcon(theme) {
+            if (theme === 'light') {
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        }
+    }
+    
+    // مدیریت دکمه بازگشت به بالا
+    const backToTop = document.getElementById('backToTop');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.style.display = 'flex';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        });
+        
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+    
+    // مدیریت تصاویر برای موبایل
+    function fixMobileImages() {
+        if (window.innerWidth <= 768) {
+            const profileImg = document.querySelector('.profile-img');
+            if (profileImg) {
+                profileImg.style.maxWidth = '280px';
+                profileImg.style.height = 'auto';
+            }
+            
+            const badges = document.querySelectorAll('.image-badge');
+            badges.forEach(badge => {
+                badge.style.position = 'relative';
+                badge.style.bottom = 'auto';
+                badge.style.right = 'auto';
+                badge.style.margin = '-20px auto 20px';
+                badge.style.width = '90%';
+            });
+        }
+    }
+    
+    // اجرای اولیه
+    fixMobileImages();
+    
+    // اجرا در تغییر سایز
+    window.addEventListener('resize', fixMobileImages);
+});
     }
 }
 
@@ -592,4 +717,6 @@ window.addEventListener('beforeunload', function() {
     for (let i = 0; i < highestIntervalId; i++) {
         clearInterval(i);
     }
+    
 });
+
