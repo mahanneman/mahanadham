@@ -429,3 +429,35 @@ body {
         transform: translateY(0);
     }
 }
+/* این کد را به فایل style.css اضافه کنید */
+.main-nav {
+    max-height: calc(100vh - 80px) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    position: fixed !important;
+    top: 80px !important;
+    right: 0 !important;
+}
+
+/* رفع مشکل اسکرول */
+.main-nav::-webkit-scrollbar {
+    width: 5px;
+}
+
+.main-nav::-webkit-scrollbar-track {
+    background: var(--card-bg);
+}
+
+.main-nav::-webkit-scrollbar-thumb {
+    background: var(--secondary);
+    border-radius: 10px;
+}
+
+/* برای موبایل */
+@media (max-width: 768px) {
+    .main-nav {
+        width: 300px !important;
+        max-width: 90vw !important;
+    }
+}
+
