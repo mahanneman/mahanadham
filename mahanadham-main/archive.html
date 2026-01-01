@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آرشیو مقالات و پروژه‌ها | ماهان ادهم قزوینی</title>
+    <meta name="description" content="آرشیو کامل مقالات ISI، ترجمه‌ها، پروژه‌های دانشگاهی و تحلیل‌های مهندسی">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* استایل‌های مخصوص آرشیو */
+        .archive-section {
+            padding: 120px 0;
+            background: linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #000000 100%);
+        }
+        
+        /* هدر آرشیو */
+        .archive-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .archive-header h1 {
+            font-size: 2.6rem;
+            margin-bottom: 20px;
+            color: #ffffff;
+            background: none;
+            -webkit-text-fill-color: #ffffff;
+        }
+        
+        .archive-header h1 i {
+            color: #00ffaa;
+            margin-left: 15px;
+        }
+        
+        .archive-header p {
+            color: #aaa;
+            line-height: 1.9;
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        /* آمار آرشیو */
+        .archive-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 40px 0 60px;
+        }
+        
+        .stat-item {
+            background: rgba(20, 20, 20, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid rgba(0, 255, 170, 0.15);
+            transition: all 0.3s;
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 255, 170, 0.3);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .stat-item i {
+            font-size: 2.2rem;
+            color: #00ffaa;
+            margin-bottom: 15px;
+        }
+        
+        .stat-item h3 {
+            font-size: 2rem;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+        
+        .stat-item p {
+            color: #bbb;
+            font-size: 0.95rem;
+            margin: 0;
+        }
+        
+        /* دسته‌بندی‌ها */
+        .archive-categories {
+            margin-bottom: 60px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: #ffffff;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(0, 255, 170, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .section-title i {
+            color: #00ffaa;
+        }
+        
+        .categories-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .category-item {
+            background: rgba(20, 20, 20, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(0, 255, 170, 0.15);
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .category-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 255, 170, 0.3);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 255, 170, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .category-icon i {
+            font-size: 1.8rem;
+            color: #00ffaa;
+        }
+        
+        .category-content h3 {
+            font-size: 1.4rem;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+        
+        .category-content p {
+            color: #bbb;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        /* فایل‌ها */
+        .archive-files {
+            margin-bottom: 60px;
+        }
+        
+        .files-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .file-item {
+            background: rgba(20, 20, 20, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(0, 255, 170, 0.15);
+            transition: all 0.3s;
+        }
+        
+        .file-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 255, 170, 0.3);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .file-header {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .file-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 255, 170, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .file-icon i {
+            font-size: 1.5rem;
+            color: #00ffaa;
+        }
+        
+        .file-info h3 {
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin-bottom: 8px;
+            word-break: break-word;
+        }
+        
+        .file-info p {
+            color: #bbb;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        .file-meta {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .meta-tag {
+            background: rgba(0, 255, 170, 0.1);
+            color: #00ffaa;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .meta-tag i {
+            font-size: 0.9rem;
+        }
+        
+        .file-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-small {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            border-radius: 10px;
+            min-height: auto;
+        }
+        
+        /* ساختار پوشه */
+        .folder-structure {
+            background: rgba(20, 20, 20, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(0, 255, 170, 0.15);
+            margin-top: 60px;
+        }
+        
+        .structure-tree {
+            font-family: 'Vazirmatn', 'Courier New', monospace;
+            font-size: 1rem;
+            line-height: 1.8;
+            padding-right: 20px;
+        }
+        
+        .tree-item {
+            margin-bottom: 8px;
+            position: relative;
+        }
+        
+        .tree-item i {
+            color: #00ffaa;
+            margin-left: 10px;
+            width: 20px;
+        }
+        
+        .tree-children {
+            margin-top: 8px;
+            margin-right: 30px;
+            border-right: 1px solid rgba(0, 255, 170, 0.2);
+            padding-right: 20px;
+        }
+        
+        /* دکمه بازگشت */
+        .back-archive {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 50px;
+            color: #00ffaa;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 170, 0.2);
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .back-archive:hover {
+            background: rgba(0, 255, 170, 0.1);
+            transform: translateX(5px);
+            border-color: rgba(0, 255, 170, 0.4);
+        }
+        
+        /* ریسپانسیو */
+        @media (max-width: 768px) {
+            .archive-header h1 {
+                font-size: 2rem;
+            }
+            
+            .archive-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            
+            .stat-item {
+                padding: 20px;
+            }
+            
+            .stat-item h3 {
+                font-size: 1.6rem;
+            }
+            
+            .category-item,
+            .file-item {
+                padding: 20px;
+            }
+            
+            .category-header,
+            .file-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .category-icon,
+            .file-icon {
+                margin: 0 auto;
+            }
+            
+            .file-actions {
+                flex-direction: column;
+            }
+            
+            .btn-small {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .archive-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- استفاده از منوی اصلی سایت -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>ماهان ادهم قزوینی</h1>
+                    <p class="title">مهندس مکانیک گرایش سیالات</p>
+                </div>
+                
+                <nav class="main-nav" id="mainNav">
+                    <a href="index.html" class="nav-link"><i class="fas fa-home"></i> خانه</a>
+                    <a href="index.html#about" class="nav-link"><i class="fas fa-user"></i> درباره من</a>
+                    <a href="index.html#skills" class="nav-link"><i class="fas fa-cogs"></i> مهارت‌ها</a>
+                    <a href="index.html#education" class="nav-link"><i class="fas fa-graduation-cap"></i> تحصیلات</a>
+                    <a href="index.html#resume" class="nav-link"><i class="fas fa-file-alt"></i> رزومه</a>
+                    <a href="product/products.html" class="nav-link"><i class="fas fa-cube"></i> محصولات 3D</a>
+                    <a href="index.html#hvac" class="nav-link"><i class="fas fa-snowflake"></i> تأسیسات</a>
+                    <a href="archive.html" class="nav-link active"><i class="fas fa-archive"></i> آرشیو</a>
+                    <a href="index.html#contact" class="nav-link"><i class="fas fa-envelope"></i> تماس</a>
+                </nav>
+                
+                <div class="header-actions">
+                    <button class="menu-toggle" id="menuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <button id="themeToggle" class="theme-toggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- بخش آرشیو -->
+    <section class="archive-section">
+        <div class="container">
+            <div class="archive-header">
+                <h1><i class="fas fa-archive"></i> آرشیو مقالات و پروژه‌ها</h1>
+                <p>
+                    مجموعه کامل مقالات ISI، ترجمه‌ها، پروژه‌های دانشگاهی و تحلیل‌های مهندسی طراحی شده توسط ماهان ادهم قزوینی
+                </p>
+                
+                <div class="archive-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-file-pdf"></i>
+                        <h3>۲۵+</h3>
+                        <p>مقاله PDF</p>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-file-word"></i>
+                        <h3>۱۵+</h3>
+                        <p>ترجمه و گزارش</p>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-project-diagram"></i>
+                        <h3>۱۰+</h3>
+                        <p>پروژه دانشگاهی</p>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-database"></i>
+                        <h3>۵۰۰+</h3>
+                        <p>مگابایت حجم کل</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- دسته‌بندی فایل‌ها -->
+            <div class="archive-categories">
+                <h2 class="section-title"><i class="fas fa-folder"></i> دسته‌بندی فایل‌ها</h2>
+                
+                <div class="categories-grid">
+                    <a href="#articles" class="category-item">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <i class="fas fa-file-contract"></i>
+                            </div>
+                            <div class="category-content">
+                                <h3>مقالات ISI</h3>
+                                <p>مقالات علمی منتشر شده در ژورنال‌های بین‌المللی با موضوعات مهندسی مکانیک و CFD</p>
+                            </div>
+                        </div>
+                        <div class="file-meta">
+                            <span class="meta-tag">
+                                <i class="fas fa-hashtag"></i>
+                                ۸ فایل
+                            </span>
+                            <span class="meta-tag">
+                                <i class="fas fa-weight-hanging"></i>
+                                ۴۵ مگابایت
+                            </span>
+                        </div>
+                    </a>
+                    
+                    <a href="#translations" class="category-item">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <i class="fas fa-language"></i>
+                            </div>
+                            <div class="category-content">
+                                <h3>ترجمه‌ها</h3>
+                                <p>ترجمه تخصصی مقالات و کتب مهندسی مکانیک با تمرکز بر سیالات و انتقال حرارت</p>
+                            </div>
+                        </div>
+                        <div class="file-meta">
+                            <span class="meta-tag">
+                                <i class="fas fa-hashtag"></i>
+                                ۶ فایل
+                            </span>
+                            <span class="meta-tag">
+                                <i class="fas fa-weight-hanging"></i>
+                                ۳۲ مگابایت
+                            </span>
+                        </div>
+                    </a>
+                    
+                    <a href="#projects" class="category-item">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <div class="category-content">
+                                <h3>پروژه‌ها</h3>
+                                <p>پروژه‌های دانشگاهی، پایان‌نامه و طرح‌های عملی مهندسی مکانیک</p>
+                            </div>
+                        </div>
+                        <div class="file-meta">
+                            <span class="meta-tag">
+                                <i class="fas fa-hashtag"></i>
+                                ۱۲ فایل
+                            </span>
+                            <span class="meta-tag">
+                                <i class="fas fa-weight-hanging"></i>
+                                ۱۲۰ مگابایت
+                            </span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- مقالات ISI -->
+            <div id="articles" class="archive-files">
+                <h2 class="section-title"><i class="fas fa-file-contract"></i> مقالات ISI</h2>
+                
+                <div class="files-list">
+                    <div class="file-item">
+                        <div class="file-header">
+                            <div class="file-icon">
+                                <i class="fas fa-file-pdf"></i>
+                            </div>
+                            <div class="file-info">
+                                <h3>isipcm.pdf</h3>
+                                <p>مقاله: تحلیل عددی انتقال حرارت در مبدل‌های پلیمری با استفاده از روش‌های CFD</p>
+                            </div>
+                        </div>
+                        <div class="file-meta">
+                            <span class="meta-tag">
+                                <i class="fas fa-weight-hanging"></i>
+                                ۲.۴ مگابایت
+                            </span>
+                            <span class="meta-tag">
+                                <i class="fas fa-calendar"></i>
+                                ۱۴۰۲
+                            </span>
+                            <span class="meta-tag">
+                                <i class="fas fa-tag"></i>
+                                CFD
+                            </span>
+                        </div>
+                        <div class="file-actions">
+                            <a href="archive/articles/isipcm.pdf" class="btn btn-primary btn-small" download>
+                                <i class="fas fa-download"></i> دانلود PDF
+                            </a>
+                            <a href="archive/articles/isipcm.pdf" target="_blank" class="btn btn-secondary btn-small">
+                                <i class="fas fa-eye"></i> مشاهده آنلاین
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="file-item">
+                        <div class="file-header">
+                            <div class="file-icon">
+                                <i class="fas fa-file-pdf"></i>
+                            </div>
+                            <div class="file-info">
+                                <h3>cfd_analysis.pdf</h3>
+                                <p>تحلیل CFD جریان سیال در میکروکانال‌های با هندسه پیچیده</p>
+                            </div>
+                        </div>
+                        <div class="file-meta">
+                            <span class="meta-tag">
+                                <i class="fas fa-weight-hanging"></i>
+                                ۳.۱ مگابایت
+                            </span>
+                            <span class="meta-tag">
+                                <i class="fas fa-calendar"></i>
+                                ۱۴۰۱
+                            </span>
+                            <span class="meta-tag">
+                                <i class="fas fa-tag"></i>
+                                میکروکانال
+                            </span>
+                        </div>
+                        <div class="file-actions">
+                            <a href="archive/articles/cfd_analysis.pdf" class="btn btn-primary btn-small" download>
+                                <i class="fas fa-download"></i> دانلود PDF
+                            </a>
+                            <a href="archive/articles/cfd_analysis.pdf" target="_blank" class="btn btn-secondary btn-small">
+                                <i class="fas fa-eye"></i> مشاهده آنلاین
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="file-item">
+                        <div class="file-header">
+                            <div class="file-icon">
+                                <i class="fas fa-file-pdf"></i>
+                            </div>
+                            <div class="file-info">
+                                <h3>thermal_simulation.pdf</h3>
+                                <p>شبیه‌سازی حرارتی قطعات الکترونیکی با روش‌های المان محدود</p>
+                            </div>
+                        </div>
+                        <div class="file-meta">
+                            <span class="meta-tag">
+                                <i class="fas fa-weight-hanging"></i>
+                                ۱.۸ مگابایت
+                            </span>
+                            <span class="meta-tag">
+                                <i class="fas fa-calendar"></i>
+                                ۱۴۰۲
+                            </span>
+                            <span class="meta-tag">
+                                <i class="fas fa-tag"></i>
+                                انتقال حرارت
+                            </span>
+                        </div>
+                        <div class="file-actions">
+                            <a href="archive/articles/thermal_simulation.pdf" class="btn btn-primary btn-small" download>
+                                <i class="fas fa-download"></i> دانلود PDF
+                            </a>
+                            <a href="archive/articles/thermal_simulation.pdf" target="_blank" class="btn btn-secondary btn-small">
+                                <i class="fas fa-eye"></i> مشاهده آنلاین
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ترجمه‌ها -->
+            <div id="translations" class="archive-files">
+                <h2 class="section-title"><i class="fas fa-language"></i> ترجمه‌ها</h2>
+                
+                <div class="files-list">
+                    <div class="file-item">
+                        <div class="file-header">
+                            <div class="file-icon">
+                                <i class="fas fa-file-word"></i>
+                            </div>
+                            <div class="file-info">
+                                <h3>engineering_math_translation.docx</h3>
+                                <p>ترجمه فصل‌های ۵-۸ ریاضیات مهندسی پیشرفته - ویرایش سوم</p>
+                            </div>
+                        </div>
+                        <div class="file-meta">
+                            <span class="meta-tag">
+                                <i class="fas fa-weight-hanging"></i>
+                                ۳.۲ مگابایت
+                            </span>
+                            <span class="meta-tag">
+                                <i class="fas fa-calendar"></i>
+                                ۱۴۰۱
+                            </span>
+                            <span class="meta-tag">
+                                <i class="fas fa-tag"></i>
+                                ریاضیات
+                            </span>
+                        </div>
+                        <div class="file-actions">
+                            <a href="archive/translations/engineering_math_translation.docx" class="btn btn-primary btn-small" download>
+                                <i class="fas fa-download"></i> دانلود DOCX
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="file-item">
+                        <div class="file-header">
+                            <div class="file-icon">
+                                <i class="fas fa-file-word"></i>
+                            </div>
+                            <div class="file-info">
+                                <h3>cfd_theory_translation.docx</h3>
+                                <p>ترجمه مبانی تئوری CFD - جلد دوم: روش‌های عددی</p>
+                            </div>
+                        </div>
+                        <div class="file-meta">
+                            <span class="meta-tag">
+                                <i class="fas fa-weight-hanging"></i>
+                                ۲.۷ مگابایت
+                            </span>
+                            <span class="meta-tag">
+                                <i class="fas fa-calendar"></i>
+                                ۱۴۰۰
+                            </span>
+                            <span class="meta-tag">
+                                <i class="fas fa-tag"></i>
+                                تئوری CFD
+                            </span>
+                        </div>
+                        <div class="file-actions">
+                            <a href="archive/translations/cfd_theory_translation.docx" class="btn btn-primary btn-small" download>
+                                <i class="fas fa-download"></i> دانلود DOCX
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- پروژه‌ها -->
+            <div id="projects" class="archive-files">
+                <h2 class="section-title"><i class="fas fa-project-diagram"></i> پروژه‌های دانشگاهی</h2>
+                
+                <div class="files-list">
+                    <div class="file-item">
+                        <div class="file-header">
+                            <div class="file-icon">
+                                <i class="fas fa-file-archive"></i>
+                            </div>
+                            <div class="file-info">
+                                <h3>3d_printer_project.zip</h3>
+                                <p>پروژه ساخت پرینتر سه بعدی کارتزین - شامل نقشه‌ها، کدها و مستندات</p>
+                            </div>
+                        </div>
+                        <div class="file-meta">
+                            <span class="meta-tag">
+                                <i class="fas fa-weight-hanging"></i>
+                                ۴۵ مگابایت
+                            </span>
+                            <span class="meta-tag">
+                                <i class="fas fa-calendar"></i>
+                                ۱۴۰۲
+                            </span>
+                            <span class="meta-tag">
+                                <i class="fas fa-tag"></i>
+                                پرینتر 3D
+                            </span>
+                        </div>
+                        <div class="file-actions">
+                            <a href="archive/projects/3d_printer_project.zip" class="btn btn-primary btn-small" download>
+                                <i class="fas fa-download"></i> دانلود ZIP
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="file-item">
+                        <div class="file-header">
+                            <div class="file-icon">
+                                <i class="fas fa-file-archive"></i>
+                            </div>
+                            <div class="file-info">
+                                <h3>hvac_design_project.zip</h3>
+                                <p>طراحی کامل سیستم HVAC بیمارستان ۱۵۰ تختخوابی - محاسبات و نقشه‌ها</p>
+                            </div>
+                        </div>
+                        <div class="file-meta">
+                            <span class="meta-tag">
+                                <i class="fas fa-weight-hanging"></i>
+                                ۲۸ مگابایت
+                            </span>
+                            <span class="meta-tag">
+                                <i class="fas fa-calendar"></i>
+                                ۱۴۰۱
+                            </span>
+                            <span class="meta-tag">
+                                <i class="fas fa-tag"></i>
+                                HVAC
+                            </span>
+                        </div>
+                        <div class="file-actions">
+                            <a href="archive/projects/hvac_design_project.zip" class="btn btn-primary btn-small" download>
+                                <i class="fas fa-download"></i> دانلود ZIP
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ساختار پوشه -->
+		<!--
+          // <div class="folder-structure">///
+                <h2 class="section-title"><i class="fas fa-folder-tree"></i> ساختار پوشه آرشیو</h2>
+                <div class="structure-tree">
+                    <div class="tree-item">
+                        <i class="fas fa-folder"></i>
+                        <span>K:\Mahansite\</span>
+                        <div class="tree-children">
+                            <div class="tree-item">
+                                <i class="fas fa-file"></i>
+                                <span>index.html</span>
+                            </div>
+                            <div class="tree-item">
+                                <i class="fas fa-file"></i>
+                                <span>style.css</span>
+                            </div>
+                            <div class="tree-item">
+                                <i class="fas fa-file"></i>
+                                <span>archive.html</span>
+                            </div>
+                            <div class="tree-item">
+                                <i class="fas fa-folder"></i>
+                                <span>archive\</span>
+                                <div class="tree-children">
+                                    <div class="tree-item">
+                                        <i class="fas fa-folder"></i>
+                                        <span>articles\</span>
+                                        <div class="tree-children">
+                                            <div class="tree-item">
+                                                <i class="fas fa-file-pdf"></i>
+                                                <span>isipcm.pdf</span>
+                                            </div>
+                                            <div class="tree-item">
+                                                <i class="fas fa-file-pdf"></i>
+                                                <span>cfd_analysis.pdf</span>
+                                            </div>
+                                            <div class="tree-item">
+                                                <i class="fas fa-file-pdf"></i>
+                                                <span>thermal_simulation.pdf</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tree-item">
+                                        <i class="fas fa-folder"></i>
+                                        <span>translations\</span>
+                                        <div class="tree-children">
+                                            <div class="tree-item">
+                                                <i class="fas fa-file-word"></i>
+                                                <span>engineering_math_translation.docx</span>
+                                            </div>
+                                            <div class="tree-item">
+                                                <i class="fas fa-file-word"></i>
+                                                <span>cfd_theory_translation.docx</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tree-item">
+                                        <i class="fas fa-folder"></i>
+                                        <span>projects\</span>
+                                        <div class="tree-children">
+                                            <div class="tree-item">
+                                                <i class="fas fa-file-archive"></i>
+                                                <span>3d_printer_project.zip</span>
+                                            </div>
+                                            <div class="tree-item">
+                                                <i class="fas fa-file-archive"></i>
+                                                <span>hvac_design_project.zip</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+}-->
+            <a href="index.html" class="back-archive">
+                <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
+            </a>
+        </div>
+    </section>
+
+    <!-- فوتر -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>ماهان ادهم قزوینی</h3>
+                    <p>مهندس مکانیک گرایش سیالات</p>
+                    <p>طراح و تولید کننده قطعات پرینتر سه بعدی</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>لینک‌های مفید</h4>
+                    <a href="index.html">خانه</a>
+                    <a href="index.html#resume">رزومه</a>
+                    <a href="product/products.html">محصولات</a>
+                    <a href="archive.html">آرشیو</a>
+                    <a href="index.html#contact">تماس</a>
+                </div>
+                
+                <div class="footer-social">
+                    <h4>شبکه‌های اجتماعی</h4>
+                    <div class="social-icons">
+                        <a href="https://t.me/mahanenman" class="social-icon" title="تلگرام">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="https://instagram.com/mahantheloner" class="social-icon" title="اینستاگرام">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="mailto:mahan.neman2020@gmail.com" class="social-icon" title="ایمیل">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© ۱۴۰۳ ماهان ادهم قزوینی. تمامی حقوق محفوظ است.</p>
+                <p class="university">دانشگاه آزاد اسلامی واحد تهران مرکز - دانشکده فنی مهندسی</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="backToTop" class="back-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+    <script>
+        // اسکریپت برای فعال کردن لینک‌های داخلی
+        document.addEventListener('DOMContentLoaded', function() {
+            // فعال کردن اسکرول نرم
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // اضافه کردن اسکریپت برای تغییر تم (در صورت نیاز)
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function() {
+                    document.body.classList.toggle('light-theme');
+                    const icon = this.querySelector('i');
+                    if (document.body.classList.contains('light-theme')) {
+                        icon.className = 'fas fa-sun';
+                    } else {
+                        icon.className = 'fas fa-moon';
+                    }
+                });
+            }
+            
+            // مدیریت منوی موبایل
+            const menuToggle = document.getElementById('menuToggle');
+            const mainNav = document.getElementById('mainNav');
+            
+            if (menuToggle && mainNav) {
+                menuToggle.addEventListener('click', function() {
+                    mainNav.classList.toggle('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

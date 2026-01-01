@@ -1,0 +1,151 @@
+/* ===============================
+   PRODUCT PAGE – MAHAN STYLE
+   هماهنگ با style.css
+================================ */
+
+.product-page {
+    padding: 60px 0;
+}
+
+/* کارت اصلی محصول */
+.product-card {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 40px;
+    background: #0f0f0f;
+    border: 1px solid rgba(0, 255, 170, 0.15);
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* تصویر محصول */
+.product-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-image img {
+    max-width: 100%;
+    max-height: 320px;
+    border-radius: 14px;
+    background: #111;
+    padding: 20px;
+}
+
+/* محتوا */
+.product-content h2 {
+    font-size: 1.8rem;
+    margin-bottom: 16px;
+    color: #ffffff;
+}
+
+.product-content p {
+    line-height: 1.9;
+    color: #cfcfcf;
+    margin-bottom: 24px;
+}
+
+/* مشخصات */
+.product-specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 28px;
+}
+
+.product-specs span {
+    background: rgba(0, 255, 170, 0.08);
+    border: 1px solid rgba(0, 255, 170, 0.25);
+    color: #00ffaa;
+    padding: 8px 14px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+/* قیمت */
+.product-price {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #00ffaa;
+    margin-top: 10px;
+}
+
+/* هدر صفحه */
+.main-header h1 {
+    font-size: 2.2rem;
+}
+
+.main-header p {
+    color: #aaa;
+    margin-top: 8px;
+}
+
+/* ریسپانسیو */
+@media (max-width: 900px) {
+    .product-card {
+        grid-template-columns: 1fr;
+        padding: 28px;
+    }
+
+    .product-image img {
+        max-height: 260px;
+    }
+}
+
+
+
+.image-slider {
+    position: relative;
+    background: #111;
+    border-radius: 16px;
+    padding: 20px;
+}
+
+.image-slider img {
+    width: 100%;
+    max-height: 320px;
+    object-fit: contain;
+    display: none;
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(0, 255, 170, 0.4);
+    color: #00ffaa;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.slider-btn.prev { right: 10px; }
+.slider-btn.next { left: 10px; }
+
+.slider-btn:hover {
+    background: #00ffaa;
+    color: #000;
+}
+
+.purchase-form {
+    margin-top: 30px;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+}
+
+.purchase-form input {
+    width: 80px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #333;
+    background: #000;
+    color: #fff;
+}
+
