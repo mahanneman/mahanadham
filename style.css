@@ -475,3 +475,12 @@ body {
         display: flex !important;
     }
 }
+/* به فایل style.css اضافه کنید */
+body {
+    margin-top: 20px !important; /* مقدار دلخواه */
+}
+
+/* یا اگر می‌خواهید فقط صفحه اصلی */
+#home {
+    margin-top: 30px !important;
+}
