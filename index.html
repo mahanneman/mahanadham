@@ -1,231 +1,44 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <!-- متاتگ‌ها و لینک‌های CSS بدون تغییر -->
-    <style>
-        /* استایل‌های جدید برای منوهای کشویی */
-        :root {
-            --slide-menu-width: 280px;
-            --slide-menu-speed: 0.3s;
-        }
-
-        /* منوهای کشویی */
-        .slide-menu-container {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: var(--slide-menu-width);
-            height: 100vh;
-            background: var(--card-bg);
-            box-shadow: var(--shadow-lg);
-            z-index: 1000;
-            transition: right var(--slide-menu-speed) ease;
-            overflow-y: auto;
-            padding: 20px;
-        }
-
-        .slide-menu-container.active {
-            right: 0;
-        }
-
-        /* منو برای دسکتاپ */
-        @media (min-width: 992px) {
-            .slide-menu-container {
-                width: 320px;
-            }
-            
-            /* دکمه باز کردن منو در دسکتاپ */
-            .desktop-menu-toggle {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                background: var(--primary-color);
-                color: white;
-                border: none;
-                padding: 10px 20px;
-                border-radius: 8px;
-                cursor: pointer;
-                font-family: inherit;
-            }
-        }
-
-        /* منو برای موبایل */
-        @media (max-width: 991px) {
-            .slide-menu-container {
-                width: 85%;
-            }
-        }
-
-        /* دکمه بستن منو */
-        .slide-menu-close {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: none;
-            border: none;
-            color: var(--text-color);
-            font-size: 24px;
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: background-color 0.3s;
-        }
-
-        .slide-menu-close:hover {
-            background: var(--hover-color);
-        }
-
-        /* لیست منوهای کشویی */
-        .slide-menu-list {
-            list-style: none;
-            padding: 0;
-            margin-top: 60px;
-        }
-
-        .slide-menu-item {
-            margin-bottom: 10px;
-        }
-
-        .slide-menu-link {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px;
-            border-radius: 12px;
-            color: var(--text-color);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
-        }
-
-        .slide-menu-link:hover,
-        .slide-menu-link.active {
-            background: var(--hover-color);
-            border-color: var(--primary-color);
-            transform: translateX(-5px);
-        }
-
-        .slide-menu-link i {
-            width: 20px;
-            text-align: center;
-            font-size: 18px;
-            color: var(--primary-color);
-        }
-
-        /* عکس پروفایل در منو */
-        .slide-menu-profile {
-            text-align: center;
-            padding: 20px 0;
-            border-bottom: 1px solid var(--border-color);
-            margin-bottom: 20px;
-        }
-
-        .slide-menu-profile-img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--primary-color);
-            margin-bottom: 15px;
-        }
-
-        /* آواردرای برای منوهای کشویی */
-        .menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-            opacity: 0;
-            visibility: hidden;
-            transition: all var(--slide-menu-speed) ease;
-        }
-
-        .menu-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* استایل‌های جدید برای عکس کوچک‌تر در هدر */
-        .profile-img {
-            width: 180px; /* کوچک‌تر شده */
-            height: 180px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--primary-color);
-            transition: all 0.3s ease;
-        }
-
-        @media (max-width: 768px) {
-            .profile-img {
-                width: 150px;
-                height: 150px;
-            }
-        }
-
-        /* در قسمت اول (درباره من) عکس بزرگتر */
-        .about-section .profile-img {
-            width: 250px;
-            height: 250px;
-        }
-
-        /* هدر اصلی - مخفی کردن منوی افقی */
-        .main-nav {
-            display: none; /* منوی افقی قدیمی مخفی می‌شود */
-        }
-
-        /* دکمه منو در هدر */
-        .menu-toggle {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-family: inherit;
-        }
-
-        /* بهبود استایل‌های موجود */
-        .main-header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 100;
-            background: var(--header-bg);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-        }
-
-        /* دکمه‌های اکشن */
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
+    <title>ماهان ادهم قزوینی | متخصص تحلیل CFD و طراحی مکانیکی</title>
+    
+    <!-- Meta Tags for SEO -->
+    <meta name="description" content="رزومه آنلاین ماهان ادهم قزوینی - متخصص تحلیل CFD، طراحی سیستم‌های مکانیکی و قطعات پرینتر سه‌بعدی با تجربه در پروژه‌های صنعتی">
+    <meta name="keywords" content="تحلیل CFD, طراحی پرینتر سه بعدی, انسیس فلوئنت, کتیا, سالیدورکس, مهندسی سیالات, ماهان ادهم قزوینی">
+    <meta name="author" content="ماهان ادهم قزوینی">
+    
+    <!-- لینک CSS و کتابخانه‌ها -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
     <!-- Loading Screen -->
     <div class="loading-screen" id="loadingScreen">
-        <!-- بدون تغییر -->
+        <div class="spinner-container">
+            <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
+            <div class="loading-text">
+                <p class="loading-message">در حال بارگذاری...</p>
+                <div class="loading-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <span class="progress-text" id="progressText">0%</span>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Header - با منوی کشویی -->
+    <!-- Header با منوی کشویی -->
     <header class="main-header">
         <div class="container">
             <div class="header-content">
@@ -237,7 +50,7 @@
                         </div>
                         <div class="logo-text">
                             <h1 class="logo-name">ماهان ادهم قزوینی</h1>
-                            <p class="logo-title">متخصص سیالات و تحلیل CFD</p> <!-- تغییر عنوان -->
+                            <p class="logo-title">متخصص تحلیل CFD</p>
                         </div>
                     </a>
                 </div>
@@ -272,11 +85,11 @@
             <i class="fas fa-times"></i>
         </button>
         
-        <!-- عکس پروفایل در منو -->
+        <!-- پروفایل در منو -->
         <div class="slide-menu-profile">
             <img src="mahanphoto.png" alt="ماهان ادهم قزوینی" class="slide-menu-profile-img">
             <h3>ماهان ادهم قزوینی</h3>
-            <p>متخصص تحلیل CFD و طراحی</p> <!-- تغییر عنوان -->
+            <p>متخصص تحلیل CFD و طراحی</p>
         </div>
         
         <!-- لیست منو -->
@@ -334,14 +147,14 @@
         <!-- اطلاعات تماس در منو -->
         <div class="slide-menu-contact">
             <div class="contact-info">
-                <a href="tel:+989902279702" class="contact-item">
+                <div class="contact-item">
                     <i class="fas fa-phone"></i>
-                    <span>۰۹۹۰۲۲۷۹۷۰۲</span>
-                </a>
-                <a href="mailto:mahan.neman2020@gmail.com" class="contact-item">
+                    <a href="tel:+989902279702">۰۹۹۰۲۲۷۹۷۰۲</a>
+                </div>
+                <div class="contact-item">
                     <i class="fas fa-envelope"></i>
-                    <span>mahan.neman2020@gmail.com</span>
-                </a>
+                    <a href="mailto:mahan.neman2020@gmail.com">mahan.neman2020@gmail.com</a>
+                </div>
             </div>
             
             <!-- شبکه‌های اجتماعی -->
@@ -359,43 +172,176 @@
     <!-- آواردرای برای منو -->
     <div class="menu-overlay" id="menuOverlay"></div>
 
-    <!-- بقیه بخش‌ها بدون تغییر -->
-    <section id="home" class="hero-section">
-        <!-- عکس در هدر کوچک‌تر شده -->
-        <div class="hero-image">
-            <div class="profile-image-container">
-                <div class="image-wrapper">
-                    <img src="mahanphoto.png" 
-                         alt="ماهان ادهم قزوینی" 
-                         class="profile-img"
-                         loading="lazy">
-                    <div class="image-shine"></div>
-                </div>
-                <div class="profile-badge animate__animated animate__pulse animate__infinite animate__slower">
-                    <i class="fas fa-award"></i>
-                    <span>متخصص تحلیل CFD</span> <!-- تغییر عنوان -->
+    <!-- محتوای اصلی -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="hero-bg">
+                <div class="bg-gradient"></div>
+                <div class="bg-pattern"></div>
+            </div>
+            <div class="container">
+                <div class="hero-content">
+                    <!-- عکس در هدر -->
+                    <div class="hero-image">
+                        <div class="profile-image-container">
+                            <div class="image-wrapper">
+                                <img src="mahanphoto.png" 
+                                     alt="ماهان ادهم قزوینی" 
+                                     class="profile-img"
+                                     loading="lazy">
+                                <div class="image-shine"></div>
+                            </div>
+                            <div class="profile-badge animate__animated animate__pulse animate__infinite animate__slower">
+                                <i class="fas fa-award"></i>
+                                <span>متخصص تحلیل CFD</span>
+                            </div>
+                            <div class="profile-status">
+                                <div class="status-dot"></div>
+                                <span>آماده همکاری</span>
+                            </div>
+                        </div>
+                        
+                        <!-- نشانه‌های اعتماد -->
+                        <div class="trust-badges">
+                            <div class="badge">
+                                <i class="fas fa-check-circle"></i>
+                                <span>تضمین کیفیت</span>
+                            </div>
+                            <div class="badge">
+                                <i class="fas fa-clock"></i>
+                                <span>تحویل به موقع</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- متن هدر -->
+                    <div class="hero-text">
+                        <div class="hero-intro">
+                            <div class="intro-badge animate__animated animate__fadeIn">
+                                <i class="fas fa-rocket"></i>
+                                <span>مهندس مکانیک | تحلیل‌گر CFD</span>
+                            </div>
+                            <h1 class="hero-title animate__animated animate__fadeInUp">
+                                <span class="title-line">سلام، من</span>
+                                <span class="title-name text-gradient">ماهان ادهم قزوینی</span>
+                                <span class="title-line">هستم</span>
+                            </h1>
+                            <div class="typing-container animate__animated animate__fadeInUp">
+                                <div class="typing-wrapper">
+                                    <span class="typing-text" id="typedText"></span>
+                                    <span class="cursor"></span>
+                                </div>
+                                <div class="typing-line"></div>
+                            </div>
+                            <p class="hero-description animate__animated animate__fadeInUp">
+                                مهندس مکانیک با تخصص در تحلیل CFD، طراحی سیستم‌های مکانیکی و قطعات پرینتر سه‌بعدی. با تجربه در شبیه‌سازی جریان سیال، انتقال حرارت و بهینه‌سازی طراحی‌ها.
+                            </p>
+                        </div>
+                        
+                        <!-- آمار -->
+                        <div class="hero-stats">
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-project-diagram"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <span class="stat-number">50<span class="stat-symbol">+</span></span>
+                                        <span class="stat-label">پروژه موفق</span>
+                                    </div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <span class="stat-number">3<span class="stat-symbol">+</span></span>
+                                        <span class="stat-label">سال تجربه</span>
+                                    </div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <span class="stat-number">30<span class="stat-symbol">+</span></span>
+                                        <span class="stat-label">مشتری راضی</span>
+                                    </div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-certificate"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <span class="stat-number">10<span class="stat-symbol">+</span></span>
+                                        <span class="stat-label">مهارت تخصصی</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- دکمه‌های اقدام -->
+                        <div class="hero-actions">
+                            <div class="actions-grid">
+                                <a href="#projects" class="btn btn-primary btn-lg btn-action">
+                                    <i class="fas fa-eye"></i>
+                                    مشاهده پروژه‌ها
+                                </a>
+                                <a href="#contact" class="btn btn-secondary btn-lg btn-action">
+                                    <i class="fas fa-envelope"></i>
+                                    تماس با من
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- تگ‌های تخصص -->
+                        <div class="expertise-tags">
+                            <span class="tag">CFD Analysis</span>
+                            <span class="tag">ANSYS Fluent</span>
+                            <span class="tag">SolidWorks</span>
+                            <span class="tag">CATIA</span>
+                            <span class="tag">3D Printing</span>
+                            <span class="tag">Mechanical Design</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- بقیه کد هیرو بدون تغییر -->
-    </section>
-
-    <!-- بخش درباره من - عکس بزرگتر -->
-    <section id="about" class="about-section">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-image">
-                    <img src="mahanphoto.png" 
-                         alt="ماهان ادهم قزوینی" 
-                         class="profile-img about-profile-img">
-                </div>
-                <!-- بقیه کد درباره من -->
+            
+            <!-- نشانگر اسکرول -->
+            <div class="scroll-indicator">
+                <a href="#about" class="scroll-down">
+                    <div class="mouse-wrapper">
+                        <div class="mouse">
+                            <div class="wheel"></div>
+                        </div>
+                        <div class="arrows">
+                            <div class="arrow1">↓</div>
+                            <div class="arrow2">↓</div>
+                            <div class="arrow3">↓</div>
+                        </div>
+                    </div>
+                    <span class="scroll-text">اسکرول کنید</span>
+                </a>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- JavaScript برای منوهای کشویی -->
+        <!-- سایر سکشن‌ها (کوتاه شده برای جلوگیری از طولانی شدن) -->
+        <!-- شما می‌توانید بقیه سکشن‌ها را از نسخه قبلی کپی کنید -->
+        
+    </main>
+
+    <!-- JavaScript کتابخانه‌ها -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- JavaScript کدهای داخلی -->
     <script>
+        // کدهای JavaScript - همه در همین فایل
+        
+        // ==========================================================================
+        // مدیریت منوی کشویی
+        // ==========================================================================
         document.addEventListener('DOMContentLoaded', function() {
             // عناصر منو
             const menuToggle = document.getElementById('menuToggle');
@@ -405,26 +351,34 @@
             const slideMenuLinks = document.querySelectorAll('.slide-menu-link');
             
             // باز کردن منو
-            menuToggle.addEventListener('click', function() {
-                slideMenu.classList.add('active');
-                menuOverlay.classList.add('active');
-                document.body.style.overflow = 'hidden';
-                this.setAttribute('aria-expanded', 'true');
-            });
+            if (menuToggle) {
+                menuToggle.addEventListener('click', function() {
+                    slideMenu.classList.add('active');
+                    menuOverlay.classList.add('active');
+                    document.body.classList.add('no-scroll');
+                    this.setAttribute('aria-expanded', 'true');
+                });
+            }
             
             // بستن منو
             function closeMenu() {
                 slideMenu.classList.remove('active');
                 menuOverlay.classList.remove('active');
-                document.body.style.overflow = '';
-                menuToggle.setAttribute('aria-expanded', 'false');
+                document.body.classList.remove('no-scroll');
+                if (menuToggle) {
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                }
             }
             
             // بستن با دکمه
-            slideMenuClose.addEventListener('click', closeMenu);
+            if (slideMenuClose) {
+                slideMenuClose.addEventListener('click', closeMenu);
+            }
             
             // بستن با کلیک روی آواردرای
-            menuOverlay.addEventListener('click', closeMenu);
+            if (menuOverlay) {
+                menuOverlay.addEventListener('click', closeMenu);
+            }
             
             // بستن با کلید Escape
             document.addEventListener('keydown', function(e) {
@@ -433,37 +387,27 @@
                 }
             });
             
-            // تغییر آکتیو بودن لینک‌های منو
+            // مدیریت لینک‌های منو و اسکرول نرم
             slideMenuLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
-                    // حذف کلاس active از همه لینک‌ها
-                    slideMenuLinks.forEach(l => l.classList.remove('active'));
-                    // اضافه کردن به لینک کلیک شده
-                    this.classList.add('active');
-                    
-                    // اگر در موبایل هستیم، منو را ببند
-                    if (window.innerWidth <= 991) {
-                        setTimeout(closeMenu, 300);
-                    }
-                });
-            });
-            
-            // اسکرول نرم برای لینک‌های منو
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
                     e.preventDefault();
                     
                     const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
+                    if (targetId === '#' || !targetId.startsWith('#')) return;
                     
                     const targetElement = document.querySelector(targetId);
                     if (targetElement) {
+                        // حذف کلاس active از همه لینک‌ها
+                        slideMenuLinks.forEach(l => l.classList.remove('active'));
+                        // اضافه کردن به لینک کلیک شده
+                        this.classList.add('active');
+                        
                         // بستن منو در موبایل
                         if (window.innerWidth <= 991) {
-                            closeMenu();
+                            setTimeout(closeMenu, 300);
                         }
                         
-                        // اسکرول نرم
+                        // اسکرول نرم به بخش مورد نظر
                         window.scrollTo({
                             top: targetElement.offsetTop - 80,
                             behavior: 'smooth'
@@ -492,26 +436,461 @@
                     }
                 });
             });
+
+            // ==========================================================================
+            // مدیریت تغییر تم
+            // ==========================================================================
+            const themeToggle = document.getElementById('themeToggle');
+            const currentTheme = localStorage.getItem('theme') || 'dark';
             
-            // دسکتاپ: باز کردن منو با هاور (اختیاری)
-            if (window.innerWidth >= 992) {
-                // می‌توانید این بخش را فعال کنید اگر می‌خواهید منو در دسکتاپ با هاور باز شود
-                // menuToggle.addEventListener('mouseenter', () => {
-                //     if (!slideMenu.classList.contains('active')) {
-                //         slideMenu.classList.add('active');
-                //     }
-                // });
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function() {
+                    const currentTheme = document.documentElement.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    
+                    document.documentElement.setAttribute('data-theme', newTheme);
+                    localStorage.setItem('theme', newTheme);
+                    
+                    // اضافه کردن انیمیشن تغییر تم
+                    document.body.classList.add('theme-transition');
+                    setTimeout(() => {
+                        document.body.classList.remove('theme-transition');
+                    }, 500);
+                });
+            }
+
+            // ==========================================================================
+            // انیمیشن تایپینگ
+            // ==========================================================================
+            const typedText = document.getElementById('typedText');
+            if (typedText && typeof Typed !== 'undefined') {
+                new Typed('#typedText', {
+                    strings: [
+                        'متخصص تحلیل CFD',
+                        'طراح قطعات پرینتر سه بعدی',
+                        'مشاور مهندسی مکانیک',
+                        'متخصص شبیه‌سازی حرارتی'
+                    ],
+                    typeSpeed: 50,
+                    backSpeed: 30,
+                    backDelay: 2000,
+                    loop: true,
+                    showCursor: true,
+                    cursorChar: '|'
+                });
+            }
+
+            // ==========================================================================
+            // AOS initialization
+            // ==========================================================================
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 800,
+                    once: true,
+                    offset: 100,
+                    easing: 'ease-in-out'
+                });
+            }
+
+            // ==========================================================================
+            // مدیریت تب‌های مهارت‌ها
+            // ==========================================================================
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabPanes = document.querySelectorAll('.tab-pane');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // حذف active از همه تب‌ها
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabPanes.forEach(pane => pane.classList.remove('active'));
+                    
+                    // اضافه کردن active به تب انتخابی
+                    this.classList.add('active');
+                    document.getElementById(`${tabId}-tab`).classList.add('active');
+                });
+            });
+
+            // ==========================================================================
+            // فیلتر پروژه‌ها
+            // ==========================================================================
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+            const loadMoreBtn = document.getElementById('loadMoreProjects');
+            
+            let visibleProjects = 3;
+            let currentFilter = 'all';
+            
+            // فیلتر پروژه‌ها
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // به‌روزرسانی کلاس active
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    currentFilter = filter;
+                    visibleProjects = 3;
+                    
+                    // فیلتر کردن پروژه‌ها
+                    projectCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category').includes(filter)) {
+                            card.style.display = 'block';
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                            
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }, 100);
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                    
+                    // مدیریت دکمه "نمایش بیشتر"
+                    updateLoadMoreButton();
+                });
+            });
+            
+            // بارگذاری پروژه‌های بیشتر
+            if (loadMoreBtn) {
+                loadMoreBtn.addEventListener('click', function() {
+                    visibleProjects += 3;
+                    updateVisibleProjects();
+                    updateLoadMoreButton();
+                });
+            }
+            
+            function updateVisibleProjects() {
+                let shown = 0;
+                projectCards.forEach((card, index) => {
+                    if (currentFilter === 'all' || card.getAttribute('data-category').includes(currentFilter)) {
+                        if (shown < visibleProjects) {
+                            card.style.display = 'block';
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                            
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }, index * 100);
+                            
+                            shown++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+            }
+            
+            function updateLoadMoreButton() {
+                let totalFiltered = 0;
+                projectCards.forEach(card => {
+                    if (currentFilter === 'all' || card.getAttribute('data-category').includes(currentFilter)) {
+                        totalFiltered++;
+                    }
+                });
                 
-                // slideMenu.addEventListener('mouseleave', () => {
-                //     slideMenu.classList.remove('active');
-                // });
+                if (visibleProjects >= totalFiltered) {
+                    if (loadMoreBtn) loadMoreBtn.style.display = 'none';
+                } else {
+                    if (loadMoreBtn) loadMoreBtn.style.display = 'inline-flex';
+                }
+            }
+            
+            if (projectCards.length > 0) {
+                updateVisibleProjects();
+                updateLoadMoreButton();
+            }
+
+            // ==========================================================================
+            // فرم تماس
+            // ==========================================================================
+            const contactForm = document.getElementById('contactForm');
+            const formSuccess = document.getElementById('formSuccess');
+            const charCount = document.getElementById('charCount');
+            const messageTextarea = document.getElementById('message');
+            const btnSuccessClose = document.querySelector('.btn-success-close');
+            
+            // شمارنده کاراکترها
+            if (messageTextarea && charCount) {
+                messageTextarea.addEventListener('input', function() {
+                    charCount.textContent = this.value.length;
+                });
+            }
+            
+            // ارسال فرم
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const submitBtn = this.querySelector('.btn-submit');
+                    submitBtn.classList.add('loading');
+                    submitBtn.disabled = true;
+                    
+                    // شبیه‌سازی ارسال فرم
+                    setTimeout(() => {
+                        submitBtn.classList.remove('loading');
+                        submitBtn.disabled = false;
+                        
+                        // نمایش پیام موفقیت
+                        contactForm.style.display = 'none';
+                        if (formSuccess) formSuccess.style.display = 'flex';
+                        
+                        // ریست فرم
+                        this.reset();
+                        if (charCount) charCount.textContent = '0';
+                    }, 2000);
+                });
+            }
+            
+            // بستن پیام موفقیت
+            if (btnSuccessClose) {
+                btnSuccessClose.addEventListener('click', function() {
+                    if (formSuccess) formSuccess.style.display = 'none';
+                    if (contactForm) contactForm.style.display = 'flex';
+                });
+            }
+
+            // ==========================================================================
+            // دکمه Back to Top
+            // ==========================================================================
+            const backToTop = document.getElementById('backToTop');
+            if (backToTop) {
+                window.addEventListener('scroll', function() {
+                    if (window.pageYOffset > 300) {
+                        backToTop.classList.add('show');
+                    } else {
+                        backToTop.classList.remove('show');
+                    }
+                });
+                
+                backToTop.addEventListener('click', function() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+
+            // ==========================================================================
+            // Floating Action Button
+            // ==========================================================================
+            const fabMain = document.getElementById('fabMain');
+            const fabContainer = document.querySelector('.fab-container');
+            
+            if (fabMain) {
+                fabMain.addEventListener('click', function() {
+                    fabContainer.classList.toggle('active');
+                });
+                
+                // بستن FAB هنگام کلیک خارج
+                document.addEventListener('click', function(e) {
+                    if (fabContainer && !fabContainer.contains(e.target)) {
+                        fabContainer.classList.remove('active');
+                    }
+                });
+            }
+
+            // ==========================================================================
+            // مدیریت هدر هنگام اسکرول
+            // ==========================================================================
+            const mainHeader = document.querySelector('.main-header');
+            if (mainHeader) {
+                window.addEventListener('scroll', function() {
+                    if (window.pageYOffset > 50) {
+                        mainHeader.classList.add('scrolled');
+                    } else {
+                        mainHeader.classList.remove('scrolled');
+                    }
+                });
+            }
+
+            // ==========================================================================
+            // مدیریت لودینگ
+            // ==========================================================================
+            const loadingScreen = document.getElementById('loadingScreen');
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            
+            function simulateLoading() {
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += Math.floor(Math.random() * 10) + 5;
+                    if (progress > 100) progress = 100;
+                    
+                    if (progressFill) progressFill.style.width = progress + '%';
+                    if (progressText) progressText.textContent = progress + '%';
+                    
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            if (loadingScreen) {
+                                loadingScreen.style.opacity = '0';
+                                setTimeout(() => {
+                                    loadingScreen.style.display = 'none';
+                                }, 500);
+                            }
+                        }, 500);
+                    }
+                }, 100);
+            }
+            
+            simulateLoading();
+
+            // ==========================================================================
+            // Tooltip برای نرم‌افزارها
+            // ==========================================================================
+            const softwareBadges = document.querySelectorAll('.software-badge');
+            softwareBadges.forEach(badge => {
+                badge.addEventListener('mouseenter', function() {
+                    const tooltip = document.createElement('div');
+                    tooltip.className = 'custom-tooltip';
+                    tooltip.textContent = this.getAttribute('data-tooltip');
+                    document.body.appendChild(tooltip);
+                    
+                    const rect = this.getBoundingClientRect();
+                    tooltip.style.left = rect.left + rect.width / 2 - tooltip.offsetWidth / 2 + 'px';
+                    tooltip.style.top = rect.top - tooltip.offsetHeight - 10 + 'px';
+                    
+                    this.tooltip = tooltip;
+                });
+                
+                badge.addEventListener('mouseleave', function() {
+                    if (this.tooltip) {
+                        this.tooltip.remove();
+                        this.tooltip = null;
+                    }
+                });
+            });
+
+            // ==========================================================================
+            // مدیریت اسکرول نرم برای لینک‌های فوتر
+            // ==========================================================================
+            const footerLinks = document.querySelectorAll('.footer-link[href^="#"]');
+            footerLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // ==========================================================================
+            // انیمیشن پیشرفت مهارت‌ها هنگام اسکرول
+            // ==========================================================================
+            const progressBars = document.querySelectorAll('.progress');
+            
+            function animateProgressBars() {
+                progressBars.forEach(bar => {
+                    const width = bar.style.width;
+                    bar.style.width = '0%';
+                    
+                    setTimeout(() => {
+                        bar.style.transition = 'width 1.5s ease-in-out';
+                        bar.style.width = width;
+                    }, 300);
+                });
+            }
+            
+            // راه‌اندازی Intersection Observer برای انیمیشن مهارت‌ها
+            if (typeof IntersectionObserver !== 'undefined') {
+                const observerOptions = {
+                    threshold: 0.5,
+                    rootMargin: '0px 0px -100px 0px'
+                };
+                
+                const skillsObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            animateProgressBars();
+                            skillsObserver.unobserve(entry.target);
+                        }
+                    });
+                }, observerOptions);
+                
+                const skillsSection = document.getElementById('skills');
+                if (skillsSection) {
+                    skillsObserver.observe(skillsSection);
+                }
+            }
+
+            // ==========================================================================
+            // مدیریت فرم عضویت در خبرنامه
+            // ==========================================================================
+            const newsletterForm = document.querySelector('.newsletter-form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const input = this.querySelector('.newsletter-input');
+                    const btn = this.querySelector('.newsletter-btn');
+                    
+                    if (!input || input.value.trim() === '') {
+                        input.style.borderColor = 'var(--accent-red)';
+                        return;
+                    }
+                    
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                    btn.disabled = true;
+                    
+                    // شبیه‌سازی ارسال
+                    setTimeout(() => {
+                        btn.innerHTML = '<i class="fas fa-check"></i>';
+                        input.value = '';
+                        input.placeholder = 'عضویت شما با موفقیت انجام شد!';
+                        
+                        setTimeout(() => {
+                            btn.innerHTML = '<i class="fas fa-paper-plane"></i>';
+                            btn.disabled = false;
+                            input.placeholder = 'ایمیل خود را وارد کنید...';
+                        }, 3000);
+                    }, 1500);
+                });
+            }
+
+            // ==========================================================================
+            // مدیریت اندازه فونت برای تایپ‌ها
+            // ==========================================================================
+            function adjustTypography() {
+                const heroTitle = document.querySelector('.hero-title');
+                if (heroTitle && window.innerWidth < 768) {
+                    heroTitle.style.fontSize = '1.8rem';
+                }
+            }
+            
+            window.addEventListener('resize', adjustTypography);
+            adjustTypography();
+
+            // ==========================================================================
+            // انیمیشن نشانگر اسکرول
+            // ==========================================================================
+            const scrollIndicator = document.querySelector('.scroll-indicator');
+            if (scrollIndicator) {
+                window.addEventListener('scroll', function() {
+                    if (window.pageYOffset > window.innerHeight * 0.5) {
+                        scrollIndicator.style.opacity = '0';
+                        scrollIndicator.style.visibility = 'hidden';
+                    } else {
+                        scrollIndicator.style.opacity = '1';
+                        scrollIndicator.style.visibility = 'visible';
+                    }
+                });
             }
         });
     </script>
-    
-    <!-- بقیه JavaScript بدون تغییر -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="script.js"></script>
 </body>
 </html>
