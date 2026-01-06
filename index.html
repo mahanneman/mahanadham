@@ -64,6 +64,304 @@
     
     <!-- Add to home screen for Android -->
     <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- استایل اضافی برای منوی کشویی -->
+    <style>
+        /* استایل منوی کشویی */
+        .slide-menu-container {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 350px;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--card-bg) 0%, var(--card-bg-secondary) 100%);
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            border-radius: 20px 0 0 20px;
+        }
+
+        .slide-menu-container.active {
+            right: 0;
+        }
+
+        .slide-menu-close {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1002;
+        }
+
+        .slide-menu-close:hover {
+            background: var(--primary-hover);
+            transform: rotate(90deg);
+        }
+
+        .slide-menu-profile {
+            padding: 40px 30px 30px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border-radius: 0 0 30px 30px;
+        }
+
+        .slide-menu-profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            object-fit: cover;
+            margin-bottom: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .slide-menu-profile h3 {
+            margin: 0 0 5px;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .slide-menu-profile p {
+            margin: 0 0 15px;
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .profile-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .slide-menu-list {
+            flex: 1;
+            padding: 20px 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .slide-menu-item {
+            margin: 5px 20px;
+        }
+
+        .slide-menu-link {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide-menu-link:hover,
+        .slide-menu-link.active {
+            background: var(--primary-color);
+            color: white;
+            transform: translateX(-10px);
+        }
+
+        .slide-menu-link.active .menu-indicator {
+            width: 6px;
+            opacity: 1;
+        }
+
+        .menu-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(var(--primary-rgb), 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .slide-menu-link:hover .menu-icon,
+        .slide-menu-link.active .menu-icon {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .slide-menu-link span {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .menu-indicator {
+            width: 0;
+            height: 100%;
+            background: white;
+            border-radius: 3px;
+            position: absolute;
+            right: 0;
+            top: 0;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .slide-menu-contact {
+            padding: 25px 30px;
+            background: var(--card-bg);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-info {
+            margin-bottom: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            color: var(--text-color);
+        }
+
+        .contact-item i {
+            color: var(--primary-color);
+            width: 20px;
+        }
+
+        .contact-item a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: var(--primary-color);
+        }
+
+        .social-links-menu {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-links-menu .social-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--card-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links-menu .social-icon:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .slide-menu-actions {
+            padding: 20px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: var(--card-bg-secondary);
+        }
+
+        .slide-menu-actions .btn {
+            border-radius: 10px;
+            padding: 12px 20px;
+            font-weight: 500;
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* ریسپانسیو */
+        @media (max-width: 768px) {
+            .slide-menu-container {
+                width: 300px;
+            }
+            
+            .slide-menu-profile {
+                padding: 30px 20px 20px;
+            }
+            
+            .slide-menu-profile-img {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .slide-menu-item {
+                margin: 5px 15px;
+            }
+            
+            .slide-menu-link {
+                padding: 12px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .slide-menu-container {
+                width: 280px;
+            }
+            
+            .slide-menu-profile h3 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Loading Screen - Improved -->
@@ -113,11 +411,16 @@
                     <button id="themeToggle" class="theme-toggle" aria-label="تغییر تم">
                         <i class="fas fa-moon theme-icon"></i>
                         <i class="fas fa-sun theme-icon"></i>
+                        <span class="theme-label">تم</span>
                     </button>
                     
                     <!-- دکمه منوی کشویی -->
                     <button class="menu-toggle" id="menuToggle" aria-label="منو" aria-expanded="false">
-                        <i class="fas fa-bars"></i>
+                        <span class="hamburger">
+                            <span class="bar bar1"></span>
+                            <span class="bar bar2"></span>
+                            <span class="bar bar3"></span>
+                        </span>
                         <span class="menu-text">منو</span>
                     </button>
                 </div>
@@ -137,56 +440,84 @@
             <img src="mahanphoto.png" alt="ماهان ادهم قزوینی" class="slide-menu-profile-img">
             <h3>ماهان ادهم قزوینی</h3>
             <p>متخصص تحلیل CFD و طراحی</p>
+            <div class="profile-status">
+                <div class="status-dot"></div>
+                <span>در دسترس برای پروژه‌ها</span>
+            </div>
         </div>
         
         <!-- لیست منو -->
         <ul class="slide-menu-list">
             <li class="slide-menu-item">
                 <a href="#home" class="slide-menu-link active" data-menu="home">
-                    <i class="fas fa-home"></i>
+                    <div class="menu-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
                     <span>خانه</span>
+                    <div class="menu-indicator"></div>
                 </a>
             </li>
             <li class="slide-menu-item">
                 <a href="#about" class="slide-menu-link" data-menu="about">
-                    <i class="fas fa-user"></i>
+                    <div class="menu-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
                     <span>درباره من</span>
+                    <div class="menu-indicator"></div>
                 </a>
             </li>
             <li class="slide-menu-item">
                 <a href="#skills" class="slide-menu-link" data-menu="skills">
-                    <i class="fas fa-cogs"></i>
+                    <div class="menu-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
                     <span>مهارت‌ها</span>
+                    <div class="menu-indicator"></div>
                 </a>
             </li>
             <li class="slide-menu-item">
                 <a href="#education" class="slide-menu-link" data-menu="education">
-                    <i class="fas fa-graduation-cap"></i>
+                    <div class="menu-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
                     <span>تحصیلات</span>
+                    <div class="menu-indicator"></div>
                 </a>
             </li>
             <li class="slide-menu-item">
                 <a href="#projects" class="slide-menu-link" data-menu="projects">
-                    <i class="fas fa-project-diagram"></i>
+                    <div class="menu-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
                     <span>پروژه‌ها</span>
+                    <div class="menu-indicator"></div>
                 </a>
             </li>
             <li class="slide-menu-item">
                 <a href="archive.html" class="slide-menu-link" data-menu="archive">
-                    <i class="fas fa-archive"></i>
+                    <div class="menu-icon">
+                        <i class="fas fa-archive"></i>
+                    </div>
                     <span>آرشیو</span>
+                    <div class="menu-indicator"></div>
                 </a>
             </li>
             <li class="slide-menu-item">
                 <a href="product/products.html" class="slide-menu-link" data-menu="products">
-                    <i class="fas fa-cube"></i>
+                    <div class="menu-icon">
+                        <i class="fas fa-cube"></i>
+                    </div>
                     <span>محصولات</span>
+                    <div class="menu-indicator"></div>
                 </a>
             </li>
             <li class="slide-menu-item">
                 <a href="#contact" class="slide-menu-link" data-menu="contact">
-                    <i class="fas fa-envelope"></i>
+                    <div class="menu-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
                     <span>تماس</span>
+                    <div class="menu-indicator"></div>
                 </a>
             </li>
         </ul>
@@ -206,240 +537,2420 @@
             
             <!-- شبکه‌های اجتماعی -->
             <div class="social-links-menu">
-                <a href="https://t.me/mahanenman" target="_blank" class="social-icon">
+                <a href="https://t.me/mahanenman" target="_blank" class="social-icon" aria-label="تلگرام">
                     <i class="fab fa-telegram"></i>
                 </a>
-                <a href="https://www.instagram.com/mahantheloner" target="_blank" class="social-icon">
+                <a href="https://www.instagram.com/mahantheloner" target="_blank" class="social-icon" aria-label="اینستاگرام">
                     <i class="fab fa-instagram"></i>
                 </a>
+                <a href="mailto:mahan.neman2020@gmail.com" class="social-icon" aria-label="ایمیل">
+                    <i class="fas fa-envelope"></i>
+                </a>
             </div>
+        </div>
+        
+        <!-- دکمه‌های اقدام در منو -->
+        <div class="slide-menu-actions">
+            <a href="resume.pdf" download class="btn btn-primary btn-block">
+                <i class="fas fa-download"></i>
+                دانلود رزومه
+            </a>
+            <a href="#contact" class="btn btn-secondary btn-block">
+                <i class="fas fa-paper-plane"></i>
+                درخواست همکاری
+            </a>
         </div>
     </div>
 
     <!-- آواردرای برای منو -->
     <div class="menu-overlay" id="menuOverlay"></div>
 
-    <!-- محتوای اصلی (همان کد اول) -->
-    <main>
-        <!-- Hero Section - Improved -->
-        <section id="home" class="hero-section">
-            <!-- Background Elements -->
-            <div class="hero-bg">
-                <div class="bg-gradient"></div>
-                <div class="bg-pattern"></div>
-            </div>
-            
-            <div class="container">
-                <div class="hero-content">
-                    <!-- Hero Image - Improved -->
-                    <div class="hero-image">
-                        <div class="profile-image-container">
-                            <div class="image-wrapper">
-                                <img src="mahanphoto.png" 
-                                     alt="مهندس ماهان ادهم قزوینی" 
-                                     class="profile-img"
-                                     loading="lazy">
-                                <div class="image-shine"></div>
-                            </div>
-                            <div class="profile-badge animate__animated animate__pulse animate__infinite animate__slower">
-                                <i class="fas fa-award"></i>
-                                <span>مهندس مکانیک</span>
-                            </div>
-                            <div class="profile-status">
-                                <div class="status-dot"></div>
-                                <span>در دسترس برای پروژه‌ها</span>
+    <!-- محتوای اصلی (همان کد اول با UI/UX عالی) -->
+    <!-- Hero Section - از کد اول -->
+    <section id="home" class="hero-section">
+        <!-- Background Elements -->
+        <div class="hero-bg">
+            <div class="bg-gradient"></div>
+            <div class="bg-pattern"></div>
+        </div>
+        
+        <div class="container">
+            <div class="hero-content">
+                <!-- Hero Image - Improved -->
+                <div class="hero-image">
+                    <div class="profile-image-container">
+                        <div class="image-wrapper">
+                          <!-- در بخش hero-image -->
+<img src="mahanphoto.png" 
+     alt="مهندس ماهان ادهم قزوینی" 
+     class="profile-img"
+     loading="lazy">
+                            <div class="image-shine"></div>
+                        </div>
+                        <div class="profile-badge animate__animated animate__pulse animate__infinite animate__slower">
+                            <i class="fas fa-award"></i>
+                            <span>مهندس مکانیک</span>
+                        </div>
+                        <div class="profile-status">
+                            <div class="status-dot"></div>
+                            <span>در دسترس برای پروژه‌ها</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Trust Badges - Improved -->
+                    <div class="trust-badges">
+                        <div class="badge">
+                            <i class="fas fa-check-circle"></i>
+                            <span>دارای گواهی‌نامه</span>
+                        </div>
+                        <div class="badge">
+                            <i class="fas fa-medal"></i>
+                            <span>۵ پروژه موفق</span>
+                        </div>
+                        <div class="badge">
+                            <i class="fas fa-star"></i>
+                            <span>رضایت مشتری</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Hero Text - Improved -->
+                <div class="hero-text">
+                    <div class="hero-intro">
+                        <div class="intro-badge">
+                            <i class="fas fa-hand-wave"></i>
+                            <span>خوش آمدید به رزومه آنلاین</span>
+                        </div>
+                        
+                        <h1 class="hero-title">
+                            <span class="title-line">مهندس</span>
+                            <span class="text-gradient title-name">ماهان ادهم قزوینی</span>
+                        </h1>
+                        
+                        <div class="typing-container">
+                            <div class="typing-wrapper">
+                                <p class="typing-text">
+                                    <span class="typed-text"></span>
+                                    <span class="cursor">&nbsp;</span>
+                                </p>
+                                <div class="typing-line"></div>
                             </div>
                         </div>
                         
-                        <!-- Trust Badges - Improved -->
-                        <div class="trust-badges">
-                            <div class="badge">
-                                <i class="fas fa-check-circle"></i>
-                                <span>دارای گواهی‌نامه</span>
+                        <p class="hero-description">
+                            مهندس مکانیک با تخصص در تحلیل سیالات محاسباتی (CFD)، طراحی سیستم‌های مکانیکی و توسعه قطعات پرینتر سه‌بعدی. متعهد به ارائه راه‌حل‌های نوآورانه و کاربردی در حوزه مهندسی.
+                        </p>
+                        
+                        <!-- Expertise Tags -->
+                        <div class="expertise-tags">
+                            <span class="tag">تحلیل CFD</span>
+                            <span class="tag">طراحی مکانیکی</span>
+                            <span class="tag">پرینتر سه‌بعدی</span>
+                            <span class="tag">شبیه‌سازی</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Stats - Improved -->
+                    <div class="hero-stats">
+                        <div class="stats-grid">
+                            <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
+                                <div class="stat-icon">
+                                    <i class="fas fa-briefcase"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <span class="stat-number" data-count="1" data-speed="200">0</span>
+                                    <span class="stat-symbol">+</span>
+                                    <span class="stat-label">سال تجربه</span>
+                                </div>
                             </div>
-                            <div class="badge">
-                                <i class="fas fa-medal"></i>
-                                <span>۵ پروژه موفق</span>
+                            <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
+                                <div class="stat-icon">
+                                    <i class="fas fa-project-diagram"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <span class="stat-number" data-count="5" data-speed="150">0</span>
+                                    <span class="stat-symbol">+</span>
+                                    <span class="stat-label">پروژه موفق</span>
+                                </div>
                             </div>
-                            <div class="badge">
-                                <i class="fas fa-star"></i>
-                                <span>رضایت مشتری</span>
+                            <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
+                                <div class="stat-icon">
+                                    <i class="fas fa-tools"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <span class="stat-number" data-count="13" data-speed="100">0</span>
+                                    <span class="stat-label">نرم‌افزار مسلط</span>
+                                </div>
+                            </div>
+                            <div class="stat-item" data-aos="fade-up" data-aos-delay="400">
+                                <div class="stat-icon">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <span class="stat-number" data-count="2" data-speed="250">0</span>
+                                    <span class="stat-symbol">+</span>
+                                    <span class="stat-label">مقاله و ترجمه</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Hero Text - Improved -->
-                    <div class="hero-text">
-                        <div class="hero-intro">
-                            <div class="intro-badge">
-                                <i class="fas fa-hand-wave"></i>
-                                <span>خوش آمدید به رزومه آنلاین</span>
+                    <!-- Call to Action - Improved -->
+                    <div class="hero-actions">
+                        <div class="actions-grid">
+                            <a href="#contact" class="btn btn-primary btn-lg btn-action" data-aos="zoom-in" data-aos-delay="100">
+                                <i class="fas fa-paper-plane"></i>
+                                <span>درخواست همکاری</span>
+                            </a>
+                            <a href="resume.pdf" download class="btn btn-secondary btn-lg btn-action" data-aos="zoom-in" data-aos-delay="200">
+                                <i class="fas fa-download"></i>
+                                <span>دانلود رزومه</span>
+                            </a>
+                            <a href="#projects" class="btn btn-outline btn-lg btn-action" data-aos="zoom-in" data-aos-delay="300">
+                                <i class="fas fa-eye"></i>
+                                <span>مشاهده پروژه‌ها</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Social Proof - Improved -->
+                    <div class="social-proof">
+                        <div class="proof-label">
+                            <i class="fas fa-building"></i>
+                            <span>همکاری با</span>
+                        </div>
+                        <div class="clients-logos">
+                            <div class="logo-item" data-tooltip="دانشگاه آزاد اسلامی تهران مرکز">
+                                <i class="fas fa-university"></i>
+                                <span>دانشگاه آزاد</span>
                             </div>
-                            
-                            <h1 class="hero-title">
-                                <span class="title-line">مهندس</span>
-                                <span class="text-gradient title-name">ماهان ادهم قزوینی</span>
-                            </h1>
-                            
-                            <div class="typing-container">
-                                <div class="typing-wrapper">
-                                    <p class="typing-text">
-                                        <span class="typed-text"></span>
-                                        <span class="cursor">&nbsp;</span>
-                                    </p>
-                                    <div class="typing-line"></div>
-                                </div>
+                            <div class="logo-item" data-tooltip="مجتمع فنی تهران">
+                                <i class="fas fa-certificate"></i>
+                                <span>مجتمع فنی</span>
                             </div>
-                            
-                            <p class="hero-description">
-                                مهندس مکانیک با تخصص در تحلیل سیالات محاسباتی (CFD)، طراحی سیستم‌های مکانیکی و توسعه قطعات پرینتر سه‌بعدی. متعهد به ارائه راه‌حل‌های نوآورانه و کاربردی در حوزه مهندسی.
+                            <div class="logo-item" data-tooltip="پروژه‌های صنعتی و تحقیقاتی">
+                                <i class="fas fa-industry"></i>
+                                <span>پروژه‌های صنعتی</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator - Improved -->
+        <div class="scroll-indicator">
+            <a href="#about" class="scroll-down" aria-label="اسکرول به پایین">
+                <div class="mouse-wrapper">
+                    <div class="mouse">
+                        <div class="wheel"></div>
+                    </div>
+                    <div class="arrows">
+                        <i class="fas fa-chevron-down arrow1"></i>
+                        <i class="fas fa-chevron-down arrow2"></i>
+                        <i class="fas fa-chevron-down arrow3"></i>
+                    </div>
+                </div>
+                <span class="scroll-text">برای ادامه اسکرول کنید</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section - از کد اول -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-badge">
+                    <i class="fas fa-user-tie"></i>
+                    معرفی
+                </span>
+                <h2 class="section-title">
+                    درباره مهندس ماهان ادهم قزوینی
+                </h2>
+                <div class="section-divider">
+                    <div class="divider-line"></div>
+                    <div class="divider-icon">
+                        <i class="fas fa-cog fa-spin"></i>
+                    </div>
+                    <div class="divider-line"></div>
+                </div>
+                <p class="section-description">
+                    متخصص مهندسی مکانیک با تمرکز بر تحلیل سیالات، طراحی سیستم‌های حرارتی و توسعه راه‌حل‌های نوآورانه
+                </p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-main">
+                    <!-- About Card -->
+                    <div class="about-card" data-aos="fade-right" data-aos-delay="100">
+                        <div class="card-header">
+                            <div class="header-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <h3 class="card-title">خلاصه‌ای از من</h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                مهندس <strong>ماهان ادهم قزوینی</strong>، فارغ‌التحصیل کارشناسی مهندسی مکانیک از دانشگاه آزاد اسلامی واحد تهران مرکز با گرایش سیالات و حرارت. با گذراندن دوره‌های تخصصی و کسب گواهی‌نامه‌های معتبر در زمینه نرم‌افزارهای مهندسی، همواره در حال گسترش دانش و مهارت‌های فنی هستم.
+                            </p>
+                            <p class="card-text">
+                                تجربه کاری در زمینه‌های مختلف مهندسی مکانیک از جمله تحلیل سیالات محاسباتی (CFD)، طراحی سیستم‌های تهویه مطبوع، شبیه‌سازی حرارتی و طراحی قطعات پرینتر سه‌بعدی باعث شده تا بتوانم به مسائل مهندسی از زوایای مختلف نگاه کنم و راه‌حل‌های بهینه ارائه دهم.
                             </p>
                             
-                            <!-- Expertise Tags -->
-                            <div class="expertise-tags">
-                                <span class="tag">تحلیل CFD</span>
-                                <span class="tag">طراحی مکانیکی</span>
-                                <span class="tag">پرینتر سه‌بعدی</span>
-                                <span class="tag">شبیه‌سازی</span>
-                            </div>
-                        </div>
-                        
-                        <!-- Quick Stats - Improved -->
-                        <div class="hero-stats">
-                            <div class="stats-grid">
-                                <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
-                                    <div class="stat-icon">
-                                        <i class="fas fa-briefcase"></i>
+                            <!-- Features Grid -->
+                            <div class="features-grid">
+                                <div class="feature-item" data-aos="zoom-in" data-aos-delay="100">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-lightbulb"></i>
                                     </div>
-                                    <div class="stat-content">
-                                        <span class="stat-number" data-count="1" data-speed="200">0</span>
-                                        <span class="stat-symbol">+</span>
-                                        <span class="stat-label">سال تجربه</span>
+                                    <div class="feature-content">
+                                        <h4>تفکر تحلیلی</h4>
+                                        <p>توانایی تحلیل مسائل پیچیده مهندسی</p>
                                     </div>
                                 </div>
-                                <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
-                                    <div class="stat-icon">
-                                        <i class="fas fa-project-diagram"></i>
+                                <div class="feature-item" data-aos="zoom-in" data-aos-delay="200">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-cube"></i>
                                     </div>
-                                    <div class="stat-content">
-                                        <span class="stat-number" data-count="5" data-speed="150">0</span>
-                                        <span class="stat-symbol">+</span>
-                                        <span class="stat-label">پروژه موفق</span>
-                                    </div>
-                                </div>
-                                <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
-                                    <div class="stat-icon">
-                                        <i class="fas fa-tools"></i>
-                                    </div>
-                                    <div class="stat-content">
-                                        <span class="stat-number" data-count="13" data-speed="100">0</span>
-                                        <span class="stat-label">نرم‌افزار مسلط</span>
+                                    <div class="feature-content">
+                                        <h4>خلاقیت در طراحی</h4>
+                                        <p>ایده‌پردازی و طراحی راه‌حل‌های نوآورانه</p>
                                     </div>
                                 </div>
-                                <div class="stat-item" data-aos="fade-up" data-aos-delay="400">
-                                    <div class="stat-icon">
-                                        <i class="fas fa-file-alt"></i>
+                                <div class="feature-item" data-aos="zoom-in" data-aos-delay="300">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-chart-line"></i>
                                     </div>
-                                    <div class="stat-content">
-                                        <span class="stat-number" data-count="2" data-speed="250">0</span>
-                                        <span class="stat-symbol">+</span>
-                                        <span class="stat-label">مقاله و ترجمه</span>
+                                    <div class="feature-content">
+                                        <h4>تحلیل داده‌ها</h4>
+                                        <p>تجزیه و تحلیل نتایج شبیه‌سازی‌ها</p>
+                                    </div>
+                                </div>
+                                <div class="feature-item" data-aos="zoom-in" data-aos-delay="400">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                    <div class="feature-content">
+                                        <h4>کار تیمی</h4>
+                                        <p>همکاری مؤثر در تیم‌های پروژه</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
-                        <!-- Call to Action - Improved -->
-                        <div class="hero-actions">
-                            <div class="actions-grid">
-                                <a href="#contact" class="btn btn-primary btn-lg btn-action" data-aos="zoom-in" data-aos-delay="100">
-                                    <i class="fas fa-paper-plane"></i>
-                                    <span>درخواست همکاری</span>
-                                </a>
-                                <a href="resume.pdf" download class="btn btn-secondary btn-lg btn-action" data-aos="zoom-in" data-aos-delay="200">
-                                    <i class="fas fa-download"></i>
-                                    <span>دانلود رزومه</span>
-                                </a>
-                                <a href="#projects" class="btn btn-outline btn-lg btn-action" data-aos="zoom-in" data-aos-delay="300">
-                                    <i class="fas fa-eye"></i>
-                                    <span>مشاهده پروژه‌ها</span>
+                    </div>
+                    
+                    <!-- Education Card -->
+                    <div class="education-card" data-aos="fade-right" data-aos-delay="200">
+                        <div class="card-header">
+                            <div class="header-icon">
+                                <i class="fas fa-university"></i>
+                            </div>
+                            <h3 class="card-title">مشخصات تحصیلی</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="education-details">
+                                <div class="detail-item">
+                                    <span class="detail-label">
+                                        <i class="fas fa-school"></i>
+                                        دانشگاه:
+                                    </span>
+                                    <span class="detail-value">دانشگاه آزاد اسلامی واحد تهران مرکز</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">
+                                        <i class="fas fa-building"></i>
+                                        دانشکده:
+                                    </span>
+                                    <span class="detail-value">فنی مهندسی</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        آدرس:
+                                    </span>
+                                    <span class="detail-value">بزرگراه اشرفی اصفهانی، بالاتر از میدان پونک، بلوار امام حسن (ع)</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">
+                                        <i class="fas fa-graduation-cap"></i>
+                                        مقطع:
+                                    </span>
+                                    <span class="detail-value">کارشناسی مهندسی مکانیک</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">
+                                        <i class="fas fa-stream"></i>
+                                        گرایش:
+                                    </span>
+                                    <span class="detail-value">سیالات و حرارت</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">
+                                        <i class="fas fa-check-circle"></i>
+                                        وضعیت:
+                                    </span>
+                                    <span class="detail-value">فارغ‌التحصیل (معدل: ۱۵.۷۲)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-sidebar">
+                    <!-- Certificates Card -->
+                    <div class="sidebar-card certificates-card" data-aos="fade-left" data-aos-delay="100">
+                        <div class="card-header">
+                            <div class="header-icon">
+                                <i class="fas fa-certificate"></i>
+                            </div>
+                            <h4 class="card-title">گواهی‌نامه‌ها</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="certificates-list">
+                                <div class="certificate-item">
+                                    <div class="cert-icon">
+                                        <i class="fas fa-award"></i>
+                                    </div>
+                                    <div class="cert-content">
+                                        <h5>CATIA سطح پیشرفته</h5>
+                                        <p class="cert-org">مجتمع فنی تهران</p>
+                                        <div class="cert-meta">
+                                            <span class="cert-date">
+                                                <i class="fas fa-calendar"></i>
+                                                ۱۴۰۲
+                                            </span>
+                                            <span class="cert-duration">
+                                                <i class="fas fa-clock"></i>
+                                                ۱۲۰ ساعت
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="certificate-item">
+                                    <div class="cert-icon">
+                                        <i class="fas fa-award"></i>
+                                    </div>
+                                    <div class="cert-content">
+                                        <h5>تحلیل CFD با Ansys Fluent</h5>
+                                        <p class="cert-org">آموزش آزاد CFD</p>
+                                        <div class="cert-meta">
+                                            <span class="cert-date">
+                                                <i class="fas fa-calendar"></i>
+                                                ۱۴۰۳
+                                            </span>
+                                            <span class="cert-duration">
+                                                <i class="fas fa-clock"></i>
+                                                ۸۰ ساعت
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="certificate-item">
+                                    <div class="cert-icon">
+                                        <i class="fas fa-award"></i>
+                                    </div>
+                                    <div class="cert-content">
+                                        <h5>طراحی با SolidWorks</h5>
+                                        <p class="cert-org">دوره تخصصی آنلاین</p>
+                                        <div class="cert-meta">
+                                            <span class="cert-date">
+                                                <i class="fas fa-calendar"></i>
+                                                ۱۴۰۲
+                                            </span>
+                                            <span class="cert-duration">
+                                                <i class="fas fa-clock"></i>
+                                                ۶۰ ساعت
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card-footer">
+                                <a href="#certificates" class="btn-view-all">
+                                    مشاهده تمام گواهی‌نامه‌ها
+                                    <i class="fas fa-arrow-left"></i>
                                 </a>
                             </div>
                         </div>
-                        
-                        <!-- Social Proof - Improved -->
-                        <div class="social-proof">
-                            <div class="proof-label">
-                                <i class="fas fa-building"></i>
-                                <span>همکاری با</span>
+                    </div>
+                    
+                    <!-- Languages Card -->
+                    <div class="sidebar-card languages-card" data-aos="fade-left" data-aos-delay="200">
+                        <div class="card-header">
+                            <div class="header-icon">
+                                <i class="fas fa-language"></i>
                             </div>
-                            <div class="clients-logos">
-                                <div class="logo-item" data-tooltip="دانشگاه آزاد اسلامی تهران مرکز">
-                                    <i class="fas fa-university"></i>
-                                    <span>دانشگاه آزاد</span>
+                            <h4 class="card-title">زبان‌ها</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="languages-list">
+                                <div class="language-item">
+                                    <div class="lang-info">
+                                        <span class="lang-name">فارسی</span>
+                                        <span class="lang-level">
+                                            <i class="fas fa-star"></i>
+                                            زبان مادری
+                                        </span>
+                                    </div>
+                                    <div class="progress-container">
+                                        <div class="progress-bar">
+                                            <div class="progress" style="width: 100%">
+                                                <div class="progress-shine"></div>
+                                            </div>
+                                        </div>
+                                        <span class="progress-value">۱۰۰%</span>
+                                    </div>
                                 </div>
-                                <div class="logo-item" data-tooltip="مجتمع فنی تهران">
-                                    <i class="fas fa-certificate"></i>
-                                    <span>مجتمع فنی</span>
+                                
+                                <div class="language-item">
+                                    <div class="lang-info">
+                                        <span class="lang-name">انگلیسی</span>
+                                        <span class="lang-level">
+                                            <i class="fas fa-certificate"></i>
+                                            سطح B2
+                                        </span>
+                                    </div>
+                                    <div class="progress-container">
+                                        <div class="progress-bar">
+                                            <div class="progress" style="width: 70%">
+                                                <div class="progress-shine"></div>
+                                            </div>
+                                        </div>
+                                        <span class="progress-value">۷۰%</span>
+                                    </div>
                                 </div>
-                                <div class="logo-item" data-tooltip="پروژه‌های صنعتی و تحقیقاتی">
-                                    <i class="fas fa-industry"></i>
-                                    <span>پروژه‌های صنعتی</span>
+                            </div>
+                            
+                            <div class="language-details">
+                                <p>
+                                    <i class="fas fa-check-circle"></i>
+                                    مهارت خواندن و درک متون تخصصی
+                                </p>
+                                <p>
+                                    <i class="fas fa-check-circle"></i>
+                                    توانایی مکالمه در زمینه مهندسی
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Contact Card -->
+                    <div class="sidebar-card quick-contact-card" data-aos="fade-left" data-aos-delay="300">
+                        <div class="card-header">
+                            <div class="header-icon">
+                                <i class="fas fa-headset"></i>
+                            </div>
+                            <h4 class="card-title">تماس سریع</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="contact-links">
+                                <a href="tel:+989902279702" class="contact-link">
+                                    <div class="link-icon">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <div class="link-content">
+                                        <span class="link-label">تلفن تماس</span>
+                                        <span class="link-value">۰۹۹۰۲۲۷۹۷۰۲</span>
+                                    </div>
+                                    <div class="link-action">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </div>
+                                </a>
+                                
+                                <a href="mailto:mahan.neman2020@gmail.com" class="contact-link">
+                                    <div class="link-icon">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div class="link-content">
+                                        <span class="link-label">ایمیل</span>
+                                        <span class="link-value">mahan.neman2020@gmail.com</span>
+                                    </div>
+                                    <div class="link-action">
+                                        <i class="fas fa-paper-plane"></i>
+                                    </div>
+                                </a>
+                                
+                                <a href="https://t.me/mahanenman" class="contact-link" target="_blank">
+                                    <div class="link-icon">
+                                        <i class="fab fa-telegram"></i>
+                                    </div>
+                                    <div class="link-content">
+                                        <span class="link-label">تلگرام</span>
+                                        <span class="link-value">@mahanenman</span>
+                                    </div>
+                                    <div class="link-action">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <div class="contact-note">
+                                <i class="fas fa-info-circle"></i>
+                                <p>پاسخگویی در کمتر از ۲۴ ساعت</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section - از کد اول -->
+    <section id="skills" class="skills-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-badge">
+                    <i class="fas fa-tools"></i>
+                    تخصص
+                </span>
+                <h2 class="section-title">مهارت‌های تخصصی</h2>
+                <div class="section-divider">
+                    <div class="divider-line"></div>
+                    <div class="divider-icon">
+                        <i class="fas fa-cog fa-spin"></i>
+                    </div>
+                    <div class="divider-line"></div>
+                </div>
+                <p class="section-description">
+                    تسلط بر جدیدترین نرم‌افزارها و تکنولوژی‌های مهندسی مکانیک
+                </p>
+            </div>
+            
+            <!-- Skills Tabs -->
+            <div class="skills-tabs" data-aos="fade-up">
+                <div class="tabs-header">
+                    <div class="tabs-scroll">
+                        <button class="tab-btn active" data-tab="cad">
+                            <i class="fas fa-cube"></i>
+                            <span>طراحی CAD</span>
+                            <div class="tab-indicator"></div>
+                        </button>
+                        <button class="tab-btn" data-tab="cae">
+                            <i class="fas fa-chart-line"></i>
+                            <span>تحلیل CAE/CFD</span>
+                            <div class="tab-indicator"></div>
+                        </button>
+                        <button class="tab-btn" data-tab="other">
+                            <i class="fas fa-laptop-code"></i>
+                            <span>سایر مهارت‌ها</span>
+                            <div class="tab-indicator"></div>
+                        </button>
+                        <button class="tab-btn" data-tab="soft">
+                            <i class="fas fa-user-check"></i>
+                            <span>مهارت‌های نرم</span>
+                            <div class="tab-indicator"></div>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="tabs-content">
+                    <!-- CAD Skills -->
+                    <div class="tab-pane active" id="cad">
+                        <div class="skills-grid">
+                            <div class="skill-item" data-aos="zoom-in" data-aos-delay="100">
+                                <div class="skill-header">
+                                    <div class="skill-icon">
+                                        <i class="fas fa-drafting-compass"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>CATIA</h4>
+                                        <div class="skill-rating">
+                                            <div class="stars">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                            </div>
+                                            <span class="skill-percent">70%</span>
+                                        </div>
+                                    </div>
                                 </div>
+                                <div class="skill-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 70%">
+                                            <div class="progress-animation"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="skill-details">
+                                    <p class="skill-desc">طراحی سطح، مونتاژ و نقشه‌کشی صنعتی</p>
+                                    <ul class="skill-features">
+                                        <li><i class="fas fa-check"></i> طراحی قطعات صنعتی</li>
+                                        <li><i class="fas fa-check"></i> مونتاژ مجموعه‌ها</li>
+                                        <li><i class="fas fa-check"></i> نقشه‌کشی فنی</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="skill-item" data-aos="zoom-in" data-aos-delay="200">
+                                <div class="skill-header">
+                                    <div class="skill-icon">
+                                        <i class="fas fa-cube"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>SOLIDWORKS</h4>
+                                        <div class="skill-rating">
+                                            <div class="stars">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                            </div>
+                                            <span class="skill-percent">70%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="skill-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 70%">
+                                            <div class="progress-animation"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="skill-details">
+                                    <p class="skill-desc">مدل‌سازی سه‌بعدی و طراحی ماشین‌آلات</p>
+                                    <ul class="skill-features">
+                                        <li><i class="fas fa-check"></i> طراحی پارامتریک</li>
+                                        <li><i class="fas fa-check"></i> شبیه‌سازی مونتاژ</li>
+                                        <li><i class="fas fa-check"></i> ایجاد مستندات فنی</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="skill-item" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="skill-header">
+                                    <div class="skill-icon">
+                                        <i class="fas fa-draw-polygon"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>AutoCAD</h4>
+                                        <div class="skill-rating">
+                                            <div class="stars">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star-half-alt"></i>
+                                            </div>
+                                            <span class="skill-percent">90%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="skill-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 90%">
+                                            <div class="progress-animation"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="skill-details">
+                                    <p class="skill-desc">نقشه‌کشی دو بعدی و نقشه‌های اجرایی</p>
+                                    <ul class="skill-features">
+                                        <li><i class="fas fa-check"></i> نقشه‌کشی صنعتی</li>
+                                        <li><i class="fas fa-check"></i> طراحی پلان</li>
+                                        <li><i class="fas fa-check"></i> مستندات فنی</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- CAE/CFD Skills -->
+                    <div class="tab-pane" id="cae">
+                        <div class="skills-grid">
+                            <div class="skill-item" data-aos="zoom-in" data-aos-delay="100">
+                                <div class="skill-header">
+                                    <div class="skill-icon">
+                                        <i class="fas fa-water"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>ANSYS Fluent</h4>
+                                        <div class="skill-rating">
+                                            <div class="stars">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                            </div>
+                                            <span class="skill-percent">70%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="skill-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 70%">
+                                            <div class="progress-animation"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="skill-details">
+                                    <p class="skill-desc">تحلیل جریان سیالات و انتقال حرارت</p>
+                                    <ul class="skill-features">
+                                        <li><i class="fas fa-check"></i> شبیه‌سازی جریان</li>
+                                        <li><i class="fas fa-check"></i> تحلیل انتقال حرارت</li>
+                                        <li><i class="fas fa-check"></i> بهینه‌سازی سیستم‌ها</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="skill-item" data-aos="zoom-in" data-aos-delay="200">
+                                <div class="skill-header">
+                                    <div class="skill-icon">
+                                        <i class="fas fa-bolt"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>ANSYS Mechanical</h4>
+                                        <div class="skill-rating">
+                                            <div class="stars">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                            </div>
+                                            <span class="skill-percent">70%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="skill-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 70%">
+                                            <div class="progress-animation"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="skill-details">
+                                    <p class="skill-desc">تحلیل تنش و ارتعاشات سازه‌ای</p>
+                                    <ul class="skill-features">
+                                        <li><i class="fas fa-check"></i> تحلیل تنش استاتیک</li>
+                                        <li><i class="fas fa-check"></i> شبیه‌سازی ارتعاش</li>
+                                        <li><i class="fas fa-check"></i> تحلیل خستگی</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="skill-item" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="skill-header">
+                                    <div class="skill-icon">
+                                        <i class="fas fa-atom"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>COMSOL Multiphysics</h4>
+                                        <div class="skill-rating">
+                                            <div class="stars">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star-half-alt"></i>
+                                                <i class="far fa-star"></i>
+                                            </div>
+                                            <span class="skill-percent">50%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="skill-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 50%">
+                                            <div class="progress-animation"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="skill-details">
+                                    <p class="skill-desc">شبیه‌سازی چندفیزیکی و PDE</p>
+                                    <ul class="skill-features">
+                                        <li><i class="fas fa-check"></i> مدل‌سازی چندفیزیکی</li>
+                                        <li><i class="fas fa-check"></i> حل معادلات PDE</li>
+                                        <li><i class="fas fa-check"></i> شبیه‌سازی غیرخطی</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Other Skills -->
+                    <div class="tab-pane" id="other">
+                        <div class="skills-grid">
+                            <div class="skill-item" data-aos="zoom-in" data-aos-delay="100">
+                                <div class="skill-header">
+                                    <div class="skill-icon">
+                                        <i class="fas fa-print"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>طراحی پرینتر 3D</h4>
+                                        <div class="skill-rating">
+                                            <div class="stars">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </div>
+                                            <span class="skill-percent">80%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="skill-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 80%">
+                                            <div class="progress-animation"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="skill-details">
+                                    <p class="skill-desc">طراحی و بهینه‌سازی قطعات پرینتر</p>
+                                    <ul class="skill-features">
+                                        <li><i class="fas fa-check"></i> طراحی مکانیزم</li>
+                                        <li><i class="fas fa-check"></i> بهینه‌سازی وزن</li>
+                                        <li><i class="fas fa-check"></i> چاپ سه‌بعدی</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="skill-item" data-aos="zoom-in" data-aos-delay="200">
+                                <div class="skill-header">
+                                    <div class="skill-icon">
+                                        <i class="fas fa-fire"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>سیستم‌های حرارتی</h4>
+                                        <div class="skill-rating">
+                                            <div class="stars">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                            </div>
+                                            <span class="skill-percent">75%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="skill-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 75%">
+                                            <div class="progress-animation"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="skill-details">
+                                    <p class="skill-desc">طراحی HVAC و انتقال حرارت</p>
+                                    <ul class="skill-features">
+                                        <li><i class="fas fa-check"></i> طراحی سیستم تهویه</li>
+                                        <li><i class="fas fa-check"></i> تحلیل انتقال حرارت</li>
+                                        <li><i class="fas fa-check"></i> بهینه‌سازی انرژی</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="skill-item" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="skill-header">
+                                    <div class="skill-icon">
+                                        <i class="fas fa-code"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>برنامه‌نویسی</h4>
+                                        <div class="skill-rating">
+                                            <div class="stars">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                            </div>
+                                            <span class="skill-percent">60%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="skill-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 60%">
+                                            <div class="progress-animation"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="skill-details">
+                                    <p class="skill-desc">MATLAB، Python برای تحلیل داده،css،html</p>
+                                    <ul class="skill-features">
+                                        <li><i class="fas fa-check"></i> تحلیل داده‌های مهندسی</li>
+                                        <li><i class="fas fa-check"></i> اتوماسیون محاسبات</li>
+                                        <li><i class="fas fa-check"></i> توسعه الگوریتم</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Soft Skills -->
+                    <div class="tab-pane" id="soft">
+                        <div class="soft-skills-grid">
+                            <div class="soft-skill-item" data-aos="flip-left" data-aos-delay="100">
+                                <div class="soft-skill-icon">
+                                    <i class="fas fa-comments"></i>
+                                </div>
+                                <h4>مهارت ارتباطی</h4>
+                                <p>توانایی انتقال مفاهیم پیچیده به زبان ساده</p>
+                            </div>
+                            
+                            <div class="soft-skill-item" data-aos="flip-left" data-aos-delay="200">
+                                <div class="soft-skill-icon">
+                                    <i class="fas fa-tasks"></i>
+                                </div>
+                                <h4>مدیریت پروژه</h4>
+                                <p>برنامه‌ریزی و اجرای پروژه‌های مهندسی</p>
+                            </div>
+                            
+                            <div class="soft-skill-item" data-aos="flip-left" data-aos-delay="300">
+                                <div class="soft-skill-icon">
+                                    <i class="fas fa-lightbulb"></i>
+                                </div>
+                                <h4>حل مسئله</h4>
+                                <p>رویکرد خلاقانه برای حل چالش‌های مهندسی</p>
+                            </div>
+                            
+                            <div class="soft-skill-item" data-aos="flip-left" data-aos-delay="400">
+                                <div class="soft-skill-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <h4>کار تیمی</h4>
+                                <p>همکاری مؤثر در محیط‌های چندتخصصی</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <!-- Scroll Indicator - Improved -->
-            <div class="scroll-indicator">
-                <a href="#about" class="scroll-down" aria-label="اسکرول به پایین">
-                    <div class="mouse-wrapper">
-                        <div class="mouse">
-                            <div class="wheel"></div>
+            <!-- Software Badges -->
+            <div class="software-badges" data-aos="fade-up">
+                <h3 class="badges-title">نرم‌افزارهای مسلط</h3>
+                <div class="badges-grid">
+                    <div class="software-badge" data-tooltip="CATIA - طراحی سطح و مونتاژ">
+                        <div class="badge-icon">
+                            <i class="fas fa-cube"></i>
                         </div>
-                        <div class="arrows">
-                            <i class="fas fa-chevron-down arrow1"></i>
-                            <i class="fas fa-chevron-down arrow2"></i>
-                            <i class="fas fa-chevron-down arrow3"></i>
+                        <span class="badge-name">CATIA</span>
+                        <div class="badge-level">پیشرفته</div>
+                    </div>
+                    
+                    <div class="software-badge" data-tooltip="SolidWorks - مدل‌سازی پارامتریک">
+                        <div class="badge-icon">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <span class="badge-name">SolidWorks</span>
+                        <div class="badge-level">پیشرفته</div>
+                    </div>
+                    
+                    <div class="software-badge" data-tooltip="AutoCAD - نقشه‌کشی صنعتی">
+                        <div class="badge-icon">
+                            <i class="fas fa-drafting-compass"></i>
+                        </div>
+                        <span class="badge-name">AutoCAD</span>
+                        <div class="badge-level">حرفه‌ای</div>
+                    </div>
+                    
+                    <div class="software-badge" data-tooltip="ANSYS Fluent - تحلیل CFD">
+                        <div class="badge-icon">
+                            <i class="fas fa-water"></i>
+                        </div>
+                        <span class="badge-name">Fluent</span>
+                        <div class="badge-level">پیشرفته</div>
+                    </div>
+                    
+                    <div class="software-badge" data-tooltip="ANSYS Mechanical - تحلیل تنش">
+                        <div class="badge-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <span class="badge-name">Mechanical</span>
+                        <div class="badge-level">پیشرفته</div>
+                    </div>
+                    
+                    <div class="software-badge" data-tooltip="COMSOL - شبیه‌سازی چندفیزیکی">
+                        <div class="badge-icon">
+                            <i class="fas fa-atom"></i>
+                        </div>
+                        <span class="badge-name">COMSOL</span>
+                        <div class="badge-level">متوسط</div>
+                    </div>
+                    
+                    <div class="software-badge" data-tooltip="MATLAB - تحلیل داده‌های مهندسی">
+                        <div class="badge-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <span class="badge-name">MATLAB</span>
+                        <div class="badge-level">متوسط</div>
+                    </div>
+                    
+                    <div class="software-badge" data-tooltip="Python - برنامه‌نویسی برای مهندسی">
+                        <div class="badge-icon">
+                            <i class="fab fa-python"></i>
+                        </div>
+                        <span class="badge-name">Python</span>
+                        <div class="badge-level">مقدماتی</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section - از کد اول -->
+    <section id="education" class="education-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-badge">
+                    <i class="fas fa-graduation-cap"></i>
+                    تحصیلات
+                </span>
+                <h2 class="section-title">سوابق تحصیلی و دوره‌ها</h2>
+                <div class="section-divider">
+                    <div class="divider-line"></div>
+                    <div class="divider-icon">
+                        <i class="fas fa-cog fa-spin"></i>
+                    </div>
+                    <div class="divider-line"></div>
+                </div>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-path">
+                    <div class="timeline-line"></div>
+                </div>
+                
+                <div class="timeline-item" data-aos="fade-right" data-aos-delay="100">
+                    <div class="timeline-marker">
+                        <div class="marker-dot"></div>
+                        <div class="marker-ring"></div>
+                        <div class="marker-pulse"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">
+                            <i class="fas fa-calendar"></i>
+                            <span>۱۳۹۹ - ۱۴۰۴</span>
+                        </div>
+                        <div class="timeline-card">
+                            <div class="card-header">
+                                <div class="card-badge">
+                                    <i class="fas fa-graduation-cap"></i>
+                                    <span>فارغ‌التحصیل</span>
+                                </div>
+                                <h3 class="card-title">کارشناسی مهندسی مکانیک</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="institution">
+                                    <div class="institution-icon">
+                                        <i class="fas fa-university"></i>
+                                    </div>
+                                    <div class="institution-info">
+                                        <h4>دانشگاه آزاد اسلامی واحد تهران مرکز</h4>
+                                        <p class="institution-desc">دانشکده فنی مهندسی</p>
+                                    </div>
+                                </div>
+                                
+                                <ul class="card-list">
+                                    <li>
+                                        <i class="fas fa-stream"></i>
+                                        <span>گرایش: <strong>سیالات و حرارت</strong></span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-chart-line"></i>
+                                        <span>معدل: <strong>۱۵.۷۲</strong></span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-check-circle"></i>
+                                        <span>وضعیت: فارغ‌التحصیل با موفقیت</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-book"></i>
+                                        <span>تعداد واحد: ۱۴۰ واحد</span>
+                                    </li>
+                                </ul>
+                                
+                                <div class="card-footer">
+                                    <div class="thesis">
+                                        <i class="fas fa-file-alt"></i>
+                                        <div class="thesis-info">
+                                            <strong>پایان‌نامه:</strong>
+                                            <span>تحلیل جریان در سیستم‌های حرارتی</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <span class="scroll-text">برای ادامه اسکرول کنید</span>
-                </a>
+                </div>
+                
+                <div class="timeline-item" data-aos="fade-left" data-aos-delay="200">
+                    <div class="timeline-marker">
+                        <div class="marker-dot"></div>
+                        <div class="marker-ring"></div>
+                        <div class="marker-pulse"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">
+                            <i class="fas fa-calendar"></i>
+                            <span>۱۴۰۴</span>
+                        </div>
+                        <div class="timeline-card">
+                            <div class="card-header">
+                                <div class="card-badge badge-success">
+                                    <i class="fas fa-certificate"></i>
+                                    <span>پیشرفته</span>
+                                </div>
+                                <h3 class="card-title">گواهی نامه تخصصی CATIA</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="institution">
+                                    <div class="institution-icon">
+                                        <i class="fas fa-certificate"></i>
+                                    </div>
+                                    <div class="institution-info">
+                                        <h4>مجتمع فنی تهران</h4>
+                                        <p class="institution-desc">مرکز آموزش‌های تخصصی</p>
+                                    </div>
+                                </div>
+                                
+                                <ul class="card-list">
+                                    <li>
+                                        <i class="fas fa-level-up-alt"></i>
+                                        <span>سطح: <strong>پیشرفته</strong></span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-cogs"></i>
+                                        <span>مهارت‌ها: طراحی سطح، مونتاژ، نقشه‌کشی</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-clock"></i>
+                                        <span>مدت دوره: <strong>۱۲۰ ساعت</strong></span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-award"></i>
+                                        <span>نمره: <strong>۱۸.۵ از ۲۰</strong></span>
+                                    </li>
+                                </ul>
+                                
+                                <div class="card-skills">
+                                    <span class="skill-tag">Part Design</span>
+                                    <span class="skill-tag">Assembly</span>
+                                    <span class="skill-tag">Drafting</span>
+                                    <span class="skill-tag">Surface</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" data-aos="fade-right" data-aos-delay="300">
+                    <div class="timeline-marker">
+                        <div class="marker-dot"></div>
+                        <div class="marker-ring"></div>
+                        <div class="marker-pulse"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">
+                            <i class="fas fa-calendar"></i>
+                            <span>۱۴۰۳</span>
+                        </div>
+                        <div class="timeline-card">
+                            <div class="card-header">
+                                <div class="card-badge badge-info">
+                                    <i class="fas fa-chart-line"></i>
+                                    <span>تخصصی</span>
+                                </div>
+                                <h3 class="card-title">تحلیل CFD با Ansys Fluent</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="institution">
+                                    <div class="institution-icon">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+                                    <div class="institution-info">
+                                        <h4>آموزش آزاد CFD</h4>
+                                        <p class="institution-desc">مرکز تخصصی شبیه‌سازی</p>
+                                    </div>
+                                </div>
+                                
+                                <ul class="card-list">
+                                    <li>
+                                        <i class="fas fa-water"></i>
+                                        <span>تخصص: <strong>تحلیل جریان سیالات</strong></span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-fire"></i>
+                                        <span>حوزه: انتقال حرارت و توربولانس</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-project-diagram"></i>
+                                        <span>پروژه‌ها: تحلیل سیستم‌های تهویه</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-clock"></i>
+                                        <span>مدت دوره: <strong>۸۰ ساعت</strong></span>
+                                    </li>
+                                </ul>
+                                
+                                <div class="card-skills">
+                                    <span class="skill-tag">Mesh Generation</span>
+                                    <span class="skill-tag">Turbulence</span>
+                                    <span class="skill-tag">Heat Transfer</span>
+                                    <span class="skill-tag">Post-processing</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" data-aos="fade-left" data-aos-delay="400">
+                    <div class="timeline-marker">
+                        <div class="marker-dot"></div>
+                        <div class="marker-ring"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">
+                            <i class="fas fa-calendar"></i>
+                            <span>۱۴۰۲</span>
+                        </div>
+                        <div class="timeline-card">
+                            <div class="card-header">
+                                <div class="card-badge">
+                                    <i class="fas fa-tools"></i>
+                                    <span>کاربردی</span>
+                                </div>
+                                <h3 class="card-title">کارگاه طراحی پرینتر سه‌بعدی</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="institution">
+                                    <div class="institution-icon">
+                                        <i class="fas fa-print"></i>
+                                    </div>
+                                    <div class="institution-info">
+                                        <h4>انجمن علمی مهندسی مکانیک</h4>
+                                        <p class="institution-desc">کارگاه عملی طراحی و ساخت</p>
+                                    </div>
+                                </div>
+                                
+                                <ul class="card-list">
+                                    <li>
+                                        <i class="fas fa-cube"></i>
+                                        <span>نوع: <strong>کارگاه عملی</strong></span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-wrench"></i>
+                                        <span>مهارت‌ها: طراحی، مونتاژ، کالیبراسیون</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-medal"></i>
+                                        <span>دستاورد: <strong>طراحی پرینتر شخصی</strong></span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </section>
+            
+            <!-- Additional Education Info -->
+            <div class="education-extra" data-aos="fade-up">
+                <div class="extra-card">
+                    <div class="extra-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="extra-content">
+                        <h4>دوره‌های تکمیلی</h4>
+                        <p>شرکت در بیش از ۱۰ دوره تخصصی در زمینه مهندسی مکانیک، نرم‌افزارهای CAD/CAE و مهارت‌های نرم</p>
+                    </div>
+                </div>
+                
+                <div class="extra-card">
+                    <div class="extra-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="extra-content">
+                        <h4>کارگاه‌های گروهی</h4>
+                        <p>همکاری در کارگاه‌های تیمی طراحی و ساخت، تقویت مهارت‌های کار گروهی و مدیریت پروژه</p>
+                    </div>
+                </div>
+                
+                <div class="extra-card">
+                    <div class="extra-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <div class="extra-content">
+                        <h4>زبان تخصصی</h4>
+                        <p>گذراندن دوره زبان تخصصی مهندسی مکانیک و ترجمه مقالات تخصصی</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <!-- بقیه سکشن‌ها از کد اول -->
-        <!-- About Section -->
-        <section id="about" class="about-section">
-            <!-- محتوای about از کد اول -->
-        </section>
+    <!-- Projects Section - از کد اول -->
+    <section id="projects" class="projects-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-badge">
+                    <i class="fas fa-project-diagram"></i>
+                    نمونه کارها
+                </span>
+                <h2 class="section-title">پروژه‌های منتخب</h2>
+                <div class="section-divider">
+                    <div class="divider-line"></div>
+                    <div class="divider-icon">
+                        <i class="fas fa-cog fa-spin"></i>
+                    </div>
+                    <div class="divider-line"></div>
+                </div>
+                <p class="section-description">
+                    نمونه‌ای از پروژه‌های موفق انجام شده در حوزه مهندسی مکانیک
+                </p>
+            </div>
+            
+            <div class="projects-filter" data-aos="fade-up">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="fas fa-layer-group"></i>
+                        همه پروژه‌ها
+                    </button>
+                    <button class="filter-btn" data-filter="cfd">
+                        <i class="fas fa-water"></i>
+                        تحلیل CFD
+                    </button>
+                    <button class="filter-btn" data-filter="cad">
+                        <i class="fas fa-cube"></i>
+                        طراحی CAD
+                    </button>
+                    <button class="filter-btn" data-filter="cae">
+                        <i class="fas fa-chart-line"></i>
+                        تحلیل CAE
+                    </button>
+                    <button class="filter-btn" data-filter="3d">
+                        <i class="fas fa-print"></i>
+                        پرینتر 3D
+                    </button>
+                </div>
+                
+                <div class="filter-stats">
+                    <span class="stat">
+                        <i class="fas fa-project-diagram"></i>
+                        <strong>۸</strong> پروژه
+                    </span>
+                    <span class="stat">
+                        <i class="fas fa-clock"></i>
+                        <strong>۲</strong> سال تجربه
+                    </span>
+                </div>
+            </div>
+            
+            <div class="projects-grid">
+                <!-- Project 1 - CFD -->
+                <div class="project-card" data-category="cfd" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="project-image">
+                        <div class="image-container">
+                            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                 alt="تحلیل CFD سیستم تهویه"
+                                 class="project-img lazy"
+                                 loading="lazy">
+                            <div class="image-overlay">
+                                <div class="overlay-content">
+                                    <a href="#" class="project-view" aria-label="مشاهده جزییات پروژه">
+                                        <i class="fas fa-expand"></i>
+                                    </a>
+                                    <a href="#" class="project-gallery" aria-label="گالری تصاویر پروژه">
+                                        <i class="fas fa-images"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-tag tag-cfd">
+                            <i class="fas fa-water"></i>
+                            <span>CFD</span>
+                        </div>
+                        <div class="project-badge">
+                            <i class="fas fa-check-circle"></i>
+                            <span>تکمیل شده</span>
+                        </div>
+                    </div>
+                    
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3 class="project-title">تحلیل CFD سیستم تهویه صنعتی</h3>
+                            <div class="project-rating">
+                                <i class="fas fa-star"></i>
+                                <span>۴.۸</span>
+                            </div>
+                        </div>
+                        
+                        <p class="project-description">
+                            شبیه‌سازی جریان هوا و توزیع دما در یک سیستم تهویه صنعتی با استفاده از Ansys Fluent و بهینه‌سازی عملکرد سیستم
+                        </p>
+                        
+                        <div class="project-tech">
+                            <span class="tech-tag">
+                                <i class="fas fa-water"></i>
+                                Ansys Fluent
+                            </span>
+                            <span class="tech-tag">
+                                <i class="fas fa-wind"></i>
+                                CFD
+                            </span>
+                            <span class="tech-tag">
+                                <i class="fas fa-thermometer-half"></i>
+                                انتقال حرارت
+                            </span>
+                        </div>
+                        
+                        <div class="project-details">
+                            <div class="detail">
+                                <i class="fas fa-calendar"></i>
+                                <div class="detail-content">
+                                    <span class="detail-label">مدت زمان</span>
+                                    <span class="detail-value">۴۵ روز</span>
+                                </div>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-chart-line"></i>
+                                <div class="detail-content">
+                                    <span class="detail-label">بهبود عملکرد</span>
+                                    <span class="detail-value">۳۰٪</span>
+                                </div>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-users"></i>
+                                <div class="detail-content">
+                                    <span class="detail-label">تیم پروژه</span>
+                                    <span class="detail-value">۳ نفر</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="project-footer">
+                            <a href="#" class="btn-project-details">
+                                <i class="fas fa-info-circle"></i>
+                                مشاهده جزییات
+                            </a>
+                            <a href="#" class="btn-project-case">
+                                <i class="fas fa-file-alt"></i>
+                                مطالعه کیس
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 - CAD & 3D Printing -->
+                <div class="project-card" data-category="cad 3d" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="project-image">
+                        <div class="image-container">
+                            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                 alt="طراحی پرینتر سه‌بعدی"
+                                 class="project-img lazy"
+                                 loading="lazy">
+                            <div class="image-overlay">
+                                <div class="overlay-content">
+                                    <a href="#" class="project-view" aria-label="مشاهده جزییات پروژه">
+                                        <i class="fas fa-expand"></i>
+                                    </a>
+                                    <a href="#" class="project-gallery" aria-label="گالری تصاویر پروژه">
+                                        <i class="fas fa-images"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-tag tag-cad">
+                            <i class="fas fa-cube"></i>
+                            <span>CAD</span>
+                        </div>
+                        <div class="project-tag tag-3d">
+                            <i class="fas fa-print"></i>
+                            <span>3D</span>
+                        </div>
+                        <div class="project-badge badge-active">
+                            <i class="fas fa-sync fa-spin"></i>
+                            <span>در حال توسعه</span>
+                        </div>
+                    </div>
+                    
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3 class="project-title">طراحی و بهینه‌سازی پرینتر 3D</h3>
+                            <div class="project-rating">
+                                <i class="fas fa-star"></i>
+                                <span>۴.۹</span>
+                            </div>
+                        </div>
+                        
+                        <p class="project-description">
+                            طراحی مکانیزم و قطعات یک پرینتر سه‌بعدی پیشرفته با قابلیت چاپ مواد مختلف و بهینه‌سازی عملکرد
+                        </p>
+                        
+                        <div class="project-tech">
+                            <span class="tech-tag">
+                                <i class="fas fa-cube"></i>
+                                SolidWorks
+                            </span>
+                            <span class="tech-tag">
+                                <i class="fas fa-drafting-compass"></i>
+                                CATIA
+                            </span>
+                            <span class="tech-tag">
+                                <i class="fas fa-print"></i>
+                                پرینتر 3D
+                            </span>
+                        </div>
+                        
+                        <div class="project-details">
+                            <div class="detail">
+                                <i class="fas fa-calendar"></i>
+                                <div class="detail-content">
+                                    <span class="detail-label">مدت زمان</span>
+                                    <span class="detail-value">۶۰ روز</span>
+                                </div>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-weight"></i>
+                                <div class="detail-content">
+                                    <span class="detail-label">کاهش وزن</span>
+                                    <span class="detail-value">۲۵٪</span>
+                                </div>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-bolt"></i>
+                                <div class="detail-content">
+                                    <span class="detail-label">سرعت چاپ</span>
+                                    <span class="detail-value">+۴۰٪</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="project-footer">
+                            <a href="#" class="btn-project-details">
+                                <i class="fas fa-info-circle"></i>
+                                مشاهده جزییات
+                            </a>
+                            <a href="product/products.html" class="btn-project-products">
+                                <i class="fas fa-shopping-cart"></i>
+                                مشاهده محصولات
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 - CAE -->
+                <div class="project-card" data-category="cae" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="project-image">
+                        <div class="image-container">
+                            <img src="https://images.unsplash.com/photo-1581092580497-e0d4cb184827?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                 alt="شبیه‌سازی انتقال حرارت"
+                                 class="project-img lazy"
+                                 loading="lazy">
+                            <div class="image-overlay">
+                                <div class="overlay-content">
+                                    <a href="#" class="project-view" aria-label="مشاهده جزییات پروژه">
+                                        <i class="fas fa-expand"></i>
+                                    </a>
+                                    <a href="#" class="project-gallery" aria-label="گالری تصاویر پروژه">
+                                        <i class="fas fa-images"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-tag tag-cae">
+                            <i class="fas fa-chart-line"></i>
+                            <span>CAE</span>
+                        </div>
+                        <div class="project-badge">
+                            <i class="fas fa-check-circle"></i>
+                            <span>تکمیل شده</span>
+                        </div>
+                    </div>
+                    
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3 class="project-title">شبیه‌سازی انتقال حرارت مبدل</h3>
+                            <div class="project-rating">
+                                <i class="fas fa-star"></i>
+                                <span>۴.۷</span>
+                            </div>
+                        </div>
+                        
+                        <p class="project-description">
+                            تحلیل انتقال حرارت در یک مبدل حرارتی صفح‌های و بهینه‌سازی عملکرد آن با استفاده از COMSOL Multiphysics
+                        </p>
+                        
+                        <div class="project-tech">
+                            <span class="tech-tag">
+                                <i class="fas fa-atom"></i>
+                                COMSOL
+                            </span>
+                            <span class="tech-tag">
+                                <i class="fas fa-thermometer-half"></i>
+                                انتقال حرارت
+                            </span>
+                            <span class="tech-tag">
+                                <i class="fas fa-optimize"></i>
+                                بهینه‌سازی
+                            </span>
+                        </div>
+                        
+                        <div class="project-details">
+                            <div class="detail">
+                                <i class="fas fa-calendar"></i>
+                                <div class="detail-content">
+                                    <span class="detail-label">مدت زمان</span>
+                                    <span class="detail-value">۳۰ روز</span>
+                                </div>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-chart-line"></i>
+                                <div class="detail-content">
+                                    <span class="detail-label">بازدهی</span>
+                                    <span class="detail-value">+۱۵٪</span>
+                                </div>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-cogs"></i>
+                                <div class="detail-content">
+                                    <span class="detail-label">پیچیدگی</span>
+                                    <span class="detail-value">متوسط</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="project-footer">
+                            <a href="#" class="btn-project-details">
+                                <i class="fas fa-info-circle"></i>
+                                مشاهده جزییات
+                            </a>
+                            <a href="#" class="btn-project-report">
+                                <i class="fas fa-file-pdf"></i>
+                                گزارش پروژه
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 4 - CAD -->
+                <div class="project-card" data-category="cad" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="project-image">
+                        <div class="image-container">
+                            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                 alt="طراحی سیستم مکانیکی"
+                                 class="project-img lazy"
+                                 loading="lazy">
+                            <div class="image-overlay">
+                                <div class="overlay-content">
+                                    <a href="#" class="project-view" aria-label="مشاهده جزییات پروژه">
+                                        <i class="fas fa-expand"></i>
+                                    </a>
+                                    <a href="#" class="project-gallery" aria-label="گالری تصاویر پروژه">
+                                        <i class="fas fa-images"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-tag tag-cad">
+                            <i class="fas fa-cube"></i>
+                            <span>CAD</span>
+                        </div>
+                        <div class="project-badge">
+                            <i class="fas fa-check-circle"></i>
+                            <span>تکمیل شده</span>
+                        </div>
+                    </div>
+                    
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3 class="project-title">طراحی سیستم انتقال مواد</h3>
+                            <div class="project-rating">
+                                <i class="fas fa-star"></i>
+                                <span>۴.۶</span>
+                            </div>
+                        </div>
+                        
+                        <p class="project-description">
+                            طراحی کامل سیستم انتقال مواد صنعتی شامل نوار نقاله، مخازن و سیستم کنترل با استفاده از SolidWorks
+                        </p>
+                        
+                        <div class="project-tech">
+                            <span class="tech-tag">
+                                <i class="fas fa-cube"></i>
+                                SolidWorks
+                            </span>
+                            <span class="tech-tag">
+                                <i class="fas fa-cogs"></i>
+                                طراحی مکانیزم
+                            </span>
+                            <span class="tech-tag">
+                                <i class="fas fa-industry"></i>
+                                سیستم صنعتی
+                            </span>
+                        </div>
+                        
+                        <div class="project-details">
+                            <div class="detail">
+                                <i class="fas fa-calendar"></i>
+                                <div class="detail-content">
+                                    <span class="detail-label">مدت زمان</span>
+                                    <span class="detail-value">۷۵ روز</span>
+                                </div>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <div class="detail-content">
+                                    <span class="detail-label">کارایی</span>
+                                    <span class="detail-value">+۲۵٪</span>
+                                </div>
+                            </div>
+                            <div class="detail">
+                                <i class="fas fa-users"></i>
+                                <div class="detail-content">
+                                    <span class="detail-label">تیم پروژه</span>
+                                    <span class="detail-value">۴ نفر</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="project-footer">
+                            <a href="#" class="btn-project-details">
+                                <i class="fas fa-info-circle"></i>
+                                مشاهده جزییات
+                            </a>
+                            <a href="#" class="btn-project-3d">
+                                <i class="fas fa-cube"></i>
+                                مدل 3D
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Load More Projects -->
+            <div class="projects-load-more" data-aos="fade-up">
+                <button class="btn-load-more" id="loadMoreProjects">
+                    <i class="fas fa-sync"></i>
+                    بارگذاری پروژه‌های بیشتر
+                </button>
+            </div>
+            
+            <!-- Projects CTA -->
+            <div class="projects-cta" data-aos="fade-up">
+                <div class="cta-content">
+                    <h3>آماده برای پروژه بعدی شما</h3>
+                    <p>برای مشاوره و شروع پروژه جدید با من در تماس باشید</p>
+                </div>
+                <div class="cta-actions">
+                    <a href="product/products.html" class="btn btn-primary btn-lg">
+                        <i class="fas fa-cube"></i>
+                        مشاهده محصولات پرینتر سه‌بعدی
+                    </a>
+                    <a href="#contact" class="btn btn-secondary btn-lg">
+                        <i class="fas fa-envelope"></i>
+                        درخواست مشاوره
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <!-- Skills Section -->
-        <section id="skills" class="skills-section">
-            <!-- محتوای skills از کد اول -->
-        </section>
+    <!-- Contact Section - از کد اول -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-badge">
+                    <i class="fas fa-envelope"></i>
+                    ارتباط
+                </span>
+                <h2 class="section-title">در تماس باشید</h2>
+                <div class="section-divider">
+                    <div class="divider-line"></div>
+                    <div class="divider-icon">
+                        <i class="fas fa-cog fa-spin"></i>
+                    </div>
+                    <div class="divider-line"></div>
+                </div>
+                <p class="section-description">
+                    برای همکاری، مشاوره یا دریافت اطلاعات بیشتر
+                </p>
+            </div>
+            
+            <div class="contact-content">
+                <!-- Contact Info -->
+                <div class="contact-info" data-aos="fade-right" data-aos-delay="100">
+                    <div class="info-card">
+                        <div class="info-header">
+                            <div class="header-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <h3>اطلاعات تماس</h3>
+                        </div>
+                        <div class="info-body">
+                            <div class="contact-item">
+                                <div class="item-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="item-content">
+                                    <h4>تلفن تماس</h4>
+                                    <a href="tel:+989902279702" class="contact-link">
+                                        <span class="link-value">۰۹۹۰۲۲۷۹۷۰۲</span>
+                                        <span class="link-action">
+                                            <i class="fas fa-phone-alt"></i>
+                                            تماس
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="item-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="item-content">
+                                    <h4>ایمیل</h4>
+                                    <a href="mailto:mahan.neman2020@gmail.com" class="contact-link">
+                                        <span class="link-value">mahan.neman2020@gmail.com</span>
+                                        <span class="link-action">
+                                            <i class="fas fa-paper-plane"></i>
+                                            ارسال ایمیل
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="item-icon">
+                                    <i class="fab fa-telegram"></i>
+                                </div>
+                                <div class="item-content">
+                                    <h4>تلگرام</h4>
+                                    <a href="https://t.me/mahanenman" target="_blank" class="contact-link">
+                                        <span class="link-value">@mahanenman</span>
+                                        <span class="link-action">
+                                            <i class="fas fa-external-link-alt"></i>
+                                            پیام
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="item-icon">
+                                    <i class="fab fa-instagram"></i>
+                                </div>
+                                <div class="item-content">
+                                    <h4>اینستاگرام</h4>
+                                    <a href="https://www.instagram.com/mahantheloner" target="_blank" class="contact-link">
+                                        <span class="link-value">@mahantheloner</span>
+                                        <span class="link-action">
+                                            <i class="fas fa-external-link-alt"></i>
+                                            دنبال کردن
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card" data-aos="fade-right" data-aos-delay="200">
+                        <div class="info-header">
+                            <div class="header-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h3>ساعات پاسخگویی</h3>
+                        </div>
+                        <div class="info-body">
+                            <div class="schedule-item">
+                                <div class="schedule-day">
+                                    <i class="fas fa-calendar-day"></i>
+                                    <span>شنبه - چهارشنبه</span>
+                                </div>
+                                <div class="schedule-time">
+                                    <i class="fas fa-clock"></i>
+                                    <span>۹:۰۰ - ۱۸:۰۰</span>
+                                </div>
+                            </div>
+                            
+                            <div class="schedule-item">
+                                <div class="schedule-day">
+                                    <i class="fas fa-calendar-day"></i>
+                                    <span>پنجشنبه</span>
+                                </div>
+                                <div class="schedule-time">
+                                    <i class="fas fa-clock"></i>
+                                    <span>۹:۰۰ - ۱۴:۰۰</span>
+                                </div>
+                            </div>
+                            
+                            <div class="schedule-note">
+                                <div class="note-icon">
+                                    <i class="fas fa-info-circle"></i>
+                                </div>
+                                <div class="note-content">
+                                    <p>پاسخ به ایمیل‌ها در کمتر از ۲۴ ساعت</p>
+                                    <p class="note-small">پاسخ تماس تلفنی در ساعات کاری</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card" data-aos="fade-right" data-aos-delay="300">
+                        <div class="info-header">
+                            <div class="header-icon">
+                                <i class="fas fa-download"></i>
+                            </div>
+                            <h3>رزومه کامل</h3>
+                        </div>
+                        <div class="info-body">
+                            <div class="resume-download">
+                                <div class="file-info">
+                                    <div class="file-icon">
+                                        <i class="fas fa-file-pdf"></i>
+                                    </div>
+                                    <div class="file-details">
+                                        <h4>رزومه ماهان ادهم قزوینی.pdf</h4>
+                                        <div class="file-meta">
+                                            <span class="meta-item">
+                                                <i class="fas fa-weight"></i>
+                                                حجم: ~2MB
+                                            </span>
+                                            <span class="meta-item">
+                                                <i class="fas fa-calendar"></i>
+                                                به‌روزرسانی: ۱۴۰۳/۰۱/۱۵
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="download-actions">
+                                    <a href="resume.pdf" download class="btn btn-primary btn-download">
+                                        <i class="fas fa-download"></i>
+                                        دانلود PDF
+                                    </a>
+                                    <a href="#" class="btn btn-outline btn-preview">
+                                        <i class="fas fa-eye"></i>
+                                        پیش‌نمایش
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="contact-form" data-aos="fade-left" data-aos-delay="100">
+                    <div class="form-card">
+                        <div class="form-header">
+                            <div class="header-icon">
+                                <i class="fas fa-paper-plane"></i>
+                            </div>
+                            <div class="header-content">
+                                <h3>ارسال پیام سریع</h3>
+                                <p>پیام خود را ارسال کنید، در اولین فرصت پاسخ می‌دهم</p>
+                            </div>
+                        </div>
+                        
+                        <form id="contactForm" class="contact-form-element" method="POST" action="https://formspree.io/f/xlgeorgj">
+                            <div class="form-group" data-aos="fade-left" data-aos-delay="150">
+                                <label for="name" class="form-label">
+                                    <i class="fas fa-user"></i>
+                                    نام کامل
+                                </label>
+                                <div class="input-group">
+                                    <input type="text" 
+                                           id="name" 
+                                           name="name" 
+                                           placeholder="ماهان ادهم قزوینی" 
+                                           required
+                                           class="form-input">
+                                    <div class="input-icon">
+                                        <i class="fas fa-user-check"></i>
+                                    </div>
+                                </div>
+                                <div class="form-feedback"></div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group" data-aos="fade-left" data-aos-delay="200">
+                                    <label for="email" class="form-label">
+                                        <i class="fas fa-envelope"></i>
+                                        ایمیل
+                                    </label>
+                                    <div class="input-group">
+                                        <input type="email" 
+                                               id="email" 
+                                               name="email" 
+                                               placeholder="mahan.neman2020@gmail.com" 
+                                               required
+                                               class="form-input">
+                                        <div class="input-icon">
+                                            <i class="fas fa-at"></i>
+                                        </div>
+                                    </div>
+                                    <div class="form-feedback"></div>
+                                </div>
+                                
+                                <div class="form-group" data-aos="fade-left" data-aos-delay="250">
+                                    <label for="phone" class="form-label">
+                                        <i class="fas fa-phone"></i>
+                                        شماره تماس
+                                    </label>
+                                    <div class="input-group">
+                                        <input type="tel" 
+                                               id="phone" 
+                                               name="phone" 
+                                               placeholder="۰۹۹۰۲۲۷۹۷۰۲"
+                                               class="form-input">
+                                        <div class="input-icon">
+                                            <i class="fas fa-mobile-alt"></i>
+                                        </div>
+                                    </div>
+                                    <div class="form-feedback"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group" data-aos="fade-left" data-aos-delay="300">
+                                <label for="subject" class="form-label">
+                                    <i class="fas fa-tag"></i>
+                                    موضوع
+                                </label>
+                                <div class="input-group">
+                                    <select id="subject" name="subject" required class="form-select">
+                                        <option value="">انتخاب موضوع</option>
+                                        <option value="همکاری">پیشنهاد همکاری</option>
+                                        <option value="مشاوره">مشاوره فنی</option>
+                                        <option value="پروژه">درخواست پروژه</option>
+                                        <option value="سوال">سوال تخصصی</option>
+                                        <option value="سایر">سایر</option>
+                                    </select>
+                                    <div class="input-icon">
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                </div>
+                                <div class="form-feedback"></div>
+                            </div>
+                            
+                            <div class="form-group" data-aos="fade-left" data-aos-delay="350">
+                                <label for="message" class="form-label">
+                                    <i class="fas fa-comment"></i>
+                                    پیام شما
+                                </label>
+                                <div class="input-group">
+                                    <textarea id="message" 
+                                              name="message" 
+                                              rows="5" 
+                                              placeholder="پیام خود را اینجا بنویسید..." 
+                                              required
+                                              class="form-textarea"></textarea>
+                                    <div class="input-icon">
+                                        <i class="fas fa-pen"></i>
+                                    </div>
+                                </div>
+                                <div class="form-footer">
+                                    <div class="char-count">
+                                        <span id="charCount">0</span>
+                                        <span>/ 500 کاراکتر</span>
+                                    </div>
+                                </div>
+                                <div class="form-feedback"></div>
+                            </div>
+                            
+                            <div class="form-actions" data-aos="fade-left" data-aos-delay="400">
+                                <button type="submit" class="btn btn-primary btn-block btn-submit">
+                                    <span class="btn-text">
+                                        <i class="fas fa-paper-plane"></i>
+                                        ارسال پیام
+                                    </span>
+                                    <span class="btn-loader">
+                                        <i class="fas fa-spinner fa-spin"></i>
+                                        در حال ارسال...
+                                    </span>
+                                </button>
+                                
+                                <div class="form-info">
+                                    <div class="info-item">
+                                        <i class="fas fa-shield-alt"></i>
+                                        <small>اطلاعات شما محرمانه می‌ماند</small>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="fas fa-bolt"></i>
+                                        <small>پاسخ در کمتر از ۲۴ ساعت</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        
+                        <div class="form-success" id="formSuccess">
+                            <div class="success-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="success-content">
+                                <h4>پیام شما با موفقیت ارسال شد!</h4>
+                                <p>در کمتر از ۲۴ ساعت کاری پاسخ خواهم داد.</p>
+                                <p class="success-note">
+                                    <i class="fas fa-envelope"></i>
+                                    کپی ایمیل به آدرس شما ارسال شد.
+                                </p>
+                            </div>
+                            <button class="btn-success-close" id="closeSuccess">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <!-- Education Section -->
-        <section id="education" class="education-section">
-            <!-- محتوای education از کد اول -->
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="projects-section">
-            <!-- محتوای projects از کد اول -->
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="contact-section">
-            <!-- محتوای contact از کد اول -->
-        </section>
-    </main>
-
-    <!-- Footer - همان کد اول -->
+    <!-- Footer - از کد اول -->
     <footer class="main-footer">
-        <!-- محتوای footer از کد اول -->
+        <!-- Footer Wave -->
+        <div class="footer-wave">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"></path>
+            </svg>
+        </div>
+        
+        <div class="container">
+            <div class="footer-content">
+                <!-- About Column -->
+                <div class="footer-col footer-about">
+                    <div class="footer-logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <div class="logo-content">
+                            <h3>مهندس ماهان ادهم قزوینی</h3>
+                            <p class="logo-subtitle">متخصص مکانیک سیالات و تحلیل CFD</p>
+                        </div>
+                    </div>
+                    
+                    <p class="footer-description">
+                        مهندس مکانیک با تخصص در تحلیل سیالات محاسباتی، طراحی سیستم‌های مکانیکی و توسعه قطعات پرینتر سه‌بعدی. متعهد به ارائه راه‌حل‌های نوآورانه در حوزه مهندسی.
+                    </p>
+                    
+                    <div class="footer-actions">
+                        <a href="resume.pdf" download class="btn btn-outline btn-sm">
+                            <i class="fas fa-download"></i>
+                            دانلود رزومه
+                        </a>
+                        <a href="#contact" class="btn btn-primary btn-sm">
+                            <i class="fas fa-envelope"></i>
+                            تماس با من
+                        </a>
+                    </div>
+                    
+                    <div class="footer-newsletter">
+                        <h4>عضویت در خبرنامه</h4>
+                        <p>آخرین پروژه‌ها و مقالات را دریافت کنید</p>
+                        <form class="newsletter-form" id="newsletterForm">
+                            <div class="input-group">
+                                <input type="email" 
+                                       placeholder="ایمیل خود را وارد کنید" 
+                                       required
+                                       class="newsletter-input">
+                                <button type="submit" class="newsletter-btn">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Links Column -->
+                <div class="footer-col footer-links">
+                    <h4 class="footer-title">لینک‌های سریع</h4>
+                    <ul class="footer-menu">
+                        <li>
+                            <a href="#home" class="footer-link">
+                                <i class="fas fa-chevron-left"></i>
+                                <span>خانه</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#about" class="footer-link">
+                                <i class="fas fa-chevron-left"></i>
+                                <span>درباره من</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#skills" class="footer-link">
+                                <i class="fas fa-chevron-left"></i>
+                                <span>مهارت‌ها</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#education" class="footer-link">
+                                <i class="fas fa-chevron-left"></i>
+                                <span>تحصیلات</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#projects" class="footer-link">
+                                <i class="fas fa-chevron-left"></i>
+                                <span>پروژه‌ها</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#contact" class="footer-link">
+                                <i class="fas fa-chevron-left"></i>
+                                <span>تماس</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="product/products.html" class="footer-link">
+                                <i class="fas fa-chevron-left"></i>
+                                <span>محصولات 3D</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="archive.html" class="footer-link">
+                                <i class="fas fa-chevron-left"></i>
+                                <span>آرشیو مقالات</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Services Column -->
+                <div class="footer-col footer-services">
+                    <h4 class="footer-title">خدمات تخصصی</h4>
+                    <ul class="services-list">
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>تحلیل CFD و شبیه‌سازی</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>طراحی سیستم‌های مکانیکی</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>مدل‌سازی CAD و نقشه‌کشی</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>طراحی قطعات پرینتر 3D</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>مشاوره مهندسی مکانیک</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>تحلیل انتقال حرارت</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>بهینه‌سازی سیستم‌های حرارتی</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>طراحی و ساخت نمونه اولیه</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Social Column -->
+                <div class="footer-col footer-social">
+                    <h4 class="footer-title">شبکه‌های اجتماعی</h4>
+                    <div class="social-links">
+                        <a href="https://t.me/mahanenman" class="social-link telegram" target="_blank" aria-label="تلگرام">
+                            <div class="link-icon">
+                                <i class="fab fa-telegram"></i>
+                            </div>
+                            <div class="link-content">
+                                <span class="link-name">تلگرام</span>
+                                <span class="link-handle">@mahanenman</span>
+                            </div>
+                            <div class="link-action">
+                                <i class="fas fa-external-link-alt"></i>
+                            </div>
+                        </a>
+                        
+                        <a href="https://www.instagram.com/mahantheloner" class="social-link instagram" target="_blank" aria-label="اینستاگرام">
+                            <div class="link-icon">
+                                <i class="fab fa-instagram"></i>
+                            </div>
+                            <div class="link-content">
+                                <span class="link-name">اینستاگرام</span>
+                                <span class="link-handle">@mahantheloner</span>
+                            </div>
+                            <div class="link-action">
+                                <i class="fas fa-external-link-alt"></i>
+                            </div>
+                        </a>
+                        
+                        <a href="mailto:mahan.neman2020@gmail.com" class="social-link email" aria-label="ایمیل">
+                            <div class="link-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="link-content">
+                                <span class="link-name">ایمیل</span>
+                                <span class="link-handle">mahan.neman2020</span>
+                            </div>
+                            <div class="link-action">
+                                <i class="fas fa-paper-plane"></i>
+                            </div>
+                        </a>
+                        
+                        <a href="https://linkedin.com" class="social-link linkedin" target="_blank" aria-label="لینکدین">
+                            <div class="link-icon">
+                                <i class="fab fa-linkedin"></i>
+                            </div>
+                            <div class="link-content">
+                                <span class="link-name">لینکدین</span>
+                                <span class="link-handle">Mahan Adham</span>
+                            </div>
+                            <div class="link-action">
+                                <i class="fas fa-external-link-alt"></i>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <!-- Contact Info -->
+                    <div class="footer-contact">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:+989902279702">۰۹۹۰۲۲۷۹۷۰۲</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:mahan.neman2020@gmail.com">mahan.neman2020@gmail.com</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; ۱۴۰۳ ماهان ادهم قزوینی. تمامی حقوق محفوظ است.</p>
+                    <p class="university">
+                        <i class="fas fa-university"></i>
+                        دانشگاه آزاد اسلامی واحد تهران مرکز - دانشکده فنی مهندسی
+                    </p>
+                </div>
+                
+                <div class="footer-badges">
+                    <div class="badge">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>امنیت اطلاعات</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fas fa-bolt"></i>
+                        <span>پاسخگویی سریع</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>ریسپانسیو</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fas fa-globe"></i>
+                        <span>دسترسی جهانی</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </footer>
 
     <!-- Floating Action Buttons -->
@@ -495,15 +3006,11 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
     <!-- Main JavaScript -->
-    <script src="script.js"></script>
-    
-    <!-- Inline Script for Initialization -->
     <script>
-        // ==========================================================================
-        // مدیریت منوی کشویی (از کد دوم)
-        // ==========================================================================
         document.addEventListener('DOMContentLoaded', function() {
-            // عناصر منو
+            // ==========================================================================
+            // مدیریت منوی کشویی
+            // ==========================================================================
             const menuToggle = document.getElementById('menuToggle');
             const slideMenu = document.getElementById('slideMenu');
             const slideMenuClose = document.getElementById('slideMenuClose');
@@ -521,7 +3028,7 @@
             }
             
             // بستن منو
-            function closeMenu() {
+            function closeSlideMenu() {
                 slideMenu.classList.remove('active');
                 menuOverlay.classList.remove('active');
                 document.body.classList.remove('no-scroll');
@@ -532,18 +3039,18 @@
             
             // بستن با دکمه
             if (slideMenuClose) {
-                slideMenuClose.addEventListener('click', closeMenu);
+                slideMenuClose.addEventListener('click', closeSlideMenu);
             }
             
             // بستن با کلیک روی آواردرای
             if (menuOverlay) {
-                menuOverlay.addEventListener('click', closeMenu);
+                menuOverlay.addEventListener('click', closeSlideMenu);
             }
             
             // بستن با کلید Escape
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && slideMenu.classList.contains('active')) {
-                    closeMenu();
+                    closeSlideMenu();
                 }
             });
             
@@ -564,7 +3071,7 @@
                         
                         // بستن منو در موبایل
                         if (window.innerWidth <= 991) {
-                            setTimeout(closeMenu, 300);
+                            setTimeout(closeSlideMenu, 300);
                         }
                         
                         // اسکرول نرم به بخش مورد نظر
@@ -832,9 +3339,9 @@
 
             // Smooth Scrolling for anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                if (anchor.classList.contains('slide-menu-link')) return;
+                
                 anchor.addEventListener('click', function(e) {
-                    if (this.classList.contains('slide-menu-link')) return;
-                    
                     e.preventDefault();
                     const targetId = this.getAttribute('href');
                     if (targetId === '#') return;
@@ -845,6 +3352,110 @@
                             top: targetElement.offsetTop - 80,
                             behavior: 'smooth'
                         });
+                    }
+                });
+            });
+
+            // Lazy loading images
+            if ('IntersectionObserver' in window) {
+                const lazyImages = document.querySelectorAll('.lazy');
+                
+                const imageObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            const src = img.getAttribute('data-src');
+                            if (src) {
+                                img.src = src;
+                                img.removeAttribute('data-src');
+                            }
+                            img.classList.remove('lazy');
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                });
+                
+                lazyImages.forEach(img => imageObserver.observe(img));
+            }
+
+            // Newsletter form
+            const newsletterForm = document.getElementById('newsletterForm');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const input = this.querySelector('.newsletter-input');
+                    const btn = this.querySelector('.newsletter-btn');
+                    
+                    if (input.value) {
+                        btn.innerHTML = '<i class="fas fa-check"></i>';
+                        btn.style.background = '#10b981';
+                        input.value = 'عضویت شما ثبت شد!';
+                        input.disabled = true;
+                        
+                        setTimeout(() => {
+                            btn.innerHTML = '<i class="fas fa-paper-plane"></i>';
+                            btn.style.background = '';
+                            input.value = '';
+                            input.disabled = false;
+                        }, 3000);
+                    }
+                });
+            }
+
+            // Counter Animation
+            function animateCounter(element) {
+                const target = +element.getAttribute('data-count');
+                const speed = +element.getAttribute('data-speed') || 200;
+                const count = +element.innerText.replace(',', '');
+                const increment = target / speed;
+                
+                if (count < target) {
+                    element.innerText = Math.ceil(count + increment);
+                    setTimeout(() => animateCounter(element), 10);
+                } else {
+                    element.innerText = target.toLocaleString();
+                }
+            }
+
+            // Intersection Observer for counters
+            const counters = document.querySelectorAll('.stat-number');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        counters.forEach(counter => {
+                            animateCounter(counter);
+                        });
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            const statsSection = document.querySelector('.hero-stats');
+            if (statsSection) {
+                observer.observe(statsSection);
+            }
+
+            // Tooltip initialization
+            const tooltips = document.querySelectorAll('[data-tooltip]');
+            tooltips.forEach(tooltip => {
+                tooltip.addEventListener('mouseenter', function() {
+                    const tooltipText = this.getAttribute('data-tooltip');
+                    const tooltipEl = document.createElement('div');
+                    tooltipEl.className = 'custom-tooltip';
+                    tooltipEl.textContent = tooltipText;
+                    document.body.appendChild(tooltipEl);
+                    
+                    const rect = this.getBoundingClientRect();
+                    tooltipEl.style.top = (rect.top - tooltipEl.offsetHeight - 10) + 'px';
+                    tooltipEl.style.left = (rect.left + (rect.width / 2) - (tooltipEl.offsetWidth / 2)) + 'px';
+                    
+                    this._tooltip = tooltipEl;
+                });
+                
+                tooltip.addEventListener('mouseleave', function() {
+                    if (this._tooltip) {
+                        this._tooltip.remove();
+                        this._tooltip = null;
                     }
                 });
             });
